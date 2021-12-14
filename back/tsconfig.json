@@ -1,0 +1,14 @@
+{
+	"extends": "./tsconfig.paths.json",
+	"compilerOptions": {
+		"target": "es5",
+		"module": "commonjs",
+		"strict": true,
+		"esModuleInterop": true,
+		"skipLibCheck": true,
+		"isolatedModules": true,
+		"forceConsistentCasingInFileNames": true,
+		"outDir": "./dist",
+		"typeRoots": ["./src/types", "./node_modules/@types"]
+	}
+}
