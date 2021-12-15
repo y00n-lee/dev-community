@@ -1,8 +1,7 @@
-import { IUser } from "./User";
-import { Document, PopulatedDoc } from "mongoose";
+import { IUserDocument } from "./User";
+import { PopulatedDoc } from "mongoose";
 
-export interface IComment extends Document {
-  shortId: string;
-  author: PopulatedDoc<IUser>;
+export interface IComment {
+  author: PopulatedDoc<IUserDocument>;
   content: string;
 }
