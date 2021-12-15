@@ -1,7 +1,7 @@
-import { IComment } from "@src/types/Comment";
+import { IReply } from "@src/types/Reply";
 import { Schema } from "mongoose";
 
-export const CommentSchema = new Schema<IComment>(
+export const ReplySchema = new Schema<IReply>(
   {
     author: {
       type: Schema.Types.ObjectId,
