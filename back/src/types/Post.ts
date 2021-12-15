@@ -1,17 +1,17 @@
-import { IComment } from "./Comment";
+import { IReply } from "./Reply";
 import { IUserDocument } from "./User";
-import { Types, PopulatedDoc } from "mongoose";
+import { Model, Types, PopulatedDoc } from "mongoose";
 
 export interface IPost {
   title: string;
   author: PopulatedDoc<IUserDocument>;
   views: number;
-  comments: Types.DocumentArray<IComment>;
-  editAt: Date;
-  isEdit: IsEdit;
+  replies: Types.DocumentArray<IReply>;
+  RegisterDate: Date;
+  modifiyDate: Date;
+  isEdit: boolean;
 }
 
-enum IsEdit {
-  yes = 1,
-  no = 0,
+export interface PostModel extends Model<IPost> {
+  getPaginatedPosts(query: object, page: number, perPage: number): Promise<number[]>;
 }
