@@ -1,11 +1,10 @@
 import { IComment } from "./Comment";
-import { IUser } from "./User";
-import { Types, Document, PopulatedDoc } from "mongoose";
+import { IUserDocument } from "./User";
+import { Types, PopulatedDoc } from "mongoose";
 
-export interface IPost extends Document {
-  shortId: string;
+export interface IPost {
   title: string;
-  author: PopulatedDoc<IUser>;
+  author: PopulatedDoc<IUserDocument>;
   views: number;
   comments: Types.DocumentArray<IComment>;
   editAt: Date;
