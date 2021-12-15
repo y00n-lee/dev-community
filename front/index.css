@@ -32,10 +32,11 @@ a {
 }
 
 /* Header */
-#hearder {
+#header {
   position: -webkit-sticky;
   position: sticky;
-  top: 4px;
+  z-index: 1;
+  top: 0px;
 }
 
 #header .navBar {
