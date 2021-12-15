@@ -1,15 +1,15 @@
 import { Schema } from "mongoose";
-import shortId from "./types/shortId";
 import * as bcrypt from "bcrypt";
 import { verify } from "jsonwebtoken";
-import { jwtContents } from "@src/utils/contents";
-import { IUser } from "@src/types/User";
+
+import { jwtContents } from "@src/utils/constants";
+import { IUserData, IUserDocument } from "@src/types/User";
+import { IUserModel } from "@src/types/User";
 
 const BCRYPT_SALT = 10 as const;
 
-export const UserSchema = new Schema<IUser>(
+export const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
-    shortId,
     email: {
       type: String,
       unique: true,
@@ -30,8 +30,15 @@ export const UserSchema = new Schema<IUser>(
     },
     gender: {
       type: String,
+      enum: ["male", "female"],
       required: true,
     },
+    tags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
     refreshToken: {
       type: String,
       default: null,
@@ -42,13 +49,11 @@ export const UserSchema = new Schema<IUser>(
   },
 );
 
-// statics this가 모델을 가르킴
-UserSchema.statics.hashPassword = async function (userData: IUser) {
+UserSchema.statics.hashPassword = async function (userData: IUserData) {
   if (!userData.password) return;
   userData.password = await bcrypt.hash(userData.password, BCRYPT_SALT);
 };
 
-// this가 생성된 인스턴트를 가르킴
 UserSchema.methods.comparePassword = async function (aPassword: string) {
   return await bcrypt.compare(aPassword, this.password);
 };
@@ -56,5 +61,6 @@ UserSchema.methods.comparePassword = async function (aPassword: string) {
 UserSchema.methods.verifyRefresh = function () {
   if (!this.refreshToken) return false;
   const result = verify(this.refreshToken, jwtContents.secret);
+
   return Boolean(result);
 };

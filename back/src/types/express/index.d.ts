@@ -1,7 +1,7 @@
-import { IUser } from '../User';
+import { ITokenUser } from "../User";
 
 declare global {
-	namespace Express {
-		export interface User extends IUser {}
-	}
+  namespace Express {
+    export interface User extends ITokenUser {}
+  }
 }

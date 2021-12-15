@@ -1,21 +1,25 @@
-import { Document } from "mongoose";
+import { Document, Model } from "mongoose";
 
 export interface ITokenUser {
-  shortId: string;
+  id: string;
+}
+
+export interface IUserData {
   email: string;
+  password: string;
   username: string;
   age: number;
-  gender: string;
+  gender: "male" | "female";
+  tags: any[];
 }
 
-export interface IUserData extends ITokenUser {
-  password: string;
-}
-
-export interface IUser extends IUserData, Document {
+export interface IUserDocument extends IUserData, Document {
   refreshToken: string | null;
 
-  hashPassword(userData: IUser): Promise<void>;
   comparePassword(aPassword: string): Promise<boolean>;
   verifyRefresh(): boolean;
+}
+
+export interface IUserModel extends Model<IUserDocument> {
+  hashPassword(userData: IUserData): Promise<void>;
 }
