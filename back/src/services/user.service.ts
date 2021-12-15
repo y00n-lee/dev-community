@@ -3,7 +3,7 @@ import { IUserDocument, IUserData } from "@src/types/User";
 import { ICoreResponse } from "@src/types/CoreResponse";
 
 export class UserService {
-  constructor(private userModel: typeof User, private tagModel: typeof Tag) {}
+  constructor(private readonly userModel: typeof User, private readonly tagModel: typeof Tag) {}
 
   async createUser(data: IUserData): Promise<ICoreResponse> {
     try {
@@ -14,12 +14,7 @@ export class UserService {
       const { tags } = data;
 
       const result = await Promise.all(
-        tags.map((tag) =>
-          this.tagModel.findOne({ content: tag }).then((result) => {
-            if (result) return result;
-            return this.tagModel.create({ content: tag });
-          }),
-        ),
+        tags.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
       );
 
       const createUserData = {
@@ -40,12 +35,12 @@ export class UserService {
     return this.userModel.findOne({ email }, { shortId: 1, password: 1, email: 1 });
   }
 
-  async getById(id: string): Promise<IUserDocument | null> {
-    return this.userModel.findById(id, { password: 0 });
+  async getById(id: string, obj = {}): Promise<IUserDocument | null> {
+    return this.userModel.findById(id, { password: 0, ...obj });
   }
 
   async updateRefreshToken(id: string, refreshToken: string | null) {
-    await this.userModel.updateOne({ id }, { refreshToken });
+    await this.userModel.updateOne({ _id: id }, { refreshToken });
   }
 }
 
