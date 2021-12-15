@@ -1,5 +1,5 @@
 export interface ICoreResponse {
-	ok: boolean;
-	err?: string;
-	result?: any;
+  status: boolean;
+  message?: string;
+  err?: string;
 }
