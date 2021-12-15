@@ -1,12 +1,12 @@
-import { config } from 'dotenv';
+import { config } from "dotenv";
 
 config();
 
 export const jwtContents = {
-	secret: process.env.JWT_SECRET_KEY || '',
-	header: process.env.JWT_HEADER || '',
+  secret: process.env.JWT_SECRET_KEY as string,
+  header: process.env.JWT_HEADER as string,
 };
 
 export const secretContents = {
-	signin: process.env.SIGNIN_SECRET_KEY || '',
+  signin: process.env.SIGNIN_SECRET_KEY as string,
 };

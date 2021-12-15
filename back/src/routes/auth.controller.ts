@@ -16,7 +16,7 @@ router.post("/signin", async (req, res, next) => {
     const { id } = _user;
 
     const accessToken = await authService.signin({ id });
-    const user = (await userService.getById(id)) as IUserDocument;
+    const user = (await userService.getById(id, { refreshToken: 0 })) as IUserDocument;
 
     await user.populate("tags");
 
@@ -37,7 +37,8 @@ router.post("/refresh", async (req, res, next) => {
 
     const isVerifiedToken = await authService.verifyRefresh({ id });
 
-    if (!isVerifiedToken) return res.json({ status: false, err: "expried refresh token" });
+    if (!isVerifiedToken)
+      return res.status(401).json({ status: false, err: "다시 로그인 해주세요" });
 
     const accessToken = await authService.signin({ id });
 
