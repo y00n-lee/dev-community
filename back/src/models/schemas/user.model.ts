@@ -49,15 +49,12 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
   },
 );
 
-// statics this가 모델을 가르킴
 UserSchema.statics.hashPassword = async function (userData: IUserData) {
   if (!userData.password) return;
   userData.password = await bcrypt.hash(userData.password, BCRYPT_SALT);
 };
 
-// this가 생성된 인스턴트를 가르킴
 UserSchema.methods.comparePassword = async function (aPassword: string) {
-  console.log(aPassword);
   return await bcrypt.compare(aPassword, this.password);
 };
 
@@ -65,6 +62,5 @@ UserSchema.methods.verifyRefresh = function () {
   if (!this.refreshToken) return false;
   const result = verify(this.refreshToken, jwtContents.secret);
 
-  console.log("@@", this.refreshToken, result);
   return Boolean(result);
 };

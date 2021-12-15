@@ -1,7 +1,7 @@
 import { Document, Model } from "mongoose";
 
 export interface ITokenUser {
-  id: any;
+  id: string;
 }
 
 export interface IUserData {
