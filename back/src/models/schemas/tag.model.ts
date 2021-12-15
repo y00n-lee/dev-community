@@ -1,7 +1,7 @@
-import { ITagModel } from "@src/types/Tag";
 import { Schema } from "mongoose";
+import { ITag, ITagDocument, ITagModel } from "@src/types/Tag";
 
-export const TagSchema = new Schema<ITagModel>(
+export const TagSchema = new Schema<ITagDocument, ITagModel>(
   {
     content: {
       type: String,
@@ -11,3 +11,11 @@ export const TagSchema = new Schema<ITagModel>(
   },
   { timestamps: true },
 );
+
+TagSchema.statics.findOrCreate = async function (tag: ITag) {
+  const result = await this.findOne(tag);
+
+  if (result) return result;
+
+  return this.create(tag);
+};

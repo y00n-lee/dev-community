@@ -2,9 +2,13 @@ import { userService, UserService } from "./user.service";
 import JwtService from "jsonwebtoken";
 import { jwtContents } from "@src/utils/constants";
 import { encryptValue } from "@src/utils/crypto";
+import { ITokenUser } from "@src/types/User";
 
 export class AuthService {
-  constructor(private userService: UserService, private jwtService: typeof JwtService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: typeof JwtService,
+  ) {}
 
   async validateUser(email: string, password: string) {
     const user = await this.userService.getByEmail(email);
@@ -17,7 +21,7 @@ export class AuthService {
     return { user: await this.userService.getById(user.id) };
   }
 
-  async signin(payload: any) {
+  async signin(payload: ITokenUser) {
     const accessToken = this.jwtService.sign(payload, jwtContents.secret, {
       expiresIn: "5m",
     });
@@ -30,7 +34,7 @@ export class AuthService {
     return encryptValue(accessToken);
   }
 
-  async verifyRefresh(payload: any) {
+  async verifyRefresh(payload: ITokenUser) {
     const user = await this.userService.getById(payload.id);
 
     if (!user) return false;
