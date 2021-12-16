@@ -1,3 +1,9 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+}
+
 .flex-container {
   /* display: flex; */
   /* grid-template-columns: 1fr 1fr; */
@@ -9,14 +15,19 @@
 
 .flex-item {
   width: 375px;
-  height: 500px;
+  height: 400px;
   display: block;
   text-align: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 25px;
   margin: 30px 50px;
 }
-
+.about-img {
+  width: 100%;
+  max-width: 2000px;
+  display: block;
+  margin: auto;
+}
 .image {
   width: 150px;
   height: 150px;
@@ -28,11 +39,16 @@
   padding: 20px;
 }
 
-.footer-flex-container {
+.p-text {
+  width: 80%;
+  margin: 20px auto;
+  word-break: keep-all;
+}
+/* .footer-flex-container {
   display: flex;
   flex-direction: column;
 }
 
 .footer-flex_item {
   margin-top: auto;
-}
+} */
