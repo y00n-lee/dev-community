@@ -1,9 +1,11 @@
+import passport from "passport";
 import { Router } from "express";
 import { userService } from "@src/services/user.service";
 import { ICreateUser } from "@src/types/CoreResponse";
-import passport from "passport";
-import { ITokenUser } from "@src/types/User";
-import { mailAuthentication } from "@src/utils/mailAuth";
+import { ITokenUser, IUserDocument } from "@src/types/User";
+import { emailAuthentication, makeVerifyKey, sendChangedPassword } from "@src/utils/mailAuth";
+import { makeHashPassword } from "@src/utils/passwordRelated";
+import { jwtContents } from "@src/utils/constants";
 
 const router = Router();
 
@@ -15,7 +17,7 @@ router.post("/signup", async (req, res, next) => {
   const host = `${req.protocol}://${req.get("host")}`;
   const keyForVerify = result.keyForVerify as string;
 
-  await mailAuthentication(host, req.body.email, keyForVerify)
+  await emailAuthentication(host, req.body.email, keyForVerify)
     .then(() => res.json({ status: true }))
     .catch((e) => next(e));
 });
@@ -26,10 +28,33 @@ router.get("/:id", (req, res, next) => {
     if (!_user)
       return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
 
-    const user = await userService.getById(_user.id, { refreshToken: 0 });
+    const user = await userService.getById(_user.id, { refreshToken: 0, password: 0 });
 
     return res.json(user);
   })(req, res, next);
+});
+
+router.post("/password/reset", async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    const user = await userService.getByEmail(email);
+
+    if (!user)
+      return res
+        .status(401)
+        .json({ status: false, message: "해당 메일로 가입된 사용자가 없습니다." });
+
+    const password = makeVerifyKey(5);
+    const hashedPassword = await makeHashPassword(password);
+
+    await userService.updateByQuery({ email }, { password: hashedPassword, passwordReset: true });
+
+    await sendChangedPassword(email, password);
+
+    res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
+  } catch (e) {
+    next(e);
+  }
 });
 
 export default router;

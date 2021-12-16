@@ -7,7 +7,7 @@ export interface ITokenUser {
 export interface IUserData {
   email: string;
   password: string;
-  username: string;
+  nickname: string;
   age: number;
   gender: "male" | "female";
   tags: any[];
@@ -17,6 +17,7 @@ export interface IUserDocument extends IUserData, Document {
   refreshToken: string | null;
   emailVerified: boolean;
   keyForVerify: string;
+  passwordReset: boolean;
 
   comparePassword(aPassword: string): Promise<boolean>;
   verifyRefresh(): boolean;
