@@ -65,4 +65,20 @@ router.post("/signout", async (req, res, next) => {
   })(req, res, next);
 });
 
+router.get("/confirmEmail", async (req, res, next) => {
+  try {
+    const key = req.query.key as string;
+
+    await userService.updateEmailVerified(key);
+
+    res.writeHead(302, {
+      // 프론트 주소
+      Location: "https://www.naver.com/",
+    });
+    res.end();
+  } catch (e) {
+    next(e);
+  }
+});
+
 export default router;
