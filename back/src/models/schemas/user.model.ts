@@ -5,8 +5,7 @@ import { verify } from "jsonwebtoken";
 import { jwtContents } from "@src/utils/constants";
 import { IUserData, IUserDocument } from "@src/types/User";
 import { IUserModel } from "@src/types/User";
-
-const BCRYPT_SALT = 10 as const;
+import { makeHashPassword } from "@src/utils/passwordRelated";
 
 export const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
@@ -20,7 +19,7 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: String,
       required: true,
     },
-    username: {
+    nickname: {
       type: String,
       required: true,
     },
@@ -51,6 +50,10 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: String,
       required: true,
     },
+    passwordReset: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -59,7 +62,7 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
 
 UserSchema.statics.hashPassword = async function (userData: IUserData) {
   if (!userData.password) return;
-  userData.password = await bcrypt.hash(userData.password, BCRYPT_SALT);
+  userData.password = await makeHashPassword(userData.password);
 };
 
 UserSchema.methods.comparePassword = async function (aPassword: string) {
