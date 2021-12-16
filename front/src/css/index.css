@@ -2,6 +2,8 @@
   --bg-color: #7979d3;
   --ft-color: #fff;
   --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #000;
 }
 /* Default */
 * {
@@ -82,6 +84,111 @@ a {
 .navBar .navLogin .register a:hover {
   text-shadow: 0px 0px 2px var(--bg-color);
 }
+
+/* 헤더 반응형 미디어쿼리 */
+.burger-check {
+  display: none;
+}
+.slider {
+  display: none;
+}
+@media screen and (max-width:900px) {
+  /* 타블렛 세로, 모바일*/
+  .slider {
+    display: initial;
+  }
+
+  #header .navBar .navMenu li:not(:first-of-type) {
+    display: none;
+  }
+  #header .navBar .navMenu{
+    /* te: center; */
+    margin: auto;
+    padding-left: 20px;
+  }
+  
+  .menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    max-width: 0;
+    transition: 0.5s ease;
+    z-index: 2;
+    background-color: var(--slider-color);
+  }
+  .menu li a {
+    color: #000;
+    position: inherit;
+    z-index: 2;
+  }
+  .burger-icon {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    z-index: 3;
+    padding: 8px 0;
+    top: 20px;
+    left: 10px;
+    user-select: none;
+    width: auto;
+    margin: 0;
+  }
+
+  .burger-icon .burger-sticks {
+    background: #333;
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background .2s ease-out;
+    width: 18px;
+  }
+
+  .burger-icon .burger-sticks:before,
+  .burger-icon .burger-sticks:after {
+    background: #333;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    transition: all .2s ease-out;
+    width: 100%;
+  }
+
+  .burger-icon .burger-sticks:before {
+    top: 5px;
+  }
+
+  .burger-icon .burger-sticks:after {
+    top: -5px;
+  }
+
+  .burger-check {
+    display: none;
+  }
+
+  .burger-check:checked~.menu {
+    max-width: 200px;
+  }
+
+  .burger-check:checked~.burger-icon .burger-sticks {
+    background: transparent;
+  }
+
+  .burger-check:checked~.burger-icon .burger-sticks:before {
+    transform: rotate(-45deg);
+  }
+
+  .burger-check:checked~.burger-icon .burger-sticks:after {
+    transform: rotate(45deg);
+  }
+
+  .burger-check:checked~.burger-icon:not(.steps) .burger-sticks:before,
+  .burger-check:checked~.burger-icon:not(.steps) .burger-sticks:after {
+    top: 0;
+  }
+}
+  
 
 /* main image */
 /* .mainImage {
