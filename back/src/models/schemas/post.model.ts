@@ -1,6 +1,6 @@
 import { IPost } from "@src/types/Post";
 import { Schema } from "mongoose";
-import { ReplySchema } from "./reply.model";
+import { CommentSchema } from "./comment.model";
 
 export const PostSchema = new Schema<IPost>(
   {
@@ -17,7 +17,7 @@ export const PostSchema = new Schema<IPost>(
       type: Number,
       default: 0,
     },
-    replies: [ReplySchema],
+    comments: [CommentSchema],
     RegisterDate: {
       type: Date,
       default: () => new Date(Date.now()),
