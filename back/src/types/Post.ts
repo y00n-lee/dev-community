@@ -7,8 +7,6 @@ export interface IPost {
   author: PopulatedDoc<IUserDocument>;
   views: number;
   comments: Types.DocumentArray<IComment>;
-  RegisterDate: Date;
-  modifiyDate: Date;
   isEdit: boolean;
 }
 

@@ -11,21 +11,13 @@ export const PostSchema = new Schema<IPost>(
     author: {
       type: Schema.Types.ObjectId,
       ref: "User",
-      //required: true,
+      required: true,
     },
     views: {
       type: Number,
       default: 0,
     },
     comments: [CommentSchema],
-    RegisterDate: {
-      type: Date,
-      default: () => new Date(Date.now()),
-    },
-    modifiyDate: {
-      type: Date,
-      default: () => new Date(Date.now()),
-    },
     isEdit: {
       type: Boolean,
       default: false,
