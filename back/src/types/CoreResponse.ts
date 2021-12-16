@@ -3,3 +3,7 @@ export interface ICoreResponse {
   message?: string;
   err?: string;
 }
+
+export interface ICreateUser extends ICoreResponse {
+  keyForVerify?: string;
+}
