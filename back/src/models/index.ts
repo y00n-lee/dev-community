@@ -5,7 +5,7 @@ import { IUserDocument, IUserModel } from "@src/types/User";
 import { TagSchema } from "./schemas/tag.model";
 import { UserSchema } from "./schemas/user.model";
 
-const User = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
-const Tag = mongoose.model<ITagDocument, ITagModel>("Tag", TagSchema);
+const UserModel = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
+const TagModel = mongoose.model<ITagDocument, ITagModel>("Tag", TagSchema);
 
-export { User, Tag };
+export { UserModel, TagModel };
