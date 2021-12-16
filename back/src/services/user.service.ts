@@ -1,11 +1,15 @@
-import { Tag, User } from "@src/models";
+import { TagModel, UserModel } from "@src/models";
+import { makeVerifyKey } from "@src/utils/mailAuth";
 import { IUserDocument, IUserData } from "@src/types/User";
-import { ICoreResponse } from "@src/types/CoreResponse";
+import { ICreateUser } from "@src/types/CoreResponse";
 
 export class UserService {
-  constructor(private readonly userModel: typeof User, private readonly tagModel: typeof Tag) {}
+  constructor(
+    private readonly userModel: typeof UserModel,
+    private readonly tagModel: typeof TagModel,
+  ) {}
 
-  async createUser(data: IUserData): Promise<ICoreResponse> {
+  async createUser(data: IUserData): Promise<ICreateUser> {
     try {
       const user = await this.userModel.findOne({ email: data.email });
 
@@ -17,15 +21,19 @@ export class UserService {
         tags.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
       );
 
+      const keyForVerify = makeVerifyKey();
+
       const createUserData = {
         ...data,
         tags: result,
+        keyForVerify,
+        emailVerified: false,
       };
 
       await this.userModel.hashPassword(createUserData);
 
       await this.userModel.create(createUserData);
-      return { status: true };
+      return { status: true, keyForVerify };
     } catch (err: any) {
       return { status: false, message: err.message };
     }
@@ -39,9 +47,13 @@ export class UserService {
     return this.userModel.findById(id, { password: 0, ...obj });
   }
 
+  async updateEmailVerified(key: string) {
+    return await this.userModel.updateOne({ keyForVerify: key }, { emailVerified: true });
+  }
+
   async updateRefreshToken(id: string, refreshToken: string | null) {
     await this.userModel.updateOne({ _id: id }, { refreshToken });
   }
 }
 
-export const userService = new UserService(User, Tag);
+export const userService = new UserService(UserModel, TagModel);

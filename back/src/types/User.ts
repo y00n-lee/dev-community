@@ -15,6 +15,8 @@ export interface IUserData {
 
 export interface IUserDocument extends IUserData, Document {
   refreshToken: string | null;
+  emailVerified: boolean;
+  keyForVerify: string;
 
   comparePassword(aPassword: string): Promise<boolean>;
   verifyRefresh(): boolean;

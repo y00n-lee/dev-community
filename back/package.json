@@ -21,6 +21,8 @@
     "mongoose": "^6.1.0",
     "morgan": "^1.10.0",
     "nanoid": "^3.1.30",
+    "nodemailer": "^6.7.2",
+    "nodemailer-smtp-transport": "^2.7.4",
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0"
@@ -33,6 +35,8 @@
     "@types/morgan": "^1.9.3",
     "@types/nanoid": "^3.0.0",
     "@types/node": "^16.11.12",
+    "@types/nodemailer": "^6.4.4",
+    "@types/nodemailer-smtp-transport": "^2.7.5",
     "@types/passport": "^1.0.7",
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
