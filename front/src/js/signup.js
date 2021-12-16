@@ -1,15 +1,15 @@
-let id = document.querySelector("#emailId");
-let nickname = document.querySelector("#nickname");
-let pswd = document.querySelector("#password");
-let pswdCf = document.querySelector("#password_confirm");
-let userName = document.querySelector("#name");
+const id = document.querySelector("#emailId");
+const nickname = document.querySelector("#nickname");
+const pswd = document.querySelector("#password");
+const pswdCf = document.querySelector("#password_confirm");
+const userName = document.querySelector("#name");
 
-let yy = document.querySelector("#yy");
-let mm = document.querySelector("#mm");
-let dd = document.querySelector("#dd");
+const yy = document.querySelector("#yy");
+const mm = document.querySelector("#mm");
+const dd = document.querySelector("#dd");
 
-let gender = document.querySelector("#gender");
-let error = document.querySelectorAll(".error_next_box");
+const gender = document.querySelector("#gender");
+const error = document.querySelectorAll(".error_next_box");
 
 // Event Handler Connect
 id.addEventListener("focusout", checkId);
@@ -22,9 +22,9 @@ mm.addEventListener("focusout", isBirthCompleted);
 dd.addEventListener("focusout", isBirthCompleted);
 gender.addEventListener("focusout", function () {
   if (gender.value === "성별") {
-    error[5].style.display = "block";
+    error[6].style.display = "block";
   } else {
-    error[5].style.display = "none";
+    error[6].style.display = "none";
   }
 });
 
@@ -44,7 +44,7 @@ function checkId() {
 }
 
 function checkNick() {
-  let nickPattern = /[a-zA-Z0-9_-]{5,20}/;
+  const nickPattern = /[a-zA-Z0-9_-]{5,20}/;
 
   if (nickname.value === "") {
     blockTagExtension(error[1], "필수 정보입니다.");
@@ -57,7 +57,7 @@ function checkNick() {
 }
 
 function checkPw() {
-  let pwPattern = /[a-zA-Z0-9~!@#$%^&*()_+|<>?:{}]{8,16}/;
+  const pwPattern = /[a-zA-Z0-9~!@#$%^&*()_+|<>?:{}]{8,16}/;
   if (pswd.value === "") {
     blockTagExtension(error[2], "필수 정보입니다.");
   } else if (!pwPattern.test(pswd.value)) {
@@ -80,7 +80,7 @@ function comparePw() {
 }
 
 function checkName() {
-  let namePattern = /[a-zA-Z가-힣]/;
+  const namePattern = /[a-zA-Z가-힣]/;
 
   if (userName.value === "") {
     blockTagExtension(error[4], "필수 정보입니다.");
@@ -92,7 +92,7 @@ function checkName() {
 }
 
 function isBirthCompleted() {
-  let yearPattern = /[0-9]{4}/;
+  const yearPattern = /[0-9]{4}/;
 
   if (!yearPattern.test(yy.value)) {
     blockTagExtension(error[5], "태어난 년도 4자리를 정확하게 입력하세요.");
@@ -118,7 +118,7 @@ function isBirthCompleted() {
 }
 
 function isBirthRight() {
-  let datePattern = /\d{1,2}/;
+  const datePattern = /\d{1,2}/;
   if (!datePattern.test(dd.value) || Number(dd.value) < 1 || Number(dd.value) > 31) {
     error[5].innerHTML = "생년월일을 다시 확인해주세요.";
   } else {
