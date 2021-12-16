@@ -1,46 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style></style>
-    <script></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>프로젝트 이름</title>
+	<link rel="stylesheet" href="./src/css/index.css" type="text/css">
+	<link rel="stylesheet" href="./src/css/about.css" type="text/css">
+	<style></style>
+	<script></script>
 </head>
 <body>
-    <header>
-    </header>
+	<div class="container">
+		<header id="header">
+			<nav class="navBar">
+				<ul class="navMenu">
+					<li><a href="#">Logo</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">자유게시판</a></li>
+					<li><a href="#">모집게시판</a></li>
+				</ul>
 
-    <main role="main">
-    </main>
-    <h3>팀원을 소개합니다</h3>
-    <div>
-        이미지
-        이름
-        소개: 본인소개, 역할 등등
-    </div>
-    <div>
-        이미지
-        이름
-        소개
-    </div>
-    <div>
-        이미지
-        이름
-        소개
-    </div>
-    <div>
-        이미지
-        이름
-        소개
-    </div>
-    <div>
-        이미지
-        이름
-        소개
-    </div>
-    <footer>
-    </footer>
+				<ul class="navLogin">
+					<li class="login"><a href="#">Log In</a></li>
+					<li class="register"><a href="#">Register</a></li>
+				</ul>
+			</nav>
+		</header>
+
+		<main role="main"> 
+			<!-- main style 속성 제거 필수(navbar 동작 확인용 스타일) -->
+			<h3 class="introduce">팀원을 소개합니다</h3>
+			<div class="flex-container">
+				<div class="flex-item">
+					<img class="image" src="./img/about/man1.png" alt="" srcset="">
+					<h4>장병연</h4>
+					<p>
+						안녕하세요, 장병연입니다.
+					</p>
+				</div>
+				<div class="flex-item">
+					<img class="image" src="./img/about/man2.png" alt="" srcset="">
+					<p>
+						소개: 본인소개, 역할 등등
+					</p>
+				</div>
+				<div class="flex-item">
+					<img class="image" src="./img/about/man2.png" alt="" srcset="">
+					<p>
+						소개: 본인소개, 역할 등등
+					</p>
+				</div>
+				<div class="flex-item">
+					<img class="image" src="./img/about/man2.png" alt="" srcset="">
+					<p>
+						소개: 본인소개, 역할 등등
+					</p>
+				</div>
+				<div class="flex-item">
+					<img class="image" src="./img/about/man2.png" alt="" srcset="">
+					<p>
+						소개: 본인소개, 역할 등등
+					</p>
+				</div>
+			</div>
+			
+		</main>
+		<footer id="footer" class="footer-flex-item">Footer 영역입니다.</footer>
+	</div>
 </body>
 </html>
