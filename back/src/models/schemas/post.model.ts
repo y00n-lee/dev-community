@@ -4,6 +4,10 @@ import { CommentSchema } from "./comment.model";
 
 export const PostSchema = new Schema<IPost>(
   {
+    boardNo: {
+      type: Number,
+      required: true,
+    },
     title: {
       type: String,
       required: true,

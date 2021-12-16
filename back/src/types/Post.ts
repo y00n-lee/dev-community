@@ -3,6 +3,7 @@ import { IUserDocument } from "./User";
 import { Model, Types, PopulatedDoc } from "mongoose";
 
 export interface IPost {
+  boardNo: number;
   title: string;
   author: PopulatedDoc<IUserDocument>;
   views: number;
