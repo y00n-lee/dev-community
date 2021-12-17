@@ -5,6 +5,8 @@
 }
 #board-title {
   margin: 40px;
+  text-align: center;
+  color: var(--bg-color);
 }
 #gather-list {
   display: flex;
@@ -30,4 +32,13 @@
   width: 80%;
   margin: 20px auto;
   word-break: keep-all;
+}
+.writing {
+  border: none;
+  padding: 20px;
+  margin-left: 85vw;
+  color: var(--bg-color);
+}
+.writing:hover {
+  text-shadow: 0px 0px 2px var(--bg-color);
 }
