@@ -5,11 +5,15 @@
 }
 
 .flex-container {
-  /* display: flex; */
-  /* grid-template-columns: 1fr 1fr; */
   display: flex;
   flex-flow: row wrap;
-  justify-content: space-around;
+  justify-content: space-evenly;
+}
+/* IE10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .flex-container {
+    justify-content: space-around;
+  }
 }
 
 .flex-item {
