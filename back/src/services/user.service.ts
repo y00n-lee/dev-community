@@ -21,7 +21,7 @@ export class UserService {
         tags.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
       );
 
-      const keyForVerify = makeVerifyKey(10);
+      const keyForVerify = makeVerifyKey(20);
 
       const createUserData = {
         ...data,

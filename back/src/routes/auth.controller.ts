@@ -29,7 +29,7 @@ router.post("/signin", async (req, res, next) => {
       maxAge: EXPIRED,
     });
 
-    res.json({ status: true, user });
+    return res.json({ status: true, user });
   })(req, res, next);
 });
 

@@ -10,16 +10,20 @@ import { jwtContents } from "@src/utils/constants";
 const router = Router();
 
 router.post("/signup", async (req, res, next) => {
-  const result = (await userService.createUser(req.body)) as ICreateUser;
+  try {
+    const result = (await userService.createUser(req.body)) as ICreateUser;
 
-  if (!result.status) return res.status(401).json(result);
+    if (!result.status) return res.status(401).json(result);
 
-  const host = `${req.protocol}://${req.get("host")}`;
-  const keyForVerify = result.keyForVerify as string;
+    const host = `${req.protocol}://${req.get("host")}`;
+    const keyForVerify = result.keyForVerify as string;
 
-  await emailAuthentication(host, req.body.email, keyForVerify)
-    .then(() => res.json({ status: true }))
-    .catch((e) => next(e));
+    await emailAuthentication(host, req.body.email, keyForVerify);
+
+    return res.json({ status: true });
+  } catch (e) {
+    next(e);
+  }
 });
 
 router.get("/:id", (req, res, next) => {
@@ -51,7 +55,7 @@ router.post("/password/reset", async (req, res, next) => {
 
     await sendChangedPassword(email, password);
 
-    res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
+    return res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
   } catch (e) {
     next(e);
   }
@@ -81,7 +85,10 @@ router.post("/password/change", async (req, res, next) => {
     await userService.updateByQuery({ _id: _user.id }, { refreshToken: null });
     res.clearCookie(jwtContents.header);
 
-    res.json({ status: true, message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요" });
+    return res.json({
+      status: true,
+      message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요",
+    });
   })(req, res, next);
 });
 
