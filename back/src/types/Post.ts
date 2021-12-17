@@ -3,7 +3,7 @@ import { IUserDocument } from "./User";
 import { Model, Types, PopulatedDoc } from "mongoose";
 
 export interface IPost {
-  boardNo: number;
+  boardNo: BoardNo;
   title: string;
   author: PopulatedDoc<IUserDocument>;
   views: number;
@@ -13,4 +13,9 @@ export interface IPost {
 
 export interface IPostModel extends Model<IPost> {
   getPaginatedPosts(query: object, page: number, perPage: number): Promise<number[]>;
+}
+
+enum BoardNo {
+  Free = 0,
+  Recruitment = 1,
 }

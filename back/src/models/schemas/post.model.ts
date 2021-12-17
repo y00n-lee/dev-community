@@ -6,6 +6,7 @@ export const PostSchema = new Schema<IPost>(
   {
     boardNo: {
       type: Number,
+      enum: [0, 1],
       required: true,
     },
     title: {
