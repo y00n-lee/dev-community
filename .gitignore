@@ -37,3 +37,5 @@ dist
 .stylelintcache
 
 .svelte-kit
+
+.ds_store
