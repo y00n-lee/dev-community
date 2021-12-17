@@ -1,0 +1,33 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+}
+#board-title {
+  margin: 40px;
+}
+#gather-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+/* IE10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  #gather-list {
+    justify-content: space-around;
+  }
+}
+.gather-list-items {
+  width: 375px;
+  height: 400px;
+  display: block;
+  text-align: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 25px;
+  margin: 30px 50px;
+}
+.p-text {
+  width: 80%;
+  margin: 20px auto;
+  word-break: keep-all;
+}
