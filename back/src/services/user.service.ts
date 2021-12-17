@@ -21,7 +21,7 @@ export class UserService {
         tags.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
       );
 
-      const keyForVerify = makeVerifyKey();
+      const keyForVerify = makeVerifyKey(10);
 
       const createUserData = {
         ...data,
@@ -39,20 +39,16 @@ export class UserService {
     }
   }
 
-  async getByEmail(email: string): Promise<IUserDocument | null> {
-    return this.userModel.findOne({ email }, { shortId: 1, password: 1, email: 1 });
+  async getByEmail(email: string, obj = {}): Promise<IUserDocument | null> {
+    return this.userModel.findOne({ email }, obj);
   }
 
   async getById(id: string, obj = {}): Promise<IUserDocument | null> {
-    return this.userModel.findById(id, { password: 0, ...obj });
+    return this.userModel.findById(id, obj);
   }
 
-  async updateEmailVerified(key: string) {
-    return await this.userModel.updateOne({ keyForVerify: key }, { emailVerified: true });
-  }
-
-  async updateRefreshToken(id: string, refreshToken: string | null) {
-    await this.userModel.updateOne({ _id: id }, { refreshToken });
+  async updateByQuery(where: any, query: any) {
+    return await this.userModel.updateOne(where, query);
   }
 }
 

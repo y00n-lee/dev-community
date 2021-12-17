@@ -11,7 +11,7 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string) {
-    const user = await this.userService.getByEmail(email);
+    const user = await this.userService.getByEmail(email, { shortId: 1, password: 1, email: 1 });
 
     const isCompare = await user?.comparePassword(password);
 
@@ -30,7 +30,7 @@ export class AuthService {
       expiresIn: "14d",
     });
 
-    await this.userService.updateRefreshToken(payload.id, refreshToken);
+    await this.userService.updateByQuery({ _id: payload.id }, { refreshToken });
     return encryptValue(accessToken);
   }
 

@@ -1,9 +1,9 @@
+import { Router } from "express";
+import passport from "passport";
 import { authService } from "@src/services/auth.service";
 import { userService } from "@src/services/user.service";
 import { ITokenUser, IUserDocument } from "@src/types/User";
 import { jwtContents } from "@src/utils/constants";
-import { Router } from "express";
-import passport from "passport";
 
 const router = Router();
 const EXPIRED = 1000 * 60 * 60 * 24 * 7;
@@ -11,12 +11,16 @@ const EXPIRED = 1000 * 60 * 60 * 24 * 7;
 router.post("/signin", async (req, res, next) => {
   passport.authenticate("local", { session: false }, async (err, _user: ITokenUser, info) => {
     if (err) return next(err);
-    if (!_user) return res.status(401).json({ status: false, err: info.message });
+    if (!_user) return res.status(401).json({ status: false, message: info.message });
 
     const { id } = _user;
 
     const accessToken = await authService.signin({ id });
-    const user = (await userService.getById(id, { refreshToken: 0 })) as IUserDocument;
+    const user = (await userService.getById(id, {
+      refreshToken: 0,
+      keyForVerify: 0,
+      password: 0,
+    })) as IUserDocument;
 
     await user.populate("tags");
 
@@ -58,7 +62,7 @@ router.post("/signout", async (req, res, next) => {
 
     const { id } = _user;
 
-    await userService.updateRefreshToken(id, null);
+    await userService.updateByQuery({ _id: id }, { refreshToken: null });
     res.clearCookie(jwtContents.header);
 
     return res.json({ status: true });
@@ -69,7 +73,7 @@ router.get("/confirmEmail", async (req, res, next) => {
   try {
     const key = req.query.key as string;
 
-    await userService.updateEmailVerified(key);
+    await userService.updateByQuery({ keyForVerify: key }, { emailVerified: true });
 
     res.writeHead(302, {
       // 프론트 주소
