@@ -1,14 +1,11 @@
 import { IPost } from "@src/types/Post";
 import { Schema } from "mongoose";
 import { CommentSchema } from "./comment.model";
+import { TagSchema } from "./tag.model";
+import { UserSchema } from "./user.model";
 
 export const PostSchema = new Schema<IPost>(
   {
-    boardNo: {
-      type: Number,
-      enum: [0, 1],
-      required: true,
-    },
     title: {
       type: String,
       required: true,
@@ -23,6 +20,8 @@ export const PostSchema = new Schema<IPost>(
       default: 0,
     },
     comments: [CommentSchema],
+    members: [UserSchema],
+    tags: [TagSchema],
     isEdit: {
       type: Boolean,
       default: false,
