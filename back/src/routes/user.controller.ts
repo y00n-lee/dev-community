@@ -34,7 +34,7 @@ router.get("/:id", (req, res, next) => {
 
     const user = await userService.getById(_user.id, { refreshToken: 0, password: 0 });
 
-    return res.json(user);
+    return res.json({ status: true, data: { user } });
   })(req, res, next);
 });
 
