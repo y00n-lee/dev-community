@@ -6,6 +6,8 @@ import { jwtContents } from "@src/utils/constants";
 import { IUserData, IUserDocument } from "@src/types/User";
 import { IUserModel } from "@src/types/User";
 import { makeHashPassword } from "@src/utils/passwordRelated";
+import { TagSchema } from "./tag.model";
+import { PostSchema } from "./post.model";
 
 export const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
@@ -32,12 +34,8 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       enum: ["male", "female"],
       required: true,
     },
-    tags: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Tag",
-      },
-    ],
+    tags: [TagSchema],
+    posts: [PostSchema],
     refreshToken: {
       type: String,
       default: null,
