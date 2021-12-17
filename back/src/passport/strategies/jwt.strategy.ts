@@ -13,7 +13,7 @@ const JwtVerify = async (payload: any, done: VerifiedCallback) => {
   try {
     if (!payload) return done(null, false);
 
-    const { id } = (await userService.getById(payload.id)) as IUserDocument;
+    const { id } = (await userService.getById(payload.id, { password: 0 })) as IUserDocument;
 
     return done(null, { id });
   } catch (e) {
