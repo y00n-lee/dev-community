@@ -68,11 +68,15 @@ router.put(
   passport.authenticate("jwt", { session: false }),
   asyncHandler(async (req: Request, res: Response) => {
     const _user = req.user;
+    const { id } = req.params;
 
     if (!_user)
+      return res.status(401).json({ status: false, message: "로그인 후 사용가능합니다." });
+
+    if (id !== _user.id)
       return res
         .status(401)
-        .json({ status: false, data: { message: "로그인 후 사용가능합니다." } });
+        .json({ status: false, message: "로그인한 사용자의 프로필만 수정 가능합니다." });
 
     res.send("asd");
   }),
@@ -99,10 +103,9 @@ router.put(
 
     await userService.updateByQuery(
       { _id: user.id },
-      { password: hashedPassword, passwordReset: false },
+      { password: hashedPassword, passwordReset: false, refreshToken: null },
     );
 
-    await userService.updateByQuery({ _id: _user.id }, { refreshToken: null });
     res.clearCookie(jwtContents.header);
 
     return res.json({
