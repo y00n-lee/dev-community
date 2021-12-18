@@ -45,6 +45,19 @@ function makeSignupTextInputBox(id, classes, placeholder, maxlength) {
 
   return textInputBox;
 }
+
+// Make Button Function
+function makeLinkButton(link, content) {
+  const div = addEleClass("div", "submit_area");
+  const btn = addEleClass("button", "submit");
+
+  btn.setAttribute("onclick", `location.href='${link}'`);
+  btn.appendChild(document.createTextNode(`${content}`));
+  div.appendChild(btn);
+
+  return div;
+}
+
 //Body
 const container = addEleClass("div", "container");
 
@@ -63,7 +76,7 @@ const form = document.createElement("form");
 
 // Form Setting
 form.setAttribute("name", "signup");
-form.setAttribute("action", "/signup_process");
+form.setAttribute("action", "/");
 form.setAttribute("method", "post");
 
 // ID DIV
@@ -78,12 +91,12 @@ idDiv.appendChild(idDivInputBox);
 
 idDiv.appendChild(addEleClass("span", "error_next_box"));
 
-const idCheckButton = createEleId("input", "id_check");
-idCheckButton.setAttribute("type", "button");
-idCheckButton.setAttribute("name", "id_check");
-idCheckButton.classList.add("btn");
-idCheckButton.setAttribute("value", "이메일 확인");
-idDiv.appendChild(idCheckButton);
+// const idCheckButton = createEleId("input", "id_check");
+// idCheckButton.setAttribute("type", "button");
+// idCheckButton.setAttribute("name", "id_check");
+// idCheckButton.classList.add("btn");
+// idCheckButton.setAttribute("value", "이메일 확인");
+// idDiv.appendChild(idCheckButton);
 
 form.appendChild(idDiv);
 
@@ -209,13 +222,16 @@ form.appendChild(genderDiv);
 
 // Submit Div
 const submitDiv = addEleClass("div", "submit_area");
-const submitInput = createEleId("input", "submit");
+const submitInput = addEleClass("input", "submit");
 submitInput.setAttribute("type", "submit");
 submitInput.setAttribute("name", "submit");
 submitInput.setAttribute("value", "가입하기");
 submitDiv.appendChild(submitInput);
 form.appendChild(submitDiv);
 
+// Cancel Div
+const cancelDiv = makeLinkButton("/", "취소");
+form.appendChild(cancelDiv);
 content.appendChild(form);
 main.appendChild(content);
 container.appendChild(main);

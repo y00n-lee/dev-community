@@ -117,10 +117,10 @@ select {
 }
 
 .submit_area {
-  margin: 30px 0 91px;
+  margin: 20px 0 20px;
 }
 
-#submit {
+.submit {
   width: 100%;
   padding: 21px 0 17px;
   border: 0;

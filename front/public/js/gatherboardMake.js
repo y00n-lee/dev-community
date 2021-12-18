@@ -47,6 +47,19 @@ function makeHeadAndLabel(head, labelFor, content) {
 
   return Head;
 }
+
+// Make Button Function
+function makeLinkButton(link, content) {
+  const div = addEleClass("div", "submit_area");
+  const btn = addEleClass("button", "submit");
+
+  btn.setAttribute("onclick", `location.href='${link}'`);
+  btn.appendChild(document.createTextNode(`${content}`));
+  div.appendChild(btn);
+
+  return div;
+}
+
 // dummy data
 const techStackData = ["HTML", "CSS", "JAVASCRIPT", "NODEJS", "SPRING", "EXPRESS", "REACT"];
 
@@ -63,12 +76,11 @@ const mainHeadName = createEleId("h2", "head");
 const section = createEleId("section", "makeBlock");
 const form = document.createElement("form");
 
+mainHeadName.appendChild(document.createTextNode(`모집게시판`));
 // Form Setting
 form.setAttribute("name", "gatherboardMake");
-form.setAttribute("action", "");
+form.setAttribute("action", "/posts");
 form.setAttribute("method", "post");
-
-mainHeadName.appendChild(document.createTextNode(`모집게시판`));
 
 const formTitle = document.createElement("div");
 const formTitleHead = makeHeadAndLabel("h3", "title", "글 제목");
@@ -112,21 +124,16 @@ formTechStack.appendChild(techStackCheck);
 
 form.appendChild(formTechStack);
 
-const formSubmitCancel = document.createElement("div");
-const formSubmit = createEleId("input", "submit");
+const formSubmitDiv = addEleClass("div", "submit_area");
+const formSubmit = addEleClass("input", "submit");
 formSubmit.setAttribute("type", "submit");
 formSubmit.setAttribute("name", "submit");
 formSubmit.setAttribute("value", "작성");
-formSubmitCancel.appendChild(formSubmit);
+formSubmitDiv.appendChild(formSubmit);
+form.appendChild(formSubmitDiv);
 
-const formCancel = document.createElement("input");
-formCancel.setAttribute("type", "button");
-formCancel.setAttribute("onclick", "location.href='';");
-formCancel.setAttribute("value", "취소");
-formCancel.appendChild(document.createTextNode("취소"));
-formSubmitCancel.appendChild(formCancel);
-
-form.append(formSubmitCancel);
+const formCancelDiv = makeLinkButton("/posts", "취소");
+form.append(formCancelDiv);
 // AppendChild Components - Main
 
 section.appendChild(form);
