@@ -75,22 +75,26 @@ container.appendChild(header);
 // postList
 const main = document.createElement("main");
 container.appendChild(main);
+
 // 상단에 모집게시판
 const h1 = createEleId("h1", "gatherPost");
 const a1 = document.createElement("a");
-a1.setAttribute("href", "/gatherList");
+a1.setAttribute("href", "/posts"); // 이동 경로
 a1.innerText = "모집 게시판";
 h1.appendChild(a1);
 main.appendChild(h1);
+
+// 글 작성버튼
+const writeButtonWrap = addEleClass("div", "write-wrap");
+const a = addEleClass("a", "post-write");
+a.href = "/edit/post/${post.id}"; // 이동 경로
+a.innerText = "글 작성하기";
+writeButtonWrap.appendChild(a);
+main.appendChild(writeButtonWrap);
+
 // 리스트 6개
 const postList = createPostCard();
 main.appendChild(postList);
-
-// 글 작성버튼
-const a = addEleClass("a", "post-write");
-a.href = "/"; // 누르면 이동
-a.innerText = "글 작성하기";
-main.appendChild(a);
 
 // Footer
 const footer = makeFooter();

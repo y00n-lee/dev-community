@@ -45,8 +45,6 @@ app.get("/edit/post/:id", (_, res) => {
 });
 
 app.use((err, _, res, __) => {
-  console.log(err);
-  console.log("asdasd");
   res.send("asd");
 });
 
