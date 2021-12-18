@@ -48,7 +48,7 @@ export class PostsService {
     );
 
     if (post.author._id.toString() !== userId) {
-      throw new Error("수정할 수 없습니다.");
+      throw new Error("다른 사용자가 작성한 게시글입니다.");
     }
 
     const updatedPost = await PostModel.findOneAndUpdate(
@@ -79,8 +79,9 @@ export class PostsService {
       "author",
       "-password -refreshToken -keyForVerify",
     );
+    
     if (post.author._id.toString() !== userId) {
-      throw new Error("제거할 수 없습니다.");
+      throw new Error("다른 사용자가 작성한 게시글입니다.");
     }
 
     return await PostModel.deleteOne({ _id: postId });
