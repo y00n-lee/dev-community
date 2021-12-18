@@ -5,7 +5,7 @@ import { IUserDocument } from "@src/types/User";
 
 const JwtOpt = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  ignoreExpiration: true,
+  ignoreExpiration: false,
   secretOrKey: jwtContents.secret,
 };
 
@@ -16,7 +16,7 @@ const JwtVerify = async (payload: any, done: VerifiedCallback) => {
     const { id } = (await userService.getById(payload.id, { password: 0 })) as IUserDocument;
 
     return done(null, { id });
-  } catch (e) {
+  } catch (e: any) {
     done(e, false);
   }
 };

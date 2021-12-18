@@ -42,7 +42,7 @@ app.get("/", (_, res) => {
 
 app.use(routes);
 
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
