@@ -69,7 +69,7 @@ export class PostsService {
       throw new Error("이미 참여한 게시글입니다.");
     }
 
-    post.members.push({user});
+    post.members.push(user);
     await post.save();
     return post;
   }
