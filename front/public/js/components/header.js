@@ -37,7 +37,7 @@ export function makeHeader() {
 
   menu.innerHTML = `<div style="width: 200px;">
 <a href="#">About</a>
-<a href="#">모집게시판</a>
+<a href="/posts">모집게시판</a>
 </div>`;
 
   // AppendChild Components - Header
