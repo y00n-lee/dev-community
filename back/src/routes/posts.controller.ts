@@ -52,6 +52,19 @@ router.put(
   }),
 );
 
+router.delete(
+  "/:postId",
+  passport.authenticate("jwt", { session: false }),
+  asyncHandler(async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+
+    await postsService.deletePost(postId, userId);
+    return res.json({ status: true, message: "삭제되었습니다." });
+  }),
+);
+
+/* add/remove member */
 router.put(
   "/:postId/member",
   passport.authenticate("jwt", { session: false }),
@@ -65,15 +78,14 @@ router.put(
 );
 
 router.delete(
-  "/:postId",
+  "/:postId/member",
   passport.authenticate("jwt", { session: false }),
   asyncHandler(async (req: Request, res: Response) => {
     const userId = req?.user?.id as string;
     const { postId } = req.params;
 
-    await postsService.deletePost(postId, userId);
-    res.json({ status: true, message: "삭제되었습니다." });
+    await postsService.removeMember(postId, userId);
+    return res.json({ status: true, message: "취소되었습니다." });
   }),
 );
-
 export default router;

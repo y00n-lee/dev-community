@@ -42,6 +42,7 @@ export class PostsService {
     if (!title || !content) {
       throw new Error("제목과 내용을 입력해 주세요.");
     }
+    
     const post = await PostModel.findById(postId).populate(
       "author",
       "-password -refreshToken -keyForVerify",
@@ -59,12 +60,27 @@ export class PostsService {
     return updatedPost;
   }
 
+  async deletePost(postId: string, userId: string) {
+    const post = await PostModel.findById(postId).populate(
+      "author",
+      "-password -refreshToken -keyForVerify",
+    );
+
+    if (post.author._id.toString() !== userId) {
+      throw new Error("다른 사용자가 작성한 게시글입니다.");
+    }
+
+    return await PostModel.deleteOne({ _id: postId });
+  }
+
   async addMember(postId: string, userId: string) {
     const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await PostModel.findById(postId);
+
     if (!post || !user) {
       throw new Error("잘못된 요청입니다.");
     }
+
     if (post.members.indexOf(user._id) >= 0) {
       throw new Error("이미 참여한 게시글입니다.");
     }
@@ -74,17 +90,21 @@ export class PostsService {
     return post;
   }
 
-  async deletePost(postId: string, userId: string) {
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
-    
-    if (post.author._id.toString() !== userId) {
-      throw new Error("다른 사용자가 작성한 게시글입니다.");
+  async removeMember(postId: string, userId: string) {
+    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await PostModel.findById(postId);
+    if (!post || !user) {
+      throw new Error("잘못된 요청입니다.");
     }
 
-    return await PostModel.deleteOne({ _id: postId });
+    const loc = post.members.indexOf(user._id);
+    if (loc === -1) {
+      throw new Error("참여하지 않은 상태입니다.");
+    }
+
+    post.members.pull(user);
+    await post.save();
+    return post;
   }
 }
 
