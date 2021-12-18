@@ -20,6 +20,20 @@ function addEleClass(el, className) {
 function addTextNode(ele, text) {
   ele.appendChild(document.createTextNode(`${text}`));
 }
+//데이터 필드 생성 함수
+function makeDataField(userData, fieldname) {
+  const dataField = addEleClass(`div`,`field`);
+  const dataLabel = addEleClass(`p`, `label`);
+  const _data = addEleClass(`p`,`data`);
+
+  addTextNode(_data, userData);
+  addTextNode(dataLabel, fieldname);
+
+  dataField.appendChild(dataLabel);
+  dataField.appendChild(_data);
+
+  return dataField;
+};
 
 //Body
 const container = addEleClass("div", "container");
@@ -37,7 +51,8 @@ addTextNode(grouptitle, '@@님의 프로필');
 main.appendChild(grouptitle)
 const section = addEleClass("section","flex-container");
 
-const dummy = {
+// dummy data
+const user = {
   nick : "helloworld",
   email : "hellohello@gggggg.com",
   gender : "남성",
@@ -48,63 +63,28 @@ const dummy = {
 const article = addEleClass("article","flex-item");
 const profileImg = addEleClass("img","image"); // 회원 프로필 사진
 profileImg.setAttribute("src", "../img/about/man1.png");
-
-const nicknameField = addEleClass("div", "field"); 
-const emailField = addEleClass("div", "field"); 
-const genderField = addEleClass("div", "field"); 
-const skillField = addEleClass("div", "field"); 
-const githubField = addEleClass("div", "field"); 
-
-const nicknameLabel = addEleClass("p", "label"); 
-const emailLabel = addEleClass("p", "label"); 
-const genderLabel = addEleClass("p", "label"); 
-const skillLabel = addEleClass("p", "label"); 
-const githubLabel = addEleClass("p", "label"); 
-
-const nickname = addEleClass("p", "data"); 
-const email = addEleClass("p", "data"); 
-const gender = addEleClass("p", "data"); 
-const skill = addEleClass("p", "data"); 
-const github = addEleClass("p", "data"); 
-
-addTextNode(nickname, dummy.nick);
-addTextNode(email, dummy.email);
-addTextNode(gender, dummy.gender); 
-addTextNode(skill, dummy.skill); 
-addTextNode(github, dummy.github);  
-
-addTextNode(nicknameLabel, `닉네임`);
-addTextNode(emailLabel, `이메일`);
-addTextNode(genderLabel, `성별`); 
-addTextNode(skillLabel, `기술스택`); 
-addTextNode(githubLabel, `깃허브주소`);  
-
-nicknameField.appendChild(nicknameLabel);
-nicknameField.appendChild(nickname);
-emailField.appendChild(emailLabel);
-emailField.appendChild(email);
-genderField.appendChild(genderLabel);
-genderField.appendChild(gender);
-skillField.appendChild(skillLabel);
-skillField.appendChild(skill);
-githubField.appendChild(githubLabel);
-githubField.appendChild(github);
-
 article.appendChild(profileImg);
-article.appendChild(nicknameField);
-article.appendChild(emailField);
-article.appendChild(genderField);
-article.appendChild(skillField);
-article.appendChild(githubField);
+
+const field = [`nickname`, `email`, `gender`, `skill`, `github`];
+const fieldname = [`닉네임`,`이메일`,`성별`,`기술스택`,`깃허브주소`];
+//수정할 사항 : 기술 스택은 p태그가 아닌 이미지나 다른 태그로 바꿔야 함.
+
+const fieldNum = field.length;
+for (let i=0; i<fieldNum; i++) {
+  article.appendChild(
+    makeDataField(
+      user[field[i]],fieldname[i]
+    )
+  )
+}
 
 section.appendChild(article);
-
 main.appendChild(section);
-
 container.appendChild(main);
 
 // Footer
 const footer = makeFooter();
 container.appendChild(footer);
 document.body.appendChild(container);
+
 
