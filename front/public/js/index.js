@@ -95,22 +95,15 @@ for (let i = 0; i < serviceList.length; i++) {
 main.appendChild(serviceDescSection);
 main.appendChild(servicesDiv);
 
-//Recent Posts
-// const recentPostsSection = addEleClass("section", "recentPost");
-// const recentPostsSectionTitle = document.createElement("h2");
-// recentPostsSectionTitle.appendChild(document.createTextNode("최신 글"));
-
-// recentPostsSection.appendChild(recentPostsSectionTitle);
-// main.appendChild(recentPostsSection);
-
+// 최신글
 const h1 = createEleId("h1", "gatherPost");
 const a1 = document.createElement("a");
-a1.setAttribute("href", "/gatherList");
+a1.setAttribute("href", "/posts");
 a1.innerText = "최신글";
 h1.appendChild(a1);
 main.appendChild(h1);
 
-// 컴포넌트화? (최신 글 6개) _ 윤성
+// 컴포넌트화? (최신 글 6개)
 const postList = createPostCard();
 main.appendChild(postList);
 

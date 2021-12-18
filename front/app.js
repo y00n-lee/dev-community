@@ -20,6 +20,17 @@ app.get("/", (req, res, next) => {
   res.render("index", { data: 300 });
 });
 
+app.get("/posts", (req, res) => {
+  res.render("posts");
+});
+
+app.get("/signin", (req, res) => {
+  res.render("signin");
+});
+
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
 app.get("/asd", (req, res) => {
   res.render("asd");
 });

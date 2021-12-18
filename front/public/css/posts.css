@@ -55,7 +55,6 @@ main {
   color: var(--ft-color);
   background-color: var(--bg-color);
   display: inline-block;
-  position: absolute;
-  right: 60px;
-  bottom: 2px;
+  position: relative;
+  left: 80%;
 }
