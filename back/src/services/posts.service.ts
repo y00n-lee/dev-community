@@ -21,7 +21,9 @@ export class PostsService {
     );
 
     if (!title || !content) {
-      throw new Error("제목과 내용을 입력해 주세요.");
+      const err = new Error("제목과 내용을 입력해 주세요.");
+      err.name = "NoTitleContent";
+      throw err;
     }
 
     const author = await UserModel.findById(userId);
@@ -41,7 +43,9 @@ export class PostsService {
     );
 
     if (!title || !content) {
-      throw new Error("제목과 내용을 입력해 주세요.");
+      const err = new Error("제목과 내용을 입력해 주세요.");
+      err.name = "NoTitleContent";
+      throw err;
     }
 
     const post = await PostModel.findById(postId).populate(
@@ -50,7 +54,9 @@ export class PostsService {
     );
 
     if (post.author._id.toString() !== userId) {
-      throw new Error("다른 사용자가 작성한 게시글입니다.");
+      const err = new Error("다른 사용자가 작성한 게시글입니다.");
+      err.name = "NoAuth";
+      throw err;
     }
 
     const updatedPost = await PostModel.findOneAndUpdate(
@@ -68,7 +74,9 @@ export class PostsService {
     );
 
     if (post.author._id.toString() !== userId) {
-      throw new Error("다른 사용자가 작성한 게시글입니다.");
+      const err = new Error("다른 사용자가 작성한 게시글입니다.");
+      err.name = "NoAuth";
+      throw err;
     }
 
     return await PostModel.deleteOne({ _id: postId });
@@ -79,11 +87,15 @@ export class PostsService {
     const post = await PostModel.findById(postId);
 
     if (!post || !user) {
-      throw new Error("잘못된 요청입니다.");
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
     }
 
     if (post.members.indexOf(user._id) >= 0) {
-      throw new Error("이미 참여한 게시글입니다.");
+      const err = new Error("이미 참여한 게시글입니다.");
+      err.name = "AlreadyJoin";
+      throw err;
     }
 
     post.members.push(user);
@@ -95,12 +107,16 @@ export class PostsService {
     const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await PostModel.findById(postId);
     if (!post || !user) {
-      throw new Error("잘못된 요청입니다.");
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
     }
 
     const loc = post.members.indexOf(user._id);
     if (loc === -1) {
-      throw new Error("참여하지 않은 상태입니다.");
+      const err = new Error("참여하지 않은 상태입니다.");
+      err.name = "NoMember";
+      throw err;
     }
 
     post.members.pull(user);
