@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { PostModel, UserModel, TagModel } from "@src/models";
+import { PostModel } from "@src/models";
 import passport from "passport";
+import { postsService } from "@src/services/posts.service";
 const router = Router();
 
 router.get("/", async (req, res) => {
@@ -18,7 +19,7 @@ router.get("/", async (req, res) => {
 router.get("/:postId", async (req, res) => {
   const { postId } = req.params;
   try {
-    const post = await PostModel.findById(postId).populate("author");
+    const post = await postsService.getById(postId);
     return res.json({ status: true, data: post });
   } catch (err: any) {
     return res.status(404).json({ status: false, message: err.message });
@@ -26,20 +27,11 @@ router.get("/:postId", async (req, res) => {
 });
 
 router.post("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
-  const userId = req?.user?.id;
+  const userId = req?.user?.id as string;
   const { title, content, tagList } = req.body;
 
-  const tags = await Promise.all(
-    tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
-  );
-
-  if (!title || !content) {
-    return res.status(400).json({ status: false, message: "제목과 내용을 입력해 주세요." });
-  }
-
   try {
-    const author = await UserModel.findById(userId);
-    const post = await PostModel.create({ title, content, author, members: author, tags });
+    const post = await postsService.createPost(title, content, userId, tagList);
     return res.status(201).json({ status: true, data: post });
   } catch (err: any) {
     return res.status(400).json({ status: false, message: err.message });
@@ -47,31 +39,13 @@ router.post("/", passport.authenticate("jwt", { session: false }), async (req, r
 });
 
 router.put("/:postId", passport.authenticate("jwt", { session: false }), async (req, res) => {
-  const userId = req?.user?.id;
+  const userId = req?.user?.id as string;
   const { postId } = req.params;
   const { title, content, tagList } = req.body;
 
-  const tags = await Promise.all(
-    tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
-  );
-
-  if (!title || !content) {
-    return res.status(400).json({ status: false, message: "제목과 내용을 입력해 주세요." });
-  }
-
   try {
-    const post = await PostModel.findById(postId).populate("author");
-
-    if (post.author._id.toString() !== userId) {
-      throw new Error("수정할 수 없습니다.");
-    }
-
-    const updatedPost = await PostModel.findOneAndUpdate(
-      { _id: postId },
-      { title, content, tags, isEdit: true },
-      { new: true },
-    );
-    return res.json({ status: true, data: updatedPost });
+    const post = await postsService.editPost(postId, title, content, userId, tagList);
+    return res.json({ status: true, data: post });
   } catch (err: any) {
     return res.status(409).json({ status: false, message: err.message });
   }
@@ -81,21 +55,11 @@ router.put(
   "/:postId/member",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    const userId = req?.user?.id;
+    const userId = req?.user?.id as string;
     const { postId } = req.params;
 
     try {
-      const user = await UserModel.findById(userId);
-      const post = await PostModel.findById(postId);
-      if (!post || !user) {
-        throw new Error("잘못된 요청입니다.");
-      }
-      if (post.members.id(user)) {
-        throw new Error("이미 참여한 모임입니다.");
-      }
-
-      post.members.push(user);
-      await post.save();
+      const post = await postsService.addMember(postId, userId);
       return res.json({ status: true, data: post });
     } catch (err: any) {
       return res.status(409).json({ status: false, message: err.message });
@@ -104,16 +68,11 @@ router.put(
 );
 
 router.delete("/:postId", passport.authenticate("jwt", { session: false }), async (req, res) => {
-  const userId = req?.user?.id;
+  const userId = req?.user?.id as string;
   const { postId } = req.params;
 
   try {
-    const post = await PostModel.findById(postId).populate("author");
-    if (post.author._id.toString() !== userId) {
-      throw new Error("제거할 수 없습니다.");
-    }
-
-    await PostModel.deleteOne({ _id: postId });
+    console.log(await postsService.deletePost(postId, userId));
     res.json({ status: true });
   } catch (err: any) {
     res.status(404).json({ status: false, message: err.message });

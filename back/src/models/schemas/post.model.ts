@@ -43,7 +43,7 @@ PostSchema.statics.getPaginatedPosts = async function (
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage)
-      .populate("author"),
+      .populate("author", "-password -refreshToken -keyForVerify"),
   ]);
 
   const totalPage = Math.ceil(total / perPage);
