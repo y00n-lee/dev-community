@@ -50,7 +50,7 @@ router.post(
     if (!user)
       return res
         .status(401)
-        .json({ status: false, data: { message: "해당 메일로 가입된 사용자가 없습니다." } });
+        .json({ status: false, message: "해당 메일로 가입된 사용자가 없습니다." });
 
     const password = makeVerifyKey(5);
     const hashedPassword = await makeHashPassword(password);
@@ -59,7 +59,7 @@ router.post(
 
     await sendChangedPassword(email, password);
 
-    return res.json({ status: true, data: { message: "임시 비밀번호가 메일에 전송됐습니다." } });
+    return res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
   }),
 );
 
@@ -92,7 +92,7 @@ router.post(
 
       return res.json({
         status: true,
-        data: { message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요" },
+        message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요",
       });
     })(req, res, next);
   }),

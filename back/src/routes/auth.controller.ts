@@ -34,7 +34,7 @@ router.post(
         maxAge: EXPIRED,
       });
 
-      return res.json({ status: true, data: { user } });
+      return res.json({ status: true, message: "로그인이 완료되었습니다." });
     })(req, res, next);
   }),
 );
@@ -49,8 +49,7 @@ router.post(
 
       const isVerifiedToken = await authService.verifyRefresh({ id });
 
-      if (!isVerifiedToken)
-        return res.status(401).json({ status: false, err: "다시 로그인 해주세요" });
+      if (!isVerifiedToken) return res.status(401).json({ status: false });
 
       const accessToken = await authService.signin({ id });
 
