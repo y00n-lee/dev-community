@@ -1,8 +1,5 @@
 import { IPost } from "@src/types/Post";
 import { Schema } from "mongoose";
-import { CommentSchema } from "./comment.model";
-import { TagSchema } from "./tag.model";
-import { UserSchema } from "./user.model";
 
 export const PostSchema = new Schema<IPost>(
   {
@@ -19,9 +16,24 @@ export const PostSchema = new Schema<IPost>(
       type: Number,
       default: 0,
     },
-    comments: [CommentSchema],
-    members: [UserSchema],
-    tags: [TagSchema],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    members: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    tags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
     isEdit: {
       type: Boolean,
       default: false,

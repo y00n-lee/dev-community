@@ -8,7 +8,7 @@ export interface IPost {
   author: PopulatedDoc<IUserDocument>;
   views: number;
   comments: Types.DocumentArray<IComment>;
-  members: Types.DocumentArray<Partial<IUserDocument>>;
+  members: Types.DocumentArray<IUserDocument>;
   tags: Types.DocumentArray<ITagDocument>;
   isEdit: boolean;
 }
