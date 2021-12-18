@@ -1,5 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
+import { createPostCard } from "./components/postList.js";
 
 // Create Element Id
 function createEleId(el, id) {
@@ -10,11 +11,14 @@ function createEleId(el, id) {
 }
 
 // Create Elemen Class
-function addEleClass(el, className) {
+function addEleClass(el, classNames) {
   const ele = document.createElement(`${el}`);
-  if (!className) return ele;
-  ele.classList.add(`${className}`);
-
+  if (!classNames) return ele;
+  // Create Elemen Class
+  const classArray = classNames.split(" ");
+  for (let i = 0; i < classArray.length; i++) {
+    ele.classList.add(`${classArray[i]}`);
+  }
   return ele;
 }
 
@@ -94,13 +98,17 @@ for (let i = 0; i < serviceList.length; i++) {
 main.appendChild(serviceDescSection);
 main.appendChild(servicesDiv);
 
-// Recent Posts
-const recentPostsSection = addEleClass("section", "recentPost");
-const recentPostsSectionTitle = document.createElement("h2");
-recentPostsSectionTitle.appendChild(document.createTextNode("최신 글"));
+// 최신글
+const h1 = createEleId("h1", "gatherPost");
+const a1 = document.createElement("a");
+a1.setAttribute("href", "/posts");
+a1.innerText = "최신글";
+h1.appendChild(a1);
+main.appendChild(h1);
 
-recentPostsSection.appendChild(recentPostsSectionTitle);
-main.appendChild(recentPostsSection);
+// 컴포넌트화? (최신 글 6개)
+const postList = createPostCard();
+main.appendChild(postList);
 
 container.appendChild(main);
 

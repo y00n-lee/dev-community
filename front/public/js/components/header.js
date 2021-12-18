@@ -28,12 +28,12 @@ export function makeHeader() {
 </label>`;
 
   navMenu.innerHTML = `
-    <li><a href="#">Logo</a></li>
+    <li><a href="/">Logo</a></li>
     <li><a href="#">About</a></li>
-    <li><a href="#">모집게시판</a></li>`;
+    <li><a href="/posts">모집게시판</a></li>`;
 
-  navLogin.innerHTML = `<li class="login"><a href="#">Log In</a></li>
-<li class="register"><a href="#">Register</a></li>`;
+  navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li>
+<li class="register"><a href="signup">Register</a></li>`;
 
   menu.innerHTML = `<div style="width: 200px;">
 <a href="#">About</a>

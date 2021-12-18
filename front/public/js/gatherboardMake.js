@@ -10,19 +10,58 @@ function createEleId(el, id) {
 }
 
 // Create Elemen Class
-function addEleClass(el, className) {
+function addEleClass(el, classNames) {
   const ele = document.createElement(`${el}`);
-  ele.classList.add(`${className}`);
+  const classArray = classNames.split(" ");
+  for (let i = 0; i < classArray.length; i++) {
+    ele.classList.add(`${classArray[i]}`);
+  }
 
   return ele;
 }
 
-// Add list member to component
-// function addListandAfromArray(comp, params){
-//     for(let i=0; i<params.length; i++){
-//         comp.appendChild(`<li></li>`)
-//     }
-// }
+// TechStack Checkbox
+function techStackCheckBox(techStack) {
+  const div = document.createElement("div");
+  for (let i = 0; i < techStack.length; i++) {
+    const checkInputLabel = document.createElement("label");
+    const checkInput = document.createElement("input");
+    checkInput.setAttribute("type", "checkbox");
+    checkInput.setAttribute("name", "techStack");
+    checkInput.setAttribute("value", `${techStack[i]}`);
+    checkInputLabel.appendChild(checkInput);
+    checkInputLabel.appendChild(document.createTextNode(`${techStack[i]}`));
+    div.appendChild(checkInputLabel);
+  }
+
+  return div;
+}
+
+// make header + label
+function makeHeadAndLabel(head, labelFor, content) {
+  const Head = document.createElement(`${head}`);
+  const headLabel = document.createElement("label");
+  headLabel.setAttribute("for", `${labelFor}`);
+  headLabel.appendChild(document.createTextNode(`${content}`));
+  Head.appendChild(headLabel);
+
+  return Head;
+}
+
+// Make Button Function
+function makeLinkButton(link, content) {
+  const div = addEleClass("div", "submit_area");
+  const btn = addEleClass("button", "submit");
+
+  btn.setAttribute("onclick", `location.href='${link}'`);
+  btn.appendChild(document.createTextNode(`${content}`));
+  div.appendChild(btn);
+
+  return div;
+}
+
+// dummy data
+const techStackData = ["HTML", "CSS", "JAVASCRIPT", "NODEJS", "SPRING", "EXPRESS", "REACT"];
 
 //Body
 const container = addEleClass("div", "container");
@@ -37,20 +76,15 @@ const mainHeadName = createEleId("h2", "head");
 const section = createEleId("section", "makeBlock");
 const form = document.createElement("form");
 
+mainHeadName.appendChild(document.createTextNode(`모집게시판`));
 // Form Setting
-form.setAttribute("name", "freeBoardMake");
-form.setAttribute("action", "");
+form.setAttribute("name", "gatherboardMake");
+form.setAttribute("action", "/posts");
 form.setAttribute("method", "post");
 
-mainHeadName.appendChild(document.createTextNode(`모집게시판`));
-
 const formTitle = document.createElement("div");
-const formTitleHead = document.createElement("h3");
-const formTitleHeadLabel = document.createElement("label");
-formTitleHeadLabel.setAttribute("for", "title");
-formTitleHeadLabel.appendChild(document.createTextNode("글 제목"));
-formTitleHead.appendChild(formTitleHeadLabel);
-formTitle.appendChild(formTitleHeadLabel);
+const formTitleHead = makeHeadAndLabel("h3", "title", "글 제목");
+formTitle.appendChild(formTitleHead);
 
 const formTitleInputSpan = addEleClass("span", "box");
 const formTitleInput = createEleId("input", "title");
@@ -65,16 +99,12 @@ formTitle.appendChild(formTitleInputSpan);
 form.appendChild(formTitle);
 
 const formContent = document.createElement("div");
-const formContentHead = document.createElement("h3");
-const formContentHeadLabel = document.createElement("label");
-formContentHeadLabel.setAttribute("for", "title");
-formContentHeadLabel.appendChild(document.createTextNode("내용"));
-formContentHead.appendChild(formContentHeadLabel);
+const formContentHead = makeHeadAndLabel("h3", "contentText", "내용");
 formContent.appendChild(formContentHead);
 
 const formContentTextareaSpan = addEleClass("span", "textbox");
 const formContentTextarea = createEleId("textarea", "content");
-formContentTextarea.setAttribute("name", "content");
+formContentTextarea.setAttribute("name", "contentText");
 formContentTextarea.setAttribute("cols", "60");
 formContentTextarea.setAttribute("rows", "20");
 formContentTextarea.setAttribute("maxlength", "40");
@@ -84,22 +114,26 @@ formContent.appendChild(formContentTextareaSpan);
 
 form.appendChild(formContent);
 
-const formSubmitCancel = document.createElement("div");
-const formSubmit = createEleId("input", "submit");
+// TechStack
+const formTechStack = document.createElement("div");
+const formTechStackTitle = makeHeadAndLabel("h3", "techStack", "기술 스택");
+formTechStack.appendChild(formTechStackTitle);
+
+const techStackCheck = techStackCheckBox(techStackData);
+formTechStack.appendChild(techStackCheck);
+
+form.appendChild(formTechStack);
+
+const formSubmitDiv = addEleClass("div", "submit_area");
+const formSubmit = addEleClass("input", "submit");
 formSubmit.setAttribute("type", "submit");
 formSubmit.setAttribute("name", "submit");
 formSubmit.setAttribute("value", "작성");
-formSubmitCancel.appendChild(formSubmit);
+formSubmitDiv.appendChild(formSubmit);
+form.appendChild(formSubmitDiv);
 
-const formCancel = document.createElement("button");
-formCancel.appendChild(document.createTextNode("취소"));
-formSubmitCancel.appendChild(formCancel);
-
-form.append(formSubmitCancel);
-form.innerHTML += `<div>
-    <h3><label for="title">글 제목</label></h3>
-</div>`;
-
+const formCancelDiv = makeLinkButton("/posts", "취소");
+form.append(formCancelDiv);
 // AppendChild Components - Main
 
 section.appendChild(form);
@@ -109,7 +143,6 @@ container.appendChild(main);
 
 // Footer
 const footer = makeFooter();
-
 container.appendChild(footer);
 
 document.body.appendChild(container);

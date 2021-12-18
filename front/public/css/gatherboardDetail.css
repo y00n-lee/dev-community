@@ -6,13 +6,6 @@
   --slider-text-color: #7979d3;
 }
 
-.container {
-  width: 100%;
-  /* height: 100vh; */
-  margin: 0 auto;
-  border: solid #eaeaea 1px;
-}
-
 /* MAIN */
 #main {
   padding-top: 62px;
@@ -32,12 +25,7 @@
   font-weight: 700;
 }
 
-#main input:focus,
-#main textarea:focus {
-  outline: none;
-}
-
-#makeBlock {
+#showGather {
   display: block;
   position: relative;
   margin: 0 auto;
@@ -45,44 +33,43 @@
   width: 460px;
 }
 
-.box {
+.box,
+.contentBox,
+.techStackBox {
   display: block;
   width: 100%;
-  height: 50px;
-  border: solid 1px var(--bg-color);
+  color: black;
   padding: 10px 14px;
   box-sizing: border-box;
   background-color: #fff;
   position: relative;
 }
 
-.textbox {
-  display: block;
-  width: 100%;
-}
-
-.int {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 30px;
-  border: none;
-  background: #fff;
-  font-size: 15px;
-}
-
-#content {
-  resize: vertical;
+.box,
+.contentBox {
   border: solid 1px var(--bg-color);
-  padding: 10px 14px;
-  font-size: 13px;
 }
 
-.submit_area {
+.box {
+  height: 50px;
+}
+
+.contentBox,
+.techStackBox {
+  height: 300px;
+  border: solid 1px var(--bg-color);
+}
+
+.techStackImg {
+  width: 100px;
+  height: 100px;
+}
+
+.btn_area {
   margin: 20px 0 20px;
 }
 
-.submit {
+.btn {
   width: 100%;
   padding: 21px 0 17px;
   border: 0;

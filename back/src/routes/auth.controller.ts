@@ -41,43 +41,43 @@ router.post(
 
 router.post(
   "/refresh",
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate("jwt", { session: false }, async (err, _user: ITokenUser) => {
-      if (!_user) return res.json({ status: false });
+  passport.authenticate("jwt", { session: false }),
+  asyncHandler(async (req: Request, res: Response) => {
+    const _user = req.user;
+    if (!_user) return res.json({ status: false });
 
-      const { id } = _user;
+    const { id } = _user;
 
-      const isVerifiedToken = await authService.verifyRefresh({ id });
+    const isVerifiedToken = await authService.verifyRefresh({ id });
 
-      if (!isVerifiedToken)
-        return res.status(401).json({ status: false, err: "다시 로그인 해주세요" });
+    if (!isVerifiedToken)
+      return res.status(401).json({ status: false, err: "다시 로그인 해주세요" });
 
-      const accessToken = await authService.signin({ id });
+    const accessToken = await authService.signin({ id });
 
-      res.cookie(jwtContents.header, accessToken, {
-        httpOnly: true,
-        maxAge: EXPIRED,
-      });
+    res.cookie(jwtContents.header, accessToken, {
+      httpOnly: true,
+      maxAge: EXPIRED,
+    });
 
-      return res.json({ status: true });
-    })(req, res, next);
+    return res.json({ status: true });
   }),
 );
 
 router.post(
   "/signout",
-  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
-    passport.authenticate("jwt", { session: false }, async (err, _user: ITokenUser) => {
-      if (!_user)
-        return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
+  passport.authenticate("jwt", { session: false }),
+  asyncHandler(async (req: Request, res: Response) => {
+    const _user = req.user;
+    if (!_user)
+      return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
 
-      const { id } = _user;
+    const { id } = _user;
 
-      await userService.updateByQuery({ _id: id }, { refreshToken: null });
-      res.clearCookie(jwtContents.header);
+    await userService.updateByQuery({ _id: id }, { refreshToken: null });
+    res.clearCookie(jwtContents.header);
 
-      return res.json({ status: true });
-    })(req, res, next);
+    return res.json({ status: true });
   }),
 );
 
