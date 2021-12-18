@@ -44,6 +44,14 @@ app.get("/edit/post/:id", (_, res) => {
   res.render("gatherboardMake");
 });
 
+app.get("/user", (req, res) => {
+  res.render("user");
+});
+
+app.get("/edit/user/:id", (req, res) => {
+  res.render("userUpdate");
+});
+
 app.use((err, _, res, __) => {
   res.send("asd");
 });
