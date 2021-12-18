@@ -20,7 +20,7 @@ router.get("/:postId", async (req, res) => {
   const { postId } = req.params;
   try {
     const post = await postsService.getById(postId);
-    return res.json({ status: true, data: post });
+    return res.json({ status: true, data: { post } });
   } catch (err: any) {
     return res.status(404).json({ status: false, message: err.message });
   }
@@ -32,7 +32,7 @@ router.post("/", passport.authenticate("jwt", { session: false }), async (req, r
 
   try {
     const post = await postsService.createPost(title, content, userId, tagList);
-    return res.status(201).json({ status: true, data: post });
+    return res.status(201).json({ status: true, data: { post } });
   } catch (err: any) {
     return res.status(400).json({ status: false, message: err.message });
   }
@@ -45,7 +45,7 @@ router.put("/:postId", passport.authenticate("jwt", { session: false }), async (
 
   try {
     const post = await postsService.editPost(postId, title, content, userId, tagList);
-    return res.json({ status: true, data: post });
+    return res.json({ status: true, data: { post } });
   } catch (err: any) {
     return res.status(409).json({ status: false, message: err.message });
   }
@@ -60,7 +60,7 @@ router.put(
 
     try {
       const post = await postsService.addMember(postId, userId);
-      return res.json({ status: true, data: post });
+      return res.json({ status: true, data: { post } });
     } catch (err: any) {
       return res.status(409).json({ status: false, message: err.message });
     }
@@ -72,7 +72,7 @@ router.delete("/:postId", passport.authenticate("jwt", { session: false }), asyn
   const { postId } = req.params;
 
   try {
-    console.log(await postsService.deletePost(postId, userId));
+    await postsService.deletePost(postId, userId);
     res.json({ status: true });
   } catch (err: any) {
     res.status(404).json({ status: false, message: err.message });
