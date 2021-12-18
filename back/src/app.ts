@@ -4,6 +4,7 @@ import passport from "passport";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
 import dotenv from "dotenv";
+import cors from "cors";
 
 import { errorMiddleware } from "./middlewares/errorMiddleware";
 import { PassportConfigunation } from "./passport";
@@ -21,6 +22,12 @@ mongoose.connect(uri, () => {
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  }),
+);
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -35,7 +42,7 @@ app.get("/", (_, res) => {
 
 app.use(routes);
 
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
 
 app.listen(process.env.PORT, () => {
   console.log(`Example app listening at http://localhost:${process.env.PORT}`);
