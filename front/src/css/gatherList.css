@@ -1,0 +1,59 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+main {
+  position: relative;
+}
+#gatherPost {
+  margin: 30px 0 50px 30px;
+}
+#post-list {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+.post {
+  position: relative;
+  width: 330px;
+  height: 380px;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin: 20px 30px;
+}
+.post-title {
+  margin-bottom: 15px;
+}
+.post-author {
+  margin-bottom: 15px;
+}
+.post-stack {
+  /* margin-bottom: 15px; */
+}
+.post-content {
+  margin-top: 15px;
+}
+.post-look {
+  display: block;
+  text-align: right;
+  font-size: 12px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+.post-write {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  color: var(--ft-color);
+  background-color: var(--bg-color);
+  display: inline-block;
+  position: absolute;
+  right: 60px;
+  bottom: 2px;
+}

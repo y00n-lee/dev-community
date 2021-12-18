@@ -28,75 +28,6 @@ input {
   outline: none;
 }
 
-.container {
-  width: 100%;
-  /* height: 100vh; */
-  margin: 0 auto;
-  /* border: solid #eaeaea 1px; */
-}
-
-/* Header */
-#header {
-  position: -webkit-sticky;
-  position: sticky;
-  z-index: 1;
-  top: 0px;
-}
-
-#header .navBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 12px;
-  background-color: var(--bg-color);
-}
-
-#header .navBar .navMenu,
-#header .navBar .navLogin {
-  display: flex;
-}
-
-#header .navBar .navMenu li {
-  padding: 10px 20px;
-  color: var(--ft-color);
-}
-#header .navBar .navMenu li a,
-#header .navBar .navLogin li a {
-  color: var(--ft-color);
-}
-
-#header .navBar .navLogin li {
-  padding: 5px 20px;
-  border: solid 1px var(--ft-color);
-  border-radius: 5px;
-  margin-left: 8px;
-}
-
-#header .navBar .navLogin .register {
-  background-color: var(--ft-color);
-}
-#header .navBar .navLogin .register a {
-  color: var(--bg-color);
-}
-
-.navBar .navMenu li a:hover,
-.navBar .navLogin li a:hover {
-  text-shadow: 0px 0px 2px var(--ft-color);
-}
-.navBar .navLogin .register a:hover {
-  text-shadow: 0px 0px 2px var(--bg-color);
-}
-
-/* footer */
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 100px;
-  line-height: 100px;
-  text-align: center;
-}
-
 /* login 영역 */
 .loginBox {
   display: flex;
@@ -105,20 +36,19 @@ input {
   height: 500px;
   margin: 30px 0;
 }
-.loginForm {
+#loginForm {
   width: 400px;
-  /* background-color: #fff; */
   border-radius: 8px;
   padding: 50px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-.loginForm h2 {
+#loginForm h2 {
   text-align: center;
   font-size: 30px;
   margin-bottom: 30px;
 }
 
-.loginForm .user {
+#loginForm .user {
   display: block;
   font-weight: 700;
   font-size: 14px;

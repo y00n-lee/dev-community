@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>사용자 프로필 수정</title>
+    <link rel="stylesheet" href="./src/css/profileModify.css" type="text/css" />
+    <link rel="stylesheet" href="./src/css/index.css" type="text/css" />
+  </head>
+  <body>
+    <div class="container">
+      <header id="header">
+        <nav class="navBar">
+          <!-- 슬라이더 부분 -->
+					<div class="slider">
+						<input class="burger-check" type="checkbox" id="burger-check" />
+						<label class="burger-icon" for="burger-check">
+							<span class="burger-sticks"></span>
+						</label>
+						<div class="menu">
+							<div style="width: 200px;">
+							<a href="#">About</a>
+							<a href="#">자유게시판</a>
+							<a href="#">모집게시판</a>
+							</div>
+						</div>
+					</div>
+          
+          <ul class="navMenu">
+            <li><a href="#">Logo</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">자유게시판</a></li>
+            <li><a href="#">모집게시판</a></li>
+          </ul>
+
+          <ul class="navLogin">
+            <li class="login"><a href="#">Log In</a></li>
+            <li class="register"><a href="#">Register</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <section class="profile">
+        <form action="profile.html" id="modifyForm" method="get">
+          <div class="profileImg">
+            <img src="./img/user.png" alt="프로필사진" />
+            <a href="#">프로필사진 수정</a>
+          </div>
+          <div class="userInfo">
+            <div class="name">
+              <strong>닉네임</strong>
+              <input type="text" id="username"></input>
+            </div>
+
+            <div class="userEmail">
+              <strong>이메일</strong>
+              <input type="email" id="email"></input>
+              <!-- <input type="button" value="인증" /> -->
+            </div>
+            <div class="userGender">
+              <strong>성별</strong>
+              <div>
+                <label><input type="radio" name="gender" value="남자" />남자</label>
+                <label><input type="radio" name="gender" value="여자" />여자</label>
+              </div>
+            </div>
+            <div class="userStack">
+              <strong>기술스택</strong>
+              <div class="stacks">
+                <label><input type="checkbox" name="stack" value="HTML">HTML</label>
+                <label><input type="checkbox" name="stack" value="CSS">CSS</label>
+                <label><input type="checkbox" name="stack" value="JS">JS</label>
+                <label><input type="checkbox" name="stack" value="TS">TS</label>
+                <label><input type="checkbox" name="stack" value="React">React</label>
+                <label><input type="checkbox" name="stack" value="Vue">Vue</label>
+                <label><input type="checkbox" name="stack" value="JAVA">JAVA</label>
+                <label><input type="checkbox" name="stack" value="Python">Python</label>
+                <label><input type="checkbox" name="stack" value="C">C</label>
+                <label><input type="checkbox" name="stack" value="C++">C++</label>
+                <label><input type="checkbox" name="stack" value="Spring">Spring</label>
+
+              </div>
+            </div>
+            <div class="userGit">
+              <strong>Github 주소</strong>
+              <input type="text" id="gitAddress"></input>
+            </div>          
+          </div>
+          <div class="submitBtn">
+            <input type="submit" class="submit" value="수정하기" />
+          </div>
+        </form>
+      </section>
+
+      <footer id="footer">Footer 영역입니다.</footer>
+    </div>
+    <script src="./src/js/profileModify.js"></script>
+  </body>
+</html>

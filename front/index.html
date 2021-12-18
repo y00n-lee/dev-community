@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>메인화면입니다.</title>
     <link rel="stylesheet" href="./src/css/index.css" />
+    <link rel="stylesheet" href="./src/css/gatherList.css" />
   </head>
   <body>
     <div class="container">
@@ -18,14 +19,14 @@
               <span class="burger-sticks"></span>
             </label>
             <div class="menu">
-              <div style="width: 200px;">
+              <div style="width: 200px">
                 <a href="#">About</a>
                 <a href="#">자유게시판</a>
                 <a href="#">모집게시판</a>
               </div>
             </div>
           </div>
-          
+
           <ul class="navMenu">
             <li><a href="#">Logo</a></li>
             <li><a href="#">About</a></li>
@@ -40,7 +41,7 @@
         </nav>
       </header>
 
-      <main>
+      <main role="main">
         <section>
           <div class="mainImage">
             <img class="image" src="./img/main.jpg" alt="메인화면" />
@@ -74,12 +75,12 @@
           </div>
         </section>
 
-        <section class="recentPost">
-          <h2>최신 글</h2>
-        </section>
+        <h1 id="gatherPost"><a href="./gatherList.html">최신글</a></h1>
+        <section id="post-list"></section>
       </main>
 
       <footer id="footer">Footer 영역입니다.</footer>
     </div>
+    <script defer src="./src/js/makePost.js"></script>
   </body>
 </html>
