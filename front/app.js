@@ -12,16 +12,42 @@ app.set("views", path.join(__dirname, "views"));
 
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "public/")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get("/", (req, res, next) => {
-  res.render("index", { data: 300 });
+app.get("/", (_, res) => {
+  res.render("index");
 });
 
-app.get("/asd", (req, res) => {
-  res.render("asd");
+app.get("/signin", (_, res) => {
+  res.render("login");
+});
+
+app.get("/signup", (_, res) => {
+  res.render("signup");
+});
+
+app.get("/posts", (_, res) => {
+  res.render("gatherList");
+});
+
+app.get("/posts/:id", (req, res) => {
+  res.render("index");
+});
+
+app.get("/edit/post/:id", (_, res) => {
+  res.render("gatherboardMake");
+});
+
+app.get("/edit/post/:id", (_, res) => {
+  res.render("gatherboardMake");
+});
+
+app.use((err, _, res, __) => {
+  console.log(err);
+  console.log("asdasd");
+  res.send("asd");
 });
 
 app.listen(3000, () => {
