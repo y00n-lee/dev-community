@@ -22,9 +22,9 @@ function addTextNode(ele, text) {
 }
 //데이터 필드 생성 함수
 function makeDataField(userData, fieldname) {
-  const dataField = addEleClass(`div`,`field`);
+  const dataField = addEleClass(`div`, `field`);
   const dataLabel = addEleClass(`p`, `label`);
-  const _data = addEleClass(`p`,`data`);
+  const _data = addEleClass(`p`, `data`);
 
   addTextNode(_data, userData);
   addTextNode(dataLabel, fieldname);
@@ -33,7 +33,7 @@ function makeDataField(userData, fieldname) {
   dataField.appendChild(_data);
 
   return dataField;
-};
+}
 
 //Body
 const container = addEleClass("div", "container");
@@ -45,46 +45,42 @@ container.appendChild(header);
 // Main
 const main = createEleId("main", "main");
 
-const grouptitle = addEleClass("p","group-title");
-addTextNode(grouptitle, '@@님의 프로필');
+const grouptitle = addEleClass("p", "group-title");
+addTextNode(grouptitle, "@@님의 프로필");
 
-main.appendChild(grouptitle)
-const section = addEleClass("section","flex-container");
+main.appendChild(grouptitle);
+const section = addEleClass("section", "flex-container");
 
 // dummy data
 const user = {
-  nick : "helloworld",
-  email : "hellohello@gggggg.com",
-  gender : "남성",
-  skill : ['자바스크립트', '노드js', 'react', 'vue', 'mongodb'],
-  github : "hellohello@github.com",
+  nick: "helloworld",
+  email: "hellohello@gggggg.com",
+  gender: "남성",
+  skill: ["자바스크립트", "노드js", "react", "vue", "mongodb"],
+  github: "hellohello@github.com",
   id: "1",
 };
 
-const article = addEleClass("article","flex-item");
-const profileImg = addEleClass("img","image"); // 회원 프로필 사진
+const article = addEleClass("article", "flex-item");
+const profileImg = addEleClass("img", "image"); // 회원 프로필 사진
 profileImg.setAttribute("src", "../img/about/man1.png");
 article.appendChild(profileImg);
 
 const field = [`nickname`, `email`, `gender`, `skill`, `github`];
-const fieldname = [`닉네임`,`이메일`,`성별`,`기술스택`,`깃허브주소`];
+const fieldname = [`닉네임`, `이메일`, `성별`, `기술스택`, `깃허브주소`];
 //수정할 사항 : 기술 스택은 p태그가 아닌 이미지나 다른 태그로 바꿔야 함.
 
 const fieldNum = field.length;
-for (let i=0; i<fieldNum; i++) {
-  article.appendChild(
-    makeDataField(
-      user[field[i]],fieldname[i]
-    )
-  )
+for (let i = 0; i < fieldNum; i++) {
+  article.appendChild(makeDataField(user[field[i]], fieldname[i]));
 }
 
 // Update Button
 const updateBtn = createEleId("input", "updateBtn");
-updateBtn.setAttribute("type","button");
-updateBtn.setAttribute("name","updateBtn");
-updateBtn.setAttribute("value","프로필 수정");
-updateBtn.setAttribute("onclick",`updatePage(${user.id})`)
+updateBtn.setAttribute("type", "button");
+updateBtn.setAttribute("name", "updateBtn");
+updateBtn.setAttribute("value", "프로필 수정");
+updateBtn.setAttribute("onclick", `updatePage(${user.id})`);
 article.appendChild(updateBtn);
 
 section.appendChild(article);
