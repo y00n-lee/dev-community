@@ -1,0 +1,75 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+}
+
+.flex-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-evenly;
+}
+/* IE10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .flex-container {
+    justify-content: space-around;
+  }
+}
+
+.flex-item {
+  width: 80%;
+  min-width: 375px;
+  max-width: 1200px;
+  /* height: 400px; */
+  display: block;
+  text-align: center;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  border-radius: 25px;
+  /* margin: 30px 50px; */
+}
+/* .about-img {
+  width: 100%;
+  max-width: 2000px;
+  display: block;
+  margin: auto;
+} */
+.image {
+  width: 150px;
+  height: 150px;
+  margin: 20px auto 20px auto;
+}
+.member-name, .introduce, .group-title {
+  padding: 20px;
+  word-break: keep-all;
+}
+.group-title {
+  text-align: center;
+  font-size: 50px;
+}
+.data {
+  font-size: 20px;
+  text-align: left;
+  word-break: keep-all;
+  display: block;
+  margin: auto;
+}
+.introduce {
+  font-size: 13px;
+  display: block;
+  margin: auto;
+  width: 80%;
+}
+.field {
+  display: block;
+  width: 80%;
+  margin: 20px;
+}
+.label {
+  font-size: 10px;
+  text-align: left;
+}
+.member-skill {
+  width: 80%;
+  margin: 20px auto;
+  word-break: keep-all;
+}
