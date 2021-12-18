@@ -1,24 +1,3 @@
-// const card = (function () {
-//   const main = document.querySelector("#main");
-//   const container = document.createElement("section");
-//   container.classList += "flex-container";
-
-//   // member 정보 불러오기
-//   const memberCount = 5; // 임의설정, member 수 데이터 가져와야 함
-
-//   for (let i = 0; i < memberCount; i++) {
-//     const items = document.createElement("article");
-//     items.classList += "flex-item";
-//   }
-//   // console.log("a");
-//   //   var tag = "";
-//   // for(i=0; i<1000; i++){
-//   // 	tag += "<div id='test'+i>"+i+"</div>";
-//   // }
-//   // $("#innerTable").append(tag);
-// })();
-
-
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 // User Function
@@ -26,7 +5,6 @@ import { makeFooter } from "./components/footer.js";
 function createEleId(el, id) {
   const ele = document.createElement(`${el}`);
   ele.setAttribute("id", `${id}`);
-
   return ele;
 }
 
@@ -38,6 +16,11 @@ function addEleClass(el, className) {
   return ele;
 }
 
+// Add textnode to element
+function addTextNode(ele, text) {
+  ele.appendChild(document.createTextNode(`${text}`));
+}
+
 //Body
 const container = addEleClass("div", "container");
 
@@ -47,53 +30,38 @@ container.appendChild(header);
 
 // Main
 const main = createEleId("main", "main");
-const mainHeadName = createEleId("h2", "head");
-const section = createEleId("section", "makeBlock");
-const form = document.createElement("form");
 
-/* <img class="about-img" src="./img/about/aboutus.jpg" alt="" srcset="" />
-        <div class="flex-container">
-          <div class="flex-item">
-            <img class="image" src="./img/about/man1.png" alt="" srcset="" />
-            <h3>장병연</h3>
-            <h4>프론트엔드/팀장</h4>
-            <p class="p-text">
-              안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다.
-              안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다.
-              안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다. 안녕하세요, 장병연입니다.
-            </p>
-          </div>
-          <div class="flex-item">
-            <img class="image" src="./img/about/man2.png" alt="" srcset="" />
-            <h3>김윤성</h3>
-            <h4>프론트엔드</h4>
-            <p class="p-text">안녕하세요, 김윤성입니다.</p>
-          </div>
-          <div class="flex-item">
-            <img class="image" src="./img/about/man3.png" alt="" srcset="" />
-            <h3>옥경표</h3>
-            <h4>백엔드</h4>
-            <p class="p-text">안녕하세요, 옥경표입니다.</p>
-          </div>
-          <div class="flex-item">
-            <img class="image" src="./img/about/woman1.png" alt="" srcset="" />
-            <h3>이지윤</h3>
-            <h4>프론트엔드</h4>
-            <p class="p-text">안녕하세요, 이지윤입니다.</p>
-          </div>
-          <div class="flex-item">
-            <img class="image" src="./img/about/man4.png" alt="" srcset="" />
-            <h3>지석호</h3>
-            <h4>백엔드</h4>
-            <p class="p-text">안녕하세요, 지석호입니다.</p>
-          </div>
-        </div> */
+const grouptitle = addEleClass("p","group-title");
+addTextNode(grouptitle, '이 프로젝트 그룹 이름');
 
-// AppendChild Components - Main
+main.appendChild(grouptitle)
+const section = addEleClass("section","flex-container"); //멤버 카드 여러개가 담길 element
 
-section.appendChild(form);
-main.appendChild(mainHeadName);
+// 각각의 멤버 카드 article로 생성
+const memberCount = 5; //임의 설정
+const stacks = ['자바스크립트', '노드js', 'react', 'vue', 'mongodb'];
+// const intro = []
+for (let i = 0; i<memberCount; i++) {
+  const article = addEleClass("article","flex-item");
+  const memberImg = addEleClass("img","image"); // 회원 프로필 사진
+  const memberName = addEleClass("p", "member-name"); // 회원 이름
+  const memberIntro = addEleClass("p", "introduce"); // 회원 소개말
+  const memberSkill = addEleClass("p", "member-skill"); // 회원 기술 스택
+
+  // 회원 데이터 불러오기
+  memberImg.setAttribute("src", "../img/about/man1.png")
+  addTextNode(memberName, "김병철")
+  addTextNode(memberIntro, `안녕하세요, 잘 부탁드립니다~~!안녕하세요, 잘 부탁드립니다~~!`)
+  addTextNode(memberSkill, stacks[i]);  
+  article.appendChild(memberImg);
+  article.appendChild(memberName);
+  article.appendChild(memberIntro);
+  article.appendChild(memberSkill);
+
+  section.appendChild(article);
+}
 main.appendChild(section);
+
 container.appendChild(main);
 
 // Footer
