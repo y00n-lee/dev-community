@@ -12,6 +12,6 @@ import { PostSchema } from "./schemas/post.model";
 const UserModel = mongoose.model<IUserDocument, IUserModel>("User", UserSchema);
 const TagModel = mongoose.model<ITagDocument, ITagModel>("Tag", TagSchema);
 const CommentModel = mongoose.model<IComment>("Comment", CommentSchema);
-const Post = mongoose.model<IPost, IPostModel>("Post", PostSchema);
+const PostModel = mongoose.model<IPost, IPostModel>("Post", PostSchema);
 
-export { UserModel, TagModel, CommentModel, Post };
+export { UserModel, TagModel, CommentModel, PostModel };

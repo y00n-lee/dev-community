@@ -1,5 +1,6 @@
 import { IComment } from "./Comment";
 import { IUserDocument } from "./User";
+import { ITagDocument } from "./Tag";
 import { Model, Types, PopulatedDoc } from "mongoose";
 
 export interface IPost {
@@ -7,6 +8,8 @@ export interface IPost {
   author: PopulatedDoc<IUserDocument>;
   views: number;
   comments: Types.DocumentArray<IComment>;
+  members: Types.DocumentArray<IUserDocument>;
+  tags: Types.DocumentArray<ITagDocument>;
   isEdit: boolean;
 }
 
