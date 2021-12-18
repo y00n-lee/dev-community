@@ -45,6 +45,12 @@ const container = addEleClass("div", "container");
 const header = makeHeader();
 container.appendChild(header);
 
+// Main
+const main = createEleId("main", "main");
+const mainHeadName = createEleId("h2", "head");
+const section = createEleId("section", "makeBlock");
+const form = document.createElement("form");
+
 /* <img class="about-img" src="./img/about/aboutus.jpg" alt="" srcset="" />
         <div class="flex-container">
           <div class="flex-item">
@@ -92,8 +98,6 @@ container.appendChild(main);
 
 // Footer
 const footer = makeFooter();
-
 container.appendChild(footer);
-
 document.body.appendChild(container);
 
