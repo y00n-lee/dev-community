@@ -10,11 +10,14 @@ function createEleId(el, id) {
 }
 
 // Create Elemen Class
-function addEleClass(el, className) {
+function addEleClass(el, classNames) {
   const ele = document.createElement(`${el}`);
-  if (!className) return ele;
-  ele.classList.add(`${className}`);
-
+  if (!classNames) return ele;
+  // Create Elemen Class
+  const classArray = classNames.split(" ");
+  for (let i = 0; i < classArray.length; i++) {
+    ele.classList.add(`${classArray[i]}`);
+  }
   return ele;
 }
 
