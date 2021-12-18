@@ -1,31 +1,3 @@
-:root {
-  --bg-color: #7979d3;
-  --ft-color: #fff;
-  --font-size: 9px;
-  --slider-color: #fff;
-  --slider-text-color: #7979d3;
-}
-/* Default */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-ol,
-ul {
-  list-style: none;
-}
-
-img {
-  vertical-align: middle;
-  border: none;
-}
-
-a {
-  text-decoration: none;
-}
-
 /* footer */
 #footer {
   height: 100px;

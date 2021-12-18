@@ -1,3 +1,5 @@
+import { makeHeader } from "./components/header.js";
+import { makeFooter } from "./components/footer.js";
 // User Function
 // Create Element Id
 function createEleId(el, id) {
@@ -25,38 +27,8 @@ function addEleClass(el, className) {
 //Body
 const container = addEleClass("div", "container");
 
-//Header
-const header = createEleId("header", "header");
-const nav = addEleClass("nav", "navBar");
-const slider = addEleClass("div", "slider");
-const navMenu = addEleClass("ul", "navMenu");
-const navLogin = addEleClass("ul", "navLogin");
-const menu = addEleClass("div", "menu");
-
-slider.innerHTML = `<input class="burger-check" type="checkbox" id="burger-check" />
-<label class="burger-icon" for="burger-check">
-<span class="burger-sticks"></span>
-</label>`;
-
-navMenu.innerHTML = `
-    <li><a href="#">Logo</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">모집게시판</a></li>`;
-
-navLogin.innerHTML = `<li class="login"><a href="#">Log In</a></li>
-<li class="register"><a href="#">Register</a></li>`;
-
-menu.innerHTML = `<div style="width: 200px;">
-<a href="#">About</a>
-<a href="#">모집게시판</a>
-</div>`;
-
-// AppendChild Components - Header
-slider.appendChild(menu);
-nav.appendChild(slider);
-nav.appendChild(navMenu);
-nav.appendChild(navLogin);
-header.appendChild(nav);
+// Header
+const header = makeHeader();
 container.appendChild(header);
 
 // Main
@@ -136,8 +108,7 @@ main.appendChild(section);
 container.appendChild(main);
 
 // Footer
-const footer = createEleId("footer", "footer");
-footer.appendChild(document.createTextNode("Footer 영역입니다."));
+const footer = makeFooter();
 
 container.appendChild(footer);
 
