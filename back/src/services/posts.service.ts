@@ -7,10 +7,11 @@ export class PostsService {
   ) {}
 
   async getById(postId: string) {
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
+    const post = await PostModel.findById(postId)
+      .populate("author", "-password -refreshToken -keyForVerify")
+      .populate("members", "-password -refreshToken -keyForVerify")
+      .populate("comments")
+      .populate("tags");
     return post;
   }
 
@@ -42,7 +43,7 @@ export class PostsService {
     if (!title || !content) {
       throw new Error("제목과 내용을 입력해 주세요.");
     }
-    
+
     const post = await PostModel.findById(postId).populate(
       "author",
       "-password -refreshToken -keyForVerify",

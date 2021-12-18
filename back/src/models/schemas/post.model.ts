@@ -55,7 +55,10 @@ PostSchema.statics.getPaginatedPosts = async function (
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage)
-      .populate("author", "-password -refreshToken -keyForVerify"),
+      .populate("author", "-password -refreshToken -keyForVerify")
+      .populate("members", "-password -refreshToken -keyForVerify")
+      .populate("comments")
+      .populate("tags"),
   ]);
 
   const totalPage = Math.ceil(total / perPage);
