@@ -18,6 +18,7 @@ export interface IUserDocument extends IUserData, Document {
   emailVerified: boolean;
   keyForVerify: string;
   passwordReset: boolean;
+  posts: any[];
 
   comparePassword(aPassword: string): Promise<boolean>;
   verifyRefresh(): boolean;

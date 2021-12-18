@@ -1,48 +1,56 @@
 import passport from "passport";
-import { Router } from "express";
+import { NextFunction, Request, Response, Router } from "express";
+
 import { userService } from "@src/services/user.service";
 import { ICreateUser } from "@src/types/CoreResponse";
 import { ITokenUser, IUserDocument } from "@src/types/User";
 import { emailAuthentication, makeVerifyKey, sendChangedPassword } from "@src/utils/mailAuth";
 import { makeHashPassword } from "@src/utils/passwordRelated";
 import { jwtContents } from "@src/utils/constants";
+import { asyncHandler } from "@src/utils/asyncHandler";
 
 const router = Router();
 
-router.post("/signup", async (req, res, next) => {
-  const result = (await userService.createUser(req.body)) as ICreateUser;
+router.post(
+  "/signup",
+  asyncHandler(async (req: Request, res: Response) => {
+    const result = (await userService.createUser(req.body)) as ICreateUser;
 
-  if (!result.status) return res.status(401).json(result);
+    if (!result.status) return res.status(401).json(result);
 
-  const host = `${req.protocol}://${req.get("host")}`;
-  const keyForVerify = result.keyForVerify as string;
+    const host = `${req.protocol}://${req.get("host")}`;
+    const keyForVerify = result.keyForVerify as string;
 
-  await emailAuthentication(host, req.body.email, keyForVerify)
-    .then(() => res.json({ status: true }))
-    .catch((e) => next(e));
-});
+    await emailAuthentication(host, req.body.email, keyForVerify);
 
-router.get("/:id", (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, async (err, _user: ITokenUser) => {
-    if (err) return next(err);
-    if (!_user)
-      return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
+    return res.json({ status: true });
+  }),
+);
 
-    const user = await userService.getById(_user.id, { refreshToken: 0, password: 0 });
+router.get(
+  "/:id",
+  asyncHandler(async (req: Request, res: Response) => {
+    const user = await userService.getById(req.params.id, { refreshToken: 0, password: 0 });
 
-    return res.json(user);
-  })(req, res, next);
-});
+    if (!user) return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
 
-router.post("/password/reset", async (req, res, next) => {
-  try {
+    await user.populate("tags");
+    await user.populate("posts");
+
+    return res.json({ status: true, data: { user } });
+  }),
+);
+
+router.post(
+  "/password/reset",
+  asyncHandler(async (req: Request, res: Response) => {
     const { email } = req.body;
     const user = await userService.getByEmail(email);
 
     if (!user)
       return res
         .status(401)
-        .json({ status: false, message: "해당 메일로 가입된 사용자가 없습니다." });
+        .json({ status: false, data: { message: "해당 메일로 가입된 사용자가 없습니다." } });
 
     const password = makeVerifyKey(5);
     const hashedPassword = await makeHashPassword(password);
@@ -51,38 +59,43 @@ router.post("/password/reset", async (req, res, next) => {
 
     await sendChangedPassword(email, password);
 
-    res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
-  } catch (e) {
-    next(e);
-  }
-});
+    return res.json({ status: true, data: { message: "임시 비밀번호가 메일에 전송됐습니다." } });
+  }),
+);
 
-router.post("/password/change", async (req, res, next) => {
-  passport.authenticate("jwt", { session: false }, async (err, _user: ITokenUser) => {
-    if (err) return next(err);
-    if (!_user) return res.status(401).json({ status: false, message: "로그인 후 가능합니다." });
+router.post(
+  "/password/change",
+  asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
+    passport.authenticate("jwt", { session: false }, async (err, _user: ITokenUser) => {
+      if (err) return next(err);
+      if (!_user) return res.status(401).json({ status: false, message: "로그인 후 가능합니다." });
 
-    // 임시 비밀번호, 비밀번호
-    const { currentPassword, password } = req.body;
+      // 임시 비밀번호, 비밀번호
+      const { currentPassword, password } = req.body;
 
-    const user = (await userService.getById(_user.id, { refreshToken: 0 })) as IUserDocument;
+      const user = (await userService.getById(_user.id, { refreshToken: 0 })) as IUserDocument;
 
-    const isCompared = await user.comparePassword(currentPassword);
+      const isCompared = await user.comparePassword(currentPassword);
 
-    if (!isCompared) return res.json({ status: false, message: "비밀번호가 일치하지 않습니다." });
+      if (!isCompared)
+        return res.status(401).json({ status: false, message: "비밀번호가 일치하지 않습니다." });
 
-    const hashedPassword = await makeHashPassword(password);
+      const hashedPassword = await makeHashPassword(password);
 
-    await userService.updateByQuery(
-      { _id: user.id },
-      { password: hashedPassword, passwordReset: false },
-    );
+      await userService.updateByQuery(
+        { _id: user.id },
+        { password: hashedPassword, passwordReset: false },
+      );
 
-    await userService.updateByQuery({ _id: _user.id }, { refreshToken: null });
-    res.clearCookie(jwtContents.header);
+      await userService.updateByQuery({ _id: _user.id }, { refreshToken: null });
+      res.clearCookie(jwtContents.header);
 
-    res.json({ status: true, message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요" });
-  })(req, res, next);
-});
+      return res.json({
+        status: true,
+        data: { message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요" },
+      });
+    })(req, res, next);
+  }),
+);
 
 export default router;
