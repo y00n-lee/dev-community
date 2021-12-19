@@ -1,5 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
+import { makeComments } from "./components/comments.js";
 // User Function
 // Create Element Id
 function createEleId(el, id) {
@@ -34,10 +35,26 @@ function makeLinkButton(link, content) {
 
 // dummy data
 const gatherData = {
+  emailId: "kisagge@naver.com",
   title: "프론트엔드 프로젝트 하실 분 구합니다!!",
   content: "React나 Spring 다룰 줄 아시는 분 구합니다. 가능하신 분은 연락주세요!!!",
   techStack: ["React", "Spring"],
   looks: 0,
+  comments: [
+    {
+      cmt: "연락주세요",
+      author: "Yuna Kim",
+    },
+    {
+      cmt: "가능합니다!",
+      author: "James",
+    },
+  ],
+};
+
+const user = {
+  emailId: "kisagge@naver.com",
+  nickname: "GgemKko",
 };
 
 const container = addEleClass("div", "container");
@@ -86,14 +103,19 @@ for (let i = 0; i < gatherData.techStack.length; i++) {
 showGather.appendChild(gatherTechStackSpan);
 
 // Button
-const updateDiv = makeLinkButton("#", "수정하기");
+const updateDiv = makeLinkButton(``, "수정하기");
 showGather.appendChild(updateDiv);
 
 const gotoListDiv = makeLinkButton("/posts", "목록으로");
 showGather.appendChild(gotoListDiv);
 
 main.appendChild(showGather);
+
+const commentDiv = makeComments(gatherData.comments, user);
+main.appendChild(commentDiv);
+
 container.appendChild(main);
+
 // Footer
 const footer = makeFooter();
 container.appendChild(footer);
