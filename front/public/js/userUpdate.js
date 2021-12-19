@@ -1,5 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
+import {} from "./components/modal.js";
 // User Function
 // Create Element Id
 function createEleId(el, id) {
@@ -20,33 +21,38 @@ function addEleClass(el, className) {
 function addTextNode(ele, text) {
   ele.appendChild(document.createTextNode(`${text}`));
 }
+//패스워드 필드 생성 함수
+function makePwField() {
+  return 0;
+}
 //데이터 필드 생성 함수
-function makeDataField(fieldname, userData, addBtn) {
-  const dataField = addEleClass(`div`, `field`);
+function makeDataField(userData, fieldname, url) {
+  const dataField = addEleClass(`form`, `field`);
+  dataField.setAttribute("method", "post");
+  dataField.setAttribute("action", `${url}`);
+  dataField.setAttribute("target", "iframe");
   const dataLabel = addEleClass(`p`, `label`);
   const _data = addEleClass(`input`, `data`);
-  // const _data = createEleId(`input`);
-  // if (userData !== null)
-  // addTextNode(_data, userData);
-  console.log(userData);
-  if (userData !== undefined) _data.setAttribute("value", userData);
-  // _data.setAttribute("size", 50);
+  _data.setAttribute("value", userData);
   addTextNode(dataLabel, fieldname);
 
   dataField.appendChild(dataLabel);
   dataField.appendChild(_data);
 
-  if (addBtn) {
-    const updateBtn = createEleId("input", "updateBtn");
-    updateBtn.setAttribute("type", "button");
-    updateBtn.setAttribute("name", "updateBtn");
-    if (userData !== undefined) updateBtn.setAttribute("value", "수정");
-    else updateBtn.setAttribute("value", "확인");
-    dataField.appendChild(updateBtn);
-  }
-  // updateBtn.setAttribute("onclick", `updatePage(${user.id})`);
+  const updateBtn = addEleClass("input", "updateBtn");
+  makeButton(updateBtn, "submit", "수정", "updateBtn");
+  updateBtn.setAttribute("onclick", `btnSubmit()`);
+
+  dataField.appendChild(updateBtn);
 
   return dataField;
+}
+
+//make button
+function makeButton(ele, type, value, name) {
+  ele.setAttribute("value", `${value}`);
+  ele.setAttribute("type", `${type}`);
+  ele.setAttribute("name", `${name}`);
 }
 
 //Body
@@ -80,33 +86,54 @@ const profileImg = addEleClass("img", "image"); // 회원 프로필 사진
 profileImg.setAttribute("src", "../img/about/man1.png");
 article.appendChild(profileImg);
 
-const field = [`nickname`, `email`, `skill`, `pw`, `change-pw`, `check-pw`];
-const fieldname = [
-  `닉네임`,
-  `이메일`,
-  `기술스택`,
-  `현재 비밀번호`,
-  `변경 비밀번호`,
-  `비밀번호 확인`,
+const field = [
+  // 유저 속성, 라벨, url
+  ["nickname", "닉네임", "url1"],
+  ["email", "이메일", "url2"],
+  ["skill", "기술스택", "url3"],
 ];
 for (let i = 0; i < field.length; i++) {
-  // console.log(user[field[i]]);
-  const addBtn = field[i] === "pw" || field[i] === `change-pw` ? false : true;
-  article.appendChild(makeDataField(fieldname[i], user[field[i]], addBtn));
+  article.appendChild(makeDataField(user[field[i][0]], field[i][1], field[i][2]));
 }
-// Update Button
-const updateBtn = createEleId("input", "updateBtn");
-updateBtn.setAttribute("type", "button");
-updateBtn.setAttribute("name", "updateBtn");
-updateBtn.setAttribute("value", "프로필 수정");
-updateBtn.setAttribute("onclick", `updatePage(${user.id})`);
-article.appendChild(updateBtn);
 
+const pwField = addEleClass(`form`, `field`);
+pwField.setAttribute("method", "post");
+pwField.setAttribute("action", `http://localhost:3000/signin`);
+
+const pwName = ["현재 비밀번호", "변경 비밀번호", "비밀번호 확인"];
+for (let i = 0; i < pwName.length; i++) {
+  const pwLabel = addEleClass(`p`, `label`);
+  addTextNode(pwLabel, pwName[i]);
+  pwField.appendChild(pwLabel);
+  const _data = addEleClass(`input`, `data`);
+  pwField.appendChild(_data);
+}
+
+const updateBtn = addEleClass("input", "updateBtn");
+makeButton(updateBtn, "submit", "변경", "updateBtn");
+updateBtn.setAttribute(
+  "onclick",
+  `alert("비밀번호가 변경되었습니다. 새로운 비밀번호로 로그인 해 주세요")`,
+);
+
+// dataField.appendChild(updateBtn);
+// Update Button
+// const updateBtn = createEleId("input", "updateBtn");
+// updateBtn.setAttribute("type", "button");
+// updateBtn.setAttribute("name", "updateBtn");
+// updateBtn.setAttribute("value", "개인정보 수정");
+// updateBtn.setAttribute("onclick", `updatePage(${user.id})`);
+
+pwField.appendChild(updateBtn);
+article.appendChild(pwField);
 section.appendChild(article);
 
 main.appendChild(section);
 container.appendChild(main);
-
+const iframe = createEleId("iframe", "iframe");
+iframe.setAttribute("name", "iframe");
+iframe.setAttribute("style", "display:none");
+container.appendChild(iframe);
 // Footer
 const footer = makeFooter();
 container.appendChild(footer);
