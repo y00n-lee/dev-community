@@ -8,7 +8,7 @@ export interface IUserData {
   email: string;
   password: string;
   nickname: string;
-  age: number;
+  birth: Date;
   gender: "male" | "female";
   tags: any[];
 }

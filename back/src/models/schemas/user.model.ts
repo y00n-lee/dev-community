@@ -23,8 +23,8 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
+    birth: {
+      type: Date,
       required: true,
     },
     gender: {
