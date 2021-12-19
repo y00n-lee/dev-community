@@ -2,7 +2,6 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
-
 const app = express();
 
 // view engine setup
@@ -21,7 +20,7 @@ app.get("/", (_, res) => {
 });
 
 app.get("/signin", (_, res) => {
-  res.render("login");
+  res.render("signin");
 });
 
 app.get("/signup", (_, res) => {
@@ -29,18 +28,22 @@ app.get("/signup", (_, res) => {
 });
 
 app.get("/posts", (_, res) => {
-  res.render("gatherList");
+  res.render("posts");
 });
 
 app.get("/posts/:id", (req, res) => {
-  res.render("index");
+  res.render("gatherboardDetail");
 });
 
 app.get("/edit/post/:id", (_, res) => {
   res.render("gatherboardMake");
 });
 
-app.get("/edit/post/:id", (_, res) => {
+app.get("/user/:id", (_, res) => {
+  res.render("profile");
+});
+
+app.get("/edit/user/:id", (_, res) => {
   res.render("gatherboardMake");
 });
 
