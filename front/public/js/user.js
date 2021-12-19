@@ -53,7 +53,7 @@ const section = addEleClass("section", "flex-container");
 
 // dummy data
 const user = {
-  nick: "helloworld",
+  nickname: "helloworld",
   email: "hellohello@gggggg.com",
   gender: "남성",
   skill: ["자바스크립트", "노드js", "react", "vue", "mongodb"],
