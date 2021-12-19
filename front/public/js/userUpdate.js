@@ -1,6 +1,5 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import {} from "./components/modal.js";
 // User Function
 // Create Element Id
 function createEleId(el, id) {
@@ -96,33 +95,27 @@ for (let i = 0; i < field.length; i++) {
   article.appendChild(makeDataField(user[field[i][0]], field[i][1], field[i][2]));
 }
 
-const pwField = addEleClass(`form`, `field`);
+const pwField = createEleId(`form`, `password`);
 pwField.setAttribute("method", "post");
-pwField.setAttribute("action", `http://localhost:3000/signin`);
-
-const pwName = ["현재 비밀번호", "변경 비밀번호", "비밀번호 확인"];
+pwField.classList.add("field");
+const pwName = [
+  ["현재 비밀번호", "nowPw"],
+  ["변경 비밀번호", "chPw"],
+  ["비밀번호 확인", "ckPw"],
+];
 for (let i = 0; i < pwName.length; i++) {
   const pwLabel = addEleClass(`p`, `label`);
-  addTextNode(pwLabel, pwName[i]);
+  addTextNode(pwLabel, pwName[i][0]);
   pwField.appendChild(pwLabel);
   const _data = addEleClass(`input`, `data`);
+  _data.setAttribute("type", "password");
+  _data.setAttribute("id", pwName[i][1]);
   pwField.appendChild(_data);
 }
 
 const updateBtn = addEleClass("input", "updateBtn");
 makeButton(updateBtn, "submit", "변경", "updateBtn");
-updateBtn.setAttribute(
-  "onclick",
-  `alert("비밀번호가 변경되었습니다. 새로운 비밀번호로 로그인 해 주세요")`,
-);
-
-// dataField.appendChild(updateBtn);
-// Update Button
-// const updateBtn = createEleId("input", "updateBtn");
-// updateBtn.setAttribute("type", "button");
-// updateBtn.setAttribute("name", "updateBtn");
-// updateBtn.setAttribute("value", "개인정보 수정");
-// updateBtn.setAttribute("onclick", `updatePage(${user.id})`);
+updateBtn.setAttribute("onclick", "confirmPw()");
 
 pwField.appendChild(updateBtn);
 article.appendChild(pwField);
@@ -138,10 +131,3 @@ container.appendChild(iframe);
 const footer = makeFooter();
 container.appendChild(footer);
 document.body.appendChild(container);
-
-// // 업데이트 버튼 이동 이벤트
-// function updatePage(id) {
-//   window.location = `/edit/user/${id}`;
-// }
-// <input id="updateBtn" type="button" name="updateBtn" value = "프로필수정">
-// updateBtn.addEventListener('submit', updatePage(user.id))
