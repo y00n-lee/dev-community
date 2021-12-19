@@ -34,7 +34,7 @@
           alert(`비밀번호를 성공적으로 변경했습니다. 변경한 비밀번호로 다시 로그인해 주세요`);
           const pwField = document.getElementById("password");
           pwField.removeAttribute("target");
-          pwField.setAttribute("action", "#");
+          pwField.setAttribute("action", "../../signin");
         } else alert("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
       }
     }
