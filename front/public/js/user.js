@@ -1,6 +1,7 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleId, createEleClass, addTextNode } from "./components/utils.js";
+import { createEleClass, addTextNode } from "./components/utils.js";
+import { getUserInfo } from "./api/dummy/index.js";
 
 //DOM elements
 const body = document.querySelector("body");
@@ -9,26 +10,55 @@ const footer = makeFooter();
 const main = document.querySelector("#main");
 const form = document.querySelector("#main section form");
 const updateBtn = document.querySelector("#main section form #updateBtn");
+updateBtn.style = "display:none";
 
 // Header, footer append
 body.insertBefore(header, main);
 body.insertBefore(footer, document.querySelector("script"));
 
-addTextNode(document.querySelector(".group-title"), "@@님의 프로필");
+// 유저에 따라 다른 프로필 수정버튼 display
 
-// dummy data
-const user = {
-  nickname: "helloworld",
-  email: "hellohello@gggggg.com",
-  gender: "남성",
-  skill: ["자바스크립트", "노드js", "react", "vue", "mongodb"],
-  github: "hellohello@github.com",
-  id: "1",
-};
+const pathname = window.location.pathname.split("/");
+const currentUserId = pathname[pathname.length - 1];
+console.log(currentUserId);
 
-const field = [`nickname`, `email`, `gender`, `skill`, `github`];
+// get user data
+const user = {};
+// window.onload = fetch(`${currentUserId}`, { method: "GET" }).then((res) => {
+//   if (!res.status) {
+//     alert(res.message);
+//     return;
+//   }
+//   if (res.data.same) {
+//     updateBtn.style = "display:block";
+//   }
+//   user.nickname = res.user.nickname;
+//   user.email = res.user.email;
+//   user.gender = res.user.gender;
+//   user.skill = res.user.tags;
+//   user.github = res.user.github;
+// });
+
+// TODO : dummy data load 삭제
+window.onload = (function () {
+  const res = getUserInfo(currentUserId);
+  if (!res.status) {
+    alert(res.message);
+    return;
+  }
+  updateBtn.style = "display: block";
+  user.nickname = res.data.user.nickname;
+  user.email = res.data.user.email;
+  user.gender = res.data.user.gender;
+  user.skill = res.data.user.tags;
+  user.github = res.data.user.github;
+})();
+
+addTextNode(document.querySelector(".group-title"), `${user.nickname}님의 프로필`);
+
+const field = [`nickname`, `email`, `gender`, `tags`, `github`];
 const fieldname = [`닉네임`, `이메일`, `성별`, `기술스택`, `깃허브주소`];
-//수정할 사항 : 기술 스택은 p태그가 아닌 이미지나 다른 태그로 바꿔야 함.
+// TODO : 기술 스택 태그 변경
 const fieldNum = field.length;
 for (let i = 0; i < fieldNum; i++) {
   const div = makeDataField(user[field[i]], fieldname[i]);
@@ -36,14 +66,11 @@ for (let i = 0; i < fieldNum; i++) {
 }
 
 // 업데이트 페이지로 버튼 이동 이벤트
-form.addEventListener("submit", updatePage);
+form.addEventListener("submit", () => {
+  window.location = `/user/${user.id}/edit`;
+});
 
-function updatePage() {
-  // form.setAttribute("action", `/edit/user/${id}`);
-  window.location = `/edit/user/${user.id}`;
-}
-
-//데이터 필드 생성 함수
+// 데이터 필드 생성 함수
 function makeDataField(userData, fieldname) {
   const dataField = createEleClass(`div`, `field`);
   const dataLabel = createEleClass(`p`, `label`);
