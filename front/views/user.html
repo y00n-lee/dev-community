@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -11,12 +11,21 @@
     <link rel="stylesheet" href="/css/footer.css" />
   </head>
   <body>
+    <main id="main" role="main">
+      <p class="group-title"></p>
+      <section class="flex-container">
+        <form class="flex-item" method="post" >
+          <img class="image" />
+          <!-- 데이터 필드 JS로 생성 -->
+          <input
+            id="updateBtn"
+            type="submit"
+            name="updateBtn"
+            value="프로필 수정"
+          ></input>
+        </form>
+      </section>
+    </main>
     <script type="module" src="/js/user.js"></script>
-    <script>
-      // 업데이트 버튼 이동 이벤트
-      function updatePage(id) {
-        window.location = `/edit/user/${id}`;
-      }
-    </script>
   </body>
 </html>
