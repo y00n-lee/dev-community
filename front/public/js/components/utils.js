@@ -16,3 +16,10 @@ export function createEleClass(el, className) {
 export function addTextNode(ele, text) {
   ele.appendChild(document.createTextNode(`${text}`));
 }
+
+// Remove all childs
+export function removeChildsAll(node) {
+  while (node.hasChildNodes()) {
+    node.removeChild(node.firstChild);
+  }
+}
