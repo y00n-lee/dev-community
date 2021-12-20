@@ -13,8 +13,9 @@
   width: 460px;
 }
 
-.cmtHead h4 {
+#cmtCount {
   font-size: 18px;
+  color: var(--bg-color);
 }
 
 .cmtList {

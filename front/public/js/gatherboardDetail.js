@@ -1,30 +1,13 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 import { makeComments } from "./components/comments.js";
+import { createEleId, createEleClass, addTextNode } from "./components/utils.js";
 // User Function
-// Create Element Id
-function createEleId(el, id) {
-  const ele = document.createElement(`${el}`);
-  ele.setAttribute("id", `${id}`);
-
-  return ele;
-}
-
-// Create Elemen Class
-function addEleClass(el, classNames) {
-  const ele = document.createElement(`${el}`);
-  const classArray = classNames.split(" ");
-  for (let i = 0; i < classArray.length; i++) {
-    ele.classList.add(`${classArray[i]}`);
-  }
-
-  return ele;
-}
 
 // Make Button Function
 function makeLinkButton(link, content) {
-  const div = addEleClass("div", "btn_area");
-  const btn = addEleClass("button", "btn");
+  const div = createEleClass("div", "btn_area");
+  const btn = createEleClass("button", "btn");
 
   btn.setAttribute("onclick", `location.href='${link}'`);
   btn.appendChild(document.createTextNode(`${content}`));
@@ -57,67 +40,38 @@ const user = {
   nickname: "GgemKko",
 };
 
-const container = addEleClass("div", "container");
-
+const container = document.querySelector(".container");
 // Header
 const header = makeHeader();
-container.appendChild(header);
-
+container.prepend(header);
 // Main
-const main = createEleId("main", "main");
-const mainHeadName = createEleId("h2", "head");
-mainHeadName.appendChild(document.createTextNode(`모집게시판`));
-main.appendChild(mainHeadName);
-
-const showGather = createEleId("div", "showGather");
-
+const main = document.getElementById("main");
 // Gather Title
-const gatherTitle = document.createElement("h3");
-gatherTitle.appendChild(document.createTextNode("글 제목"));
-showGather.appendChild(gatherTitle);
-
-const gatherTitleSpan = addEleClass("span", "box");
-gatherTitleSpan.appendChild(document.createTextNode(`${gatherData.title}`));
-showGather.appendChild(gatherTitleSpan);
-
+document.getElementById("gatherTitle").appendChild(document.createTextNode(`${gatherData.title}`));
 // Gather Content
-const gatherContent = document.createElement("h3");
-gatherContent.appendChild(document.createTextNode("내용"));
-showGather.appendChild(gatherContent);
-
-const gatherContentSpan = addEleClass("span", "contentBox");
-gatherContentSpan.appendChild(document.createTextNode(`${gatherData.content}`));
-showGather.appendChild(gatherContentSpan);
+document
+  .getElementById("gatherContent")
+  .appendChild(document.createTextNode(`${gatherData.content}`));
 
 // Gather TechStack
-const gatherTechStack = document.createElement("h3");
-gatherTechStack.appendChild(document.createTextNode("기술 스택"));
-showGather.appendChild(gatherTechStack);
-
-const gatherTechStackSpan = addEleClass("span", "techStackBox");
+const gatherTechStackSpan = document.getElementById("gatherTechStack");
 for (let i = 0; i < gatherData.techStack.length; i++) {
   const techStackImg = document.createElement("p");
   techStackImg.appendChild(document.createTextNode(`${gatherData.techStack[i]}`));
   gatherTechStackSpan.appendChild(techStackImg);
 }
-showGather.appendChild(gatherTechStackSpan);
 
-// Button
-const updateDiv = makeLinkButton(``, "수정하기");
-showGather.appendChild(updateDiv);
+//Button
+if (user.emailId == gatherData.emailId) {
+  document.getElementById("update").style.display = "block";
+  document.getElementById("participate").style.display = "none";
+} else {
+  document.getElementById("update").style.display = "none";
+  document.getElementById("participate").style.display = "block";
+}
 
-const gotoListDiv = makeLinkButton("/posts", "목록으로");
-showGather.appendChild(gotoListDiv);
+makeComments(gatherData.comments, user);
 
-main.appendChild(showGather);
-
-const commentDiv = makeComments(gatherData.comments, user);
-main.appendChild(commentDiv);
-
-container.appendChild(main);
-
-// Footer
+//footer
 const footer = makeFooter();
-container.appendChild(footer);
-
-document.body.appendChild(container);
+container.append(footer);
