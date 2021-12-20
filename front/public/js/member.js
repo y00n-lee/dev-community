@@ -11,7 +11,7 @@ const section = document.querySelector("#main section");
 
 // Header, footer append
 body.insertBefore(header, main);
-body.appendChild(footer);
+body.insertBefore(footer, document.querySelector("script"));
 
 // set page title
 addTextNode(document.querySelector(".group-title"), "이 프로젝트 그룹 이름");
