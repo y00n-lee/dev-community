@@ -1,7 +1,5 @@
 import { Router } from "express";
-
 import { authController } from "@src/controllers/auth.controller";
-
 import { asyncHandler } from "@src/utils/asyncHandler";
 import {
   JwtAuthGurad,
