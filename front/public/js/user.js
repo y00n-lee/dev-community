@@ -7,9 +7,7 @@ const body = document.querySelector("body");
 const header = makeHeader();
 const footer = makeFooter();
 const main = document.querySelector("#main");
-const section = document.querySelector("#main section");
 const form = document.querySelector("#main section form");
-const image = document.querySelector("main section form img");
 const updateBtn = document.querySelector("#main section form #updateBtn");
 
 // Header, footer append
@@ -27,9 +25,6 @@ const user = {
   github: "hellohello@github.com",
   id: "1",
 };
-
-// TODO : 이미지 파일 경로 설정
-image.setAttribute("src", "../img/about/man1.png");
 
 const field = [`nickname`, `email`, `gender`, `skill`, `github`];
 const fieldname = [`닉네임`, `이메일`, `성별`, `기술스택`, `깃허브주소`];
