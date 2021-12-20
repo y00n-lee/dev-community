@@ -2,7 +2,7 @@ export const onSignup = (data) => ({
   status: true,
 });
 
-export const onSignIn = (data) => ({
+export const onSignIn = async (data) => ({
   status: true,
   data: {
     user: {
@@ -21,6 +21,11 @@ export const onSignIn = (data) => ({
     },
   },
 });
+
+// export const onSignIn = async (data) => ({
+//   status: false,
+//   message: "비밀번호가 틀렸습니다",
+// });
 
 export const getUserInfo = (id) => ({
   status: true,
@@ -41,6 +46,11 @@ export const getUserInfo = (id) => ({
       __v: 0,
     },
   },
+});
+
+export const resetPassword = async (email) => ({
+  status: false,
+  message: "임시 비밀번호가 메일로 전송됐습니다.",
 });
 
 export const inSignout = () => ({
