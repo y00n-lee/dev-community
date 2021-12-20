@@ -7,13 +7,10 @@ const container = document.querySelector(".container");
 
 // Header
 const header = makeHeader();
-container.appendChild(header);
+container.prepend(header);
 
-// postList
+// postList, 리스트 6개
 const main = document.querySelector(".main");
-container.appendChild(main);
-
-// 리스트 6개
 const postList = createPostCard();
 main.appendChild(postList);
 
