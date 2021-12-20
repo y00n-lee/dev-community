@@ -1,6 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleId, createEleClass, addTextNode } from "./components/docuUtil.js";
+import { createEleId, createEleClass, addTextNode } from "./components/utils.js";
 
 //DOM elements
 const body = document.querySelector("body");
@@ -41,11 +41,11 @@ for (let i = 0; i < fieldNum; i++) {
 }
 
 // 업데이트 페이지로 버튼 이동 이벤트
-updateBtn.addEventListener("submit", updatePage);
+form.addEventListener("submit", updatePage);
 
 function updatePage() {
   // form.setAttribute("action", `/edit/user/${id}`);
-  // window.location = `/edit/user/${user.id}`;
+  window.location = `/edit/user/${user.id}`;
 }
 
 //데이터 필드 생성 함수
