@@ -51,6 +51,10 @@ app.get("/edit/user/:id", (req, res) => {
   res.render("userUpdate");
 });
 
+app.get("/issuedPassword", (_, res) => {
+  res.render("issuedPassword");
+});
+
 app.use((err, _, res, __) => {
   res.send("asd");
 });
