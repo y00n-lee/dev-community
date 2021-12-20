@@ -1,4 +1,6 @@
-import { Document, Model } from "mongoose";
+import { Document, Model, Types } from "mongoose";
+import { IPost } from "./Post";
+import { ITagDocument } from "./Tag";
 
 export interface ITokenUser {
   id: string;
@@ -10,7 +12,7 @@ export interface IUserData {
   nickname: string;
   birth: Date;
   gender: "male" | "female";
-  tags: any[];
+  tags: Types.DocumentArray<ITagDocument>;
 }
 
 export interface IUserDocument extends IUserData, Document {
@@ -18,7 +20,7 @@ export interface IUserDocument extends IUserData, Document {
   emailVerified: boolean;
   keyForVerify: string;
   passwordReset: boolean;
-  posts: any[];
+  posts: Types.DocumentArray<IPost>;
 
   comparePassword(aPassword: string): Promise<boolean>;
   verifyRefresh(): boolean;
