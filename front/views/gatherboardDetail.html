@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,8 +9,47 @@
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/gatherboardDetail.css" />
+    <link rel="stylesheet" href="/css/comments.css" />
   </head>
   <body>
+    <div class="container">
+      <!-- Main -->
+      <div id="main">
+        <h2 id="head">모집게시판</h2>
+        <div id="showGather">
+          <h3>글 제목</h3>
+          <span id="gatherTitle" class="box"></span>
+          <h3>내용</h3>
+          <span id="gatherContent" class="contentBox"></span>
+          <h3>기술 스택</h3>
+          <span id="gatherTechStack" class="techStackBox"></span>
+          <div class="btn_area">
+            <button id="participate" class="btn">참가하기</button>
+            <button id="update" class="btn">수정하기</button>
+            <button id="gotoList" class="btn">목록으로</button>
+          </div>
+        </div>
+      </div>
+      <!-- comments -->
+      <div id="cmtWrap">
+        <div class="cmtHead">
+          <h4 id="cmtCount"></h4>
+        </div>
+        <div class="cmtMain">
+          <ul id="cmtLists"></ul>
+        </div>
+        <div class="cmtMainTail">
+          <form id="cmtForm" name="cmtForm" action="">
+            <table class="cmtFormTable">
+              <tbody>
+                <tr id="cmtFormTableRow"></tr>
+              </tbody>
+            </table>
+          </form>
+        </div>
+      </div>
+      <!--footer-->
+    </div>
     <script type="module" src="/js/gatherboardDetail.js"></script>
   </body>
 </html>
