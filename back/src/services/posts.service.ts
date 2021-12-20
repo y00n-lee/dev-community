@@ -145,6 +145,7 @@ export class PostsService {
 
     post.comments.pull(comment);
     await post.save();
+    await CommentModel.deleteOne({ _id: commentId });
     return post;
   }
 
