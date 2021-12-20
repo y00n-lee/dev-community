@@ -1,7 +1,7 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 import { createEleClass, addTextNode } from "./components/utils.js";
-
+import { getUserInfo } from "./api/dummy/index.js";
 //DOM elements
 const body = document.querySelector("body");
 const header = makeHeader();
@@ -11,7 +11,7 @@ const main = document.querySelector("#main");
 const title = document.querySelector("#main .group-title");
 // const image = document.querySelector("#main section .flex-item img");
 
-const nameBtn = document.getElementById("nameBtn");
+const nameField = document.getElementById("nickname");
 const emailBtn = document.getElementById("emailBtn");
 const tagBtn = document.getElementById("tagBtn");
 
@@ -24,41 +24,8 @@ const passwordBtn = document.getElementById("passwordBtn");
 body.insertBefore(header, main);
 body.insertBefore(footer, document.querySelector("script"));
 
-//TODO : user api 경로 설정
-// const user = fetch(url).then((response) => {
-//   if (response.ok) {
-//     // HTTP 상태 코드가 200~299일 경우
-//     response.json();
-//   } else {
-//     alert("HTTP-Error: " + response.status);
-//   }
-// });
-
-// dummy data
-const user = {
-  nickname: "helloworld",
-  email: "hellohello@gggggg.com",
-  gender: "male",
-  tag: [
-    "자바스크립트",
-    "노드js",
-    "react",
-    "vue",
-    "mongodb",
-    "자바스크립트",
-    "노드js",
-    "react",
-    "vue",
-    "mongodb",
-    "자바스크립트",
-    "노드js",
-    "react",
-    "vue",
-    "mongodb",
-  ],
-  github: "hellohello@github.com",
-  id: "1",
-};
+const user = getUserInfo().data.user;
+// console.log(user);
 
 addTextNode(title, `${user.nickname}님의 프로필`);
 // image.src = `../img/about/man1.png`;
@@ -66,19 +33,21 @@ addTextNode(title, `${user.nickname}님의 프로필`);
 const filledData = [user.nickname, user.email, user.tag];
 for (let i = 0; i < 3; i++) {
   document.getElementsByName("filled")[i].placeholder = filledData[i];
-  document.getElementsByName("filledBtn")[i].addEventListener("click", (e) => {
-    console.log(e);
-    console.log("callback test");
-  });
+  // document.getElementsByName("filledBtn")[i].addEventListener("click", (e) => {
+  //   console.log(e);
+  //   console.log("callback test");
+  // });
 }
-
-function btnSubmit(value) {
-  // 정상적으로 업데이트 됐다면
-  if (value === "") {
-    alert("변경하려면 값을 입력하세요");
-    return;
-  }
-  alert(`변경에 성공했습니다`);
+nameField.addEventListener("submit", btnSubmit);
+function btnSubmit() {
+  // 정상적으로 업데이트
+  alert(this);
+  console.log(this);
+  // if (ele.value === "") {
+  //   alert("변경하려면 값을 입력하세요");
+  //   return;
+  // }
+  // alert(`변경에 성공했습니다`);
   // 아니라면
   // alert(` 변경에 실패했습니다`);
 }

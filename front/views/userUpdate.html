@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -17,12 +17,14 @@
         <!-- 유저 데이터 수정 -->
         <div class="flex-item">
           <!-- <img class="image" /> -->
-          <div class="field">
+          <!-- <div class="field"> -->
+          <form class="field" id="nickname" target="iframe">
             <p class="label">닉네임</p>
-            <input class="data" name="filled" />
-            <input type="submit" class="updateBtn" name="filledBtn" value="수정" />
+            <input class="data" name="filled" id="email" />
+            <input type="submit" class="updateBtn" name="filledBtn" id="nameBtn" value="수정" />
             <div class="error_next_box" style="visibility: hidden"></div>
-          </div>
+          </form>
+          <!-- </div> -->
           <div class="field">
             <p class="label">이메일</p>
             <input class="data" name="filled" />
