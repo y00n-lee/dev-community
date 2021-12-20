@@ -1,0 +1,65 @@
+import { Request, Response } from "express";
+import { PostModel } from "@src/models";
+import { postsService, PostsService } from "@src/services/posts.service";
+
+export class PostsConttroller {
+  constructor(private readonly postsService: PostsService) {}
+
+  readPosts = async (req: Request, res: Response) => {
+    const page = Number(req.query.page || 1);
+    const perPage = Number(req.query.perPage || 10);
+
+    const [posts, totalPage] = await PostModel.getPaginatedPosts({}, page, perPage);
+    return res.json({ status: true, data: { posts, page, perPage, totalPage } });
+  };
+
+  readPost = async (req: Request, res: Response) => {
+    const { postId } = req.params;
+
+    const post = await this.postsService.getById(postId);
+    return res.json({ status: true, data: { post } });
+  };
+
+  createPost = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { title, content, tagList } = req.body;
+
+    await this.postsService.createPost(title, content, userId, tagList);
+    return res.status(201).json({ status: true, message: "등록되었습니다." });
+  };
+
+  editPost = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+    const { title, content, tagList } = req.body;
+
+    await this.postsService.editPost(postId, title, content, userId, tagList);
+    return res.json({ status: true, message: "수정되었습니다." });
+  };
+
+  deletePost = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+
+    await this.postsService.deletePost(postId, userId);
+    return res.json({ status: true, message: "삭제되었습니다." });
+  };
+
+  join = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+
+    await this.postsService.addMember(postId, userId);
+    return res.json({ status: true, message: "참여되었습니다." });
+  };
+
+  disjoin = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+
+    await this.postsService.removeMember(postId, userId);
+    return res.json({ status: true, message: "취소되었습니다." });
+  };
+}
+
+export const postsController = new PostsConttroller(postsService);

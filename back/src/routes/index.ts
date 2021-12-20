@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import authRouter from "./auth";
 import usersRouter from "./user";
-import postsRouter from "./posts.controller";
+import postsRouter from "./posts";
 
 const router = Router();
 
