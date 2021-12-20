@@ -1,6 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleClass, addTextNode } from "./components/docuUtil.js";
+import { createEleClass, addTextNode } from "./components/utils.js";
 
 //DOM elements
 const body = document.querySelector("body");
