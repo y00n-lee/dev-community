@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 // 메인 페이지
-app.get("/", (_, res) => res.render("index"));
+app.get("/", (_, res) => res.render("main"));
 
 // 로그인 페이지
 app.get("/signin", (_, res) => res.render("signin"));

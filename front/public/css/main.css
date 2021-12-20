@@ -92,7 +92,7 @@ a {
 .slider {
   display: none;
 }
-@media screen and (max-width:900px) {
+@media screen and (max-width: 900px) {
   /* 타블렛 세로, 모바일*/
   .slider {
     display: initial;
@@ -101,12 +101,12 @@ a {
   #header .navBar .navMenu li:not(:first-of-type) {
     display: none;
   }
-  #header .navBar .navMenu{
+  #header .navBar .navMenu {
     /* te: center; */
     margin: auto;
     padding-left: 20px;
   }
-  
+
   .menu {
     position: absolute;
     top: 0;
@@ -128,7 +128,7 @@ a {
     text-align: center;
     padding: 20px;
   }
-  .menu div a:hover{
+  .menu div a:hover {
     text-shadow: 0px 0px 2px var(--slider-text-color);
   }
   .menu div a:first-of-type {
@@ -152,18 +152,18 @@ a {
     display: block;
     height: 2px;
     position: relative;
-    transition: background .2s ease-out;
+    transition: background 0.2s ease-out;
     width: 18px;
   }
 
   .burger-icon .burger-sticks:before,
   .burger-icon .burger-sticks:after {
     background: #333;
-    content: '';
+    content: "";
     display: block;
     height: 100%;
     position: absolute;
-    transition: all .2s ease-out;
+    transition: all 0.2s ease-out;
     width: 100%;
   }
 
@@ -179,33 +179,32 @@ a {
     display: none;
   }
 
-  .burger-check:checked~.menu {
+  .burger-check:checked ~ .menu {
     max-width: 200px;
   }
 
-  .burger-check:checked~.menu div a{
+  .burger-check:checked ~ .menu div a {
     visibility: visible;
     opacity: 1;
   }
 
-  .burger-check:checked~.burger-icon .burger-sticks {
+  .burger-check:checked ~ .burger-icon .burger-sticks {
     background: transparent;
   }
 
-  .burger-check:checked~.burger-icon .burger-sticks:before {
+  .burger-check:checked ~ .burger-icon .burger-sticks:before {
     transform: rotate(-45deg);
   }
 
-  .burger-check:checked~.burger-icon .burger-sticks:after {
+  .burger-check:checked ~ .burger-icon .burger-sticks:after {
     transform: rotate(45deg);
   }
 
-  .burger-check:checked~.burger-icon:not(.steps) .burger-sticks:before,
-  .burger-check:checked~.burger-icon:not(.steps) .burger-sticks:after {
+  .burger-check:checked ~ .burger-icon:not(.steps) .burger-sticks:before,
+  .burger-check:checked ~ .burger-icon:not(.steps) .burger-sticks:after {
     top: 0;
   }
 }
-  
 
 /* main image */
 /* .mainImage {
