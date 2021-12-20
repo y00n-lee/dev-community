@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get("/", (_, res) => {
-  res.render("index");
+  res.render("main");
 });
 
 app.get("/signin", (_, res) => {
