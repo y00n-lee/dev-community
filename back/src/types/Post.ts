@@ -6,6 +6,7 @@ import { Model, Types, PopulatedDoc } from "mongoose";
 export interface IPost {
   title: string;
   author: PopulatedDoc<IUserDocument>;
+  content: string;
   views: number;
   comments: Types.DocumentArray<IComment>;
   members: Types.DocumentArray<IUserDocument>;
