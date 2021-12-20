@@ -80,24 +80,25 @@ input[type="password"]:focus::placeholder {
   font-size: 14px;
   font-weight: 600;
 }
-input[type="submit"] {
+
+input[type="button"] {
   color: var(--ft-color);
   font-size: 14px;
   font-weight: 600;
 }
 
 /* 회원 가입 */
-.singbox {
+.signbox {
   text-align: center;
   font-size: 14px;
 }
-.singbox span {
+.signbox span {
   display: block;
   margin-bottom: 5px;
 }
-.singbox a {
+.signbox a {
   font-weight: 600;
 }
-.singbox a:hover {
+.signbox a:hover {
   text-decoration: underline;
 }
