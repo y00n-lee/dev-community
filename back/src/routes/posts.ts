@@ -21,4 +21,9 @@ router.put("/:postId/member", JwtAuthGurad, asyncHandler(postsController.join));
 
 router.delete("/:postId/member", JwtAuthGurad, asyncHandler(postsController.disjoin));
 
+/* insert/remove comment */
+router.put("/:postId/comment", JwtAuthGurad, asyncHandler(postsController.insertComment));
+
+router.delete("/:postId/comment", JwtAuthGurad, asyncHandler(postsController.removeComment));
+
 export default router;

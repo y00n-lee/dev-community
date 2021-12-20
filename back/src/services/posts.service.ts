@@ -1,4 +1,5 @@
-import { PostModel, UserModel, TagModel } from "@src/models";
+import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
+import { PostDTO } from "@src/types/Post";
 
 export class PostsService {
   constructor(
@@ -15,49 +16,33 @@ export class PostsService {
     return post;
   }
 
-  async createPost(title: string, content: string, userId: string, tagList: string[]) {
+  async createPost(postDTO: PostDTO) {
+    const { title, content, userId, tagList } = postDTO;
     const tags = await Promise.all(
       tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
     );
 
-    if (!title || !content) {
-      const err = new Error("제목과 내용을 입력해 주세요.");
-      err.name = "NoTitleContent";
-      throw err;
-    }
+    PostsService.checkTitleAndContent(title, content);
 
     const author = await UserModel.findById(userId);
     const post = await PostModel.create({ title, content, author, members: author, tags });
     return post;
   }
 
-  async editPost(
-    postId: string,
-    title: string,
-    content: string,
-    userId: string,
-    tagList: string[],
-  ) {
+  async editPost(postDTO: PostDTO) {
+    const { postId, title, content, userId, tagList } = postDTO;
     const tags = await Promise.all(
       tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
     );
 
-    if (!title || !content) {
-      const err = new Error("제목과 내용을 입력해 주세요.");
-      err.name = "NoTitleContent";
-      throw err;
-    }
+    PostsService.checkTitleAndContent(title, content);
 
     const post = await PostModel.findById(postId).populate(
       "author",
       "-password -refreshToken -keyForVerify",
     );
 
-    if (post.author._id.toString() !== userId) {
-      const err = new Error("다른 사용자가 작성한 게시글입니다.");
-      err.name = "NoAuth";
-      throw err;
-    }
+    PostsService.compareUser(post.author._id.toString(), userId);
 
     const updatedPost = await PostModel.findOneAndUpdate(
       { _id: postId },
@@ -73,11 +58,7 @@ export class PostsService {
       "-password -refreshToken -keyForVerify",
     );
 
-    if (post.author._id.toString() !== userId) {
-      const err = new Error("다른 사용자가 작성한 게시글입니다.");
-      err.name = "NoAuth";
-      throw err;
-    }
+    PostsService.compareUser(post.author._id.toString(), userId);
 
     return await PostModel.deleteOne({ _id: postId });
   }
@@ -103,7 +84,7 @@ export class PostsService {
     return post;
   }
 
-  async removeMember(postId: string, userId: string) {
+  async deleteMember(postId: string, userId: string) {
     const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await PostModel.findById(postId);
     if (!post || !user) {
@@ -122,6 +103,65 @@ export class PostsService {
     post.members.pull(user);
     await post.save();
     return post;
+  }
+
+  async addComment(postId: string, userId: string, content: string) {
+    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await PostModel.findById(postId);
+    if (!post || !user) {
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    if (!content) {
+      const err = new Error("내용을 입력해주세요.");
+      err.name = "NoTitleContent";
+      throw err;
+    }
+
+    const comment = await CommentModel.create({ author: user, content });
+    post.comments.push(comment);
+    await post.save();
+    return comment;
+  }
+
+  async deleteComment(postId: string, userId: string, commentId: string) {
+    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await PostModel.findById(postId);
+    const comment = await CommentModel.findById(commentId);
+
+    if (!post || !user) {
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    if (!commentId || !comment) {
+      const err = new Error("유효하지 않은 댓글입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    post.comments.pull(comment);
+    await post.save();
+    return post;
+  }
+
+  static checkTitleAndContent(title: string, content: string) {
+    if (!title || !content) {
+      const err = new Error("제목과 내용을 입력해 주세요.");
+      err.name = "NoTitleContent";
+      throw err;
+    }
+  }
+
+  static compareUser(author: string, cur: string) {
+    if (author !== cur) {
+      const err = new Error("다른 사용자가 작성한 게시글입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
   }
 }
 
