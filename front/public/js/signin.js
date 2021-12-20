@@ -28,7 +28,7 @@ loginForm.addEventListener("submit", async (e) => {
   } else if (formPassword.value.length <= 8) {
     alert("비밀번호는 8자리 이상입니다.");
   } else {
-    form.submit();
+    loginForm.submit();
   }
 });
 
