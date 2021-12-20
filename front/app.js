@@ -40,15 +40,11 @@ app.get("/edit/post/:id", (_, res) => {
 });
 
 app.get("/user/:id", (_, res) => {
-  res.render("profile");
+  res.render("user");
 });
 
 app.get("/edit/user/:id", (_, res) => {
   res.render("gatherboardMake");
-});
-
-app.get("/user", (req, res) => {
-  res.render("user");
 });
 
 app.get("/edit/user/:id", (req, res) => {
