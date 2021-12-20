@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -15,7 +15,7 @@
       <div id="main">
         <h2 id="signupHead">회원가입</h2>
         <div id="content">
-          <form id="signup" name="signup" action="" method="post">
+          <form id="signup" name="signup" action="/signin">
             <div id="idDiv">
               <h3><label for="emailId">이메일</label></h3>
               <span class="box int_id">
@@ -114,19 +114,19 @@
               <span class="box">
                 <select name="gender" id="gender">
                   <option>성별</option>
-                  <option value="M">남자</option>
-                  <option value="F">여자</option>
+                  <option value="male">남자</option>
+                  <option value="female">여자</option>
                 </select>
               </span>
               <span class="error_next_box">필수 정보입니다.</span>
             </div>
-            <div class="submit_area">
-              <input type="submit" id="submit" name="submit" class="submit" value="가입하기" />
-            </div>
-            <div class="submit_area">
-              <button class="submit" id="cancel">취소</button>
-            </div>
           </form>
+          <div class="submit_area">
+            <button class="submitBtn" id="submit">가입하기</button>
+          </div>
+          <div class="submit_area">
+            <button class="submitBtn" id="cancel">취소</button>
+          </div>
         </div>
       </div>
     </div>
