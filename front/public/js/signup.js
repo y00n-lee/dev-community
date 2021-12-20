@@ -15,6 +15,24 @@ for (let i = 1; i < 13; i++) {
   document.getElementById("mm").appendChild(month);
 }
 
+function techStackCheckBox(techStack) {
+  const div = document.getElementById("techStackBlock");
+  for (let i = 0; i < techStack.length; i++) {
+    const checkInputLabel = document.createElement("label");
+    const checkInput = document.createElement("input");
+    checkInput.setAttribute("type", "checkbox");
+    checkInput.setAttribute("name", "techStack");
+    checkInput.setAttribute("value", `${techStack[i]}`);
+    checkInputLabel.appendChild(checkInput);
+    checkInputLabel.appendChild(document.createTextNode(`${techStack[i]}`));
+    div.appendChild(checkInputLabel);
+  }
+}
+
+const techStackData = ["HTML", "CSS", "JAVASCRIPT", "NODEJS", "SPRING", "EXPRESS", "REACT"];
+
+techStackCheckBox(techStackData);
+
 document.getElementById("submit").addEventListener("click", function () {
   //유효성 검사
   if (!isOkArray[0]) {
@@ -30,6 +48,12 @@ document.getElementById("submit").addEventListener("click", function () {
   } else if (!isOkArray[6]) {
     alert("성별을 확인하세요.");
   } else {
+    const query = 'input[name="techStack"]:checked';
+    const techStackCheck = document.querySelectorAll(query);
+    const tagsList = [];
+    techStackCheck.forEach((el) => {
+      tagsList.push(el.value);
+    });
     onSignup({
       email: document.getElementById("emailId").value,
       password: document.getElementById("password").value,
@@ -41,7 +65,12 @@ document.getElementById("submit").addEventListener("click", function () {
       ),
       gender: document.getElementById("gender").value,
       tags: [],
-    });
+    })
+      .then((res) => {
+        if (!res.status) alert(res.message);
+        else window.location = "/";
+      })
+      .catch((e) => alert(e.message));
   }
 });
 
