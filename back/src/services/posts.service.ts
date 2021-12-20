@@ -1,4 +1,4 @@
-import { PostModel, UserModel, TagModel } from "@src/models";
+import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
 
 export class PostsService {
   constructor(
@@ -103,7 +103,7 @@ export class PostsService {
     return post;
   }
 
-  async removeMember(postId: string, userId: string) {
+  async deleteMember(postId: string, userId: string) {
     const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await PostModel.findById(postId);
     if (!post || !user) {
@@ -120,6 +120,49 @@ export class PostsService {
     }
 
     post.members.pull(user);
+    await post.save();
+    return post;
+  }
+
+  async addComment(postId: string, userId: string, content: string) {
+    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await PostModel.findById(postId);
+    if (!post || !user) {
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    if (!content) {
+      const err = new Error("내용을 입력해주세요.");
+      err.name = "NoTitleContent";
+      throw err;
+    }
+
+    const comment = await CommentModel.create({ author: user, content });
+    post.comments.push(comment);
+    await post.save();
+    return comment;
+  }
+
+  async deleteComment(postId: string, userId: string, commentId: string) {
+    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await PostModel.findById(postId);
+    const comment = await CommentModel.findById(commentId);
+
+    if (!post || !user) {
+      const err = new Error("잘못된 요청입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    if (!commentId || !comment) {
+      const err = new Error("유효하지 않은 댓글입니다.");
+      err.name = "NoAuth";
+      throw err;
+    }
+
+    post.comments.pull(comment);
     await post.save();
     return post;
   }

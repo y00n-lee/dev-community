@@ -45,6 +45,7 @@ export class PostsConttroller {
     return res.json({ status: true, message: "삭제되었습니다." });
   };
 
+  /* member */
   join = async (req: Request, res: Response) => {
     const userId = req?.user?.id as string;
     const { postId } = req.params;
@@ -57,8 +58,27 @@ export class PostsConttroller {
     const userId = req?.user?.id as string;
     const { postId } = req.params;
 
-    await this.postsService.removeMember(postId, userId);
+    await this.postsService.deleteMember(postId, userId);
     return res.json({ status: true, message: "취소되었습니다." });
+  };
+
+  /* comment */
+  insertComment = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+    const { content } = req.body;
+
+    await this.postsService.addComment(postId, userId, content);
+    return res.json({ status: true, message: "처리되었습니다." });
+  };
+
+  removeComment = async (req: Request, res: Response) => {
+    const userId = req?.user?.id as string;
+    const { postId } = req.params;
+    const { commentId } = req.body;
+
+    await this.postsService.deleteComment(postId, userId, commentId);
+    return res.json({ status: true, message: "삭제되었습니다." });
   };
 }
 
