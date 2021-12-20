@@ -32,15 +32,23 @@ app.get("/posts", (_, res) => {
 });
 
 app.get("/posts/:id", (req, res) => {
-  res.render("index");
+  res.render("gatherboardDetail");
 });
 
 app.get("/edit/post/:id", (_, res) => {
   res.render("gatherboardMake");
 });
 
-app.get("/edit/post/:id", (_, res) => {
+app.get("/user/:id", (_, res) => {
+  res.render("user");
+});
+
+app.get("/edit/user/:id", (_, res) => {
   res.render("gatherboardMake");
+});
+
+app.get("/edit/user/:id", (req, res) => {
+  res.render("userUpdate");
 });
 
 app.use((err, _, res, __) => {

@@ -78,4 +78,10 @@
   background-color: var(--bg-color);
   font-size: 20px;
   font-weight: 400;
+  margin-top: 20px;
+}
+
+#participate,
+#update {
+  display: none;
 }
