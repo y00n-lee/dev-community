@@ -11,6 +11,125 @@
     <link rel="stylesheet" href="/css/signup.css" />
   </head>
   <body>
+    <div class="container">
+      <div id="main">
+        <h2 id="signupHead">회원가입</h2>
+        <div id="content">
+          <form id="signup" name="signup" action="" method="post">
+            <div id="idDiv">
+              <h3><label for="emailId">이메일</label></h3>
+              <span class="box int_id">
+                <input
+                  type="text"
+                  name="emailId"
+                  id="emailId"
+                  class="int"
+                  placeholder="이메일 형식으로 입력해주세요."
+                  maxlength="40"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="nickDiv">
+              <h3><label for="nickname">닉네임</label></h3>
+              <span class="box int_nick">
+                <input
+                  type="text"
+                  id="nickname"
+                  name="nickname"
+                  class="int"
+                  placeholder="닉네임을 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="passwordDiv">
+              <h3><label for="password">비밀번호</label></h3>
+              <span class="box int_pass">
+                <input
+                  type="text"
+                  id="password"
+                  name="password"
+                  class="int"
+                  placeholder="비밀번호를 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="passwordConfirmDiv">
+              <h3><label for="password_confirm">비밀번호 확인</label></h3>
+              <span class="box int_pass">
+                <input
+                  type="text"
+                  id="password_confirm"
+                  name="password_confirm"
+                  class="int"
+                  placeholder="입력한 비밀번호와 같은 비밀번호를 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="nameDiv">
+              <h3><label for="name">이름</label></h3>
+              <span class="box int_name">
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  class="int"
+                  placeholder="이름을 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="birthDiv">
+              <h3><label for="birth">생년월일</label></h3>
+              <div id="bir_wrap">
+                <div id="bir_yy">
+                  <span class="box">
+                    <input type="text" id="yy" name="year" placeholder="년(4자)" maxlength="4" />
+                  </span>
+                </div>
+                <div id="bir_mm">
+                  <span class="box">
+                    <select name="month" id="mm">
+                      <option>월</option>
+                    </select>
+                  </span>
+                </div>
+                <div id="bir_dd">
+                  <span class="box">
+                    <input type="text" id="dd" name="day" placeholder="일" maxlength="2" />
+                  </span>
+                </div>
+              </div>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="genderDiv">
+              <h3><label for="gender">성별</label></h3>
+              <span class="box">
+                <select name="gender" id="gender">
+                  <option>성별</option>
+                  <option value="M">남자</option>
+                  <option value="F">여자</option>
+                </select>
+              </span>
+              <span class="error_next_box">필수 정보입니다.</span>
+            </div>
+            <div class="submit_area">
+              <input type="submit" id="submit" name="submit" class="submit" value="가입하기" />
+            </div>
+            <div class="submit_area">
+              <button class="submit" id="cancel">취소</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
     <script type="module" src="/js/signup.js"></script>
   </body>
 </html>
