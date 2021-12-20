@@ -5,10 +5,13 @@ export class PostsService {
   constructor(
     private readonly postModel: typeof PostModel,
     private readonly userModel: typeof UserModel,
+    private readonly tagModel: typeof TagModel,
+    private readonly commentModel: typeof CommentModel,
   ) {}
 
   async getById(postId: string) {
-    const post = await PostModel.findById(postId)
+    const post = await this.postModel
+      .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify")
       .populate("members", "-password -refreshToken -keyForVerify")
       .populate("comments")
@@ -19,32 +22,31 @@ export class PostsService {
   async createPost(postDTO: PostDTO) {
     const { title, content, userId, tagList } = postDTO;
     const tags = await Promise.all(
-      tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
+      tagList.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
     );
 
     PostsService.checkTitleAndContent(title, content);
 
-    const author = await UserModel.findById(userId);
-    const post = await PostModel.create({ title, content, author, members: author, tags });
+    const author = await this.userModel.findById(userId);
+    const post = await this.postModel.create({ title, content, author, members: author, tags });
     return post;
   }
 
   async editPost(postDTO: PostDTO) {
     const { postId, title, content, userId, tagList } = postDTO;
     const tags = await Promise.all(
-      tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
+      tagList.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
     );
 
     PostsService.checkTitleAndContent(title, content);
 
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
+    const post = await this.postModel
+      .findById(postId)
+      .populate("author", "-password -refreshToken -keyForVerify");
 
     PostsService.compareUser(post.author._id.toString(), userId);
 
-    const updatedPost = await PostModel.findOneAndUpdate(
+    const updatedPost = await this.postModel.findOneAndUpdate(
       { _id: postId },
       { $set: { title, content, tags, isEdit: true } },
       { new: true },
@@ -53,19 +55,18 @@ export class PostsService {
   }
 
   async deletePost(postId: string, userId: string) {
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
+    const post = await this.postModel
+      .findById(postId)
+      .populate("author", "-password -refreshToken -keyForVerify");
 
     PostsService.compareUser(post.author._id.toString(), userId);
 
-    return await PostModel.deleteOne({ _id: postId });
+    return await this.postModel.deleteOne({ _id: postId });
   }
 
   async addMember(postId: string, userId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
 
     if (!post || !user) {
       const err = new Error("잘못된 요청입니다.");
@@ -85,8 +86,8 @@ export class PostsService {
   }
 
   async deleteMember(postId: string, userId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
     if (!post || !user) {
       const err = new Error("잘못된 요청입니다.");
       err.name = "NoAuth";
@@ -106,8 +107,8 @@ export class PostsService {
   }
 
   async addComment(postId: string, userId: string, content: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
     if (!post || !user) {
       const err = new Error("잘못된 요청입니다.");
       err.name = "NoAuth";
@@ -120,16 +121,16 @@ export class PostsService {
       throw err;
     }
 
-    const comment = await CommentModel.create({ author: user, content });
+    const comment = await this.commentModel.create({ author: user, content });
     post.comments.push(comment);
     await post.save();
     return comment;
   }
 
   async deleteComment(postId: string, userId: string, commentId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
-    const comment = await CommentModel.findById(commentId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
+    const comment = await this.commentModel.findById(commentId);
 
     if (!post || !user) {
       const err = new Error("잘못된 요청입니다.");
@@ -145,7 +146,7 @@ export class PostsService {
 
     post.comments.pull(comment);
     await post.save();
-    await CommentModel.deleteOne({ _id: commentId });
+    await this.commentModel.deleteOne({ _id: commentId });
     return post;
   }
 
@@ -166,4 +167,4 @@ export class PostsService {
   }
 }
 
-export const postsService = new PostsService(PostModel, UserModel);
+export const postsService = new PostsService(PostModel, UserModel, TagModel, CommentModel);
