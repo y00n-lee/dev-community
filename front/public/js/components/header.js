@@ -1,4 +1,3 @@
-// Create Element Id
 import { createEleId, createEleClass } from "./utils.js";
 
 export function makeHeader() {
@@ -16,15 +15,13 @@ export function makeHeader() {
 
   navMenu.innerHTML = `
     <li><a href="/">Logo</a></li>
-    <li><a href="#">About</a></li>
     <li><a href="/posts">모집게시판</a></li>`;
 
   navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li>
 <li class="register"><a href="signup">Register</a></li>`;
 
   menu.innerHTML = `<div style="width: 200px;">
-<a href="#">About</a>
-<a href="#">모집게시판</a>
+<a href="/posts">모집게시판</a>
 </div>`;
 
   // AppendChild Components - Header
