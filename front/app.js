@@ -15,45 +15,36 @@ app.use(express.static(path.join(__dirname, "public/")));
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.get("/", (_, res) => {
-  res.render("index");
-});
+// 메인 페이지
+app.get("/", (_, res) => res.render("index"));
 
-app.get("/signin", (_, res) => {
-  res.render("signin");
-});
+// 로그인 페이지
+app.get("/signin", (_, res) => res.render("signin"));
 
-app.get("/signup", (_, res) => {
-  res.render("signup");
-});
+// 회원가입 페이지
+app.get("/signup", (_, res) => res.render("signup"));
 
-app.get("/posts", (_, res) => {
-  res.render("posts");
-});
+// 전체 게시글 페이지
+app.get("/posts", (_, res) => res.render("posts"));
 
-app.get("/posts/:id", (req, res) => {
-  res.render("gatherboardDetail");
-});
+// 단일 게시글 페이지
+app.get("/posts/:id", (req, res) => res.render("gatherboardDetail"));
 
-app.get("/edit/post/:id", (_, res) => {
-  res.render("gatherboardMake");
-});
+// 게시글 수정 페이지
+app.get("/edit/post/:id", (_, res) => res.render("gatherboardMake"));
 
-app.get("/user/:id", (_, res) => {
-  res.render("user");
-});
+// 유저 프로필 페이지
+app.get("/user/:id", (_, res) => res.render("user"));
 
-app.get("/edit/user/:id", (_, res) => {
-  res.render("gatherboardMake");
-});
+// 유저 정보 수정 페이지
+app.get("/edit/user/:id", (req, res) => res.render("userUpdate"));
 
-app.get("/edit/user/:id", (req, res) => {
-  res.render("userUpdate");
-});
+// 비밀번호 재발급 페이지
+app.get("/issuedPassword", (_, res) => res.render("issuedPassword"));
 
-app.get("/issuedPassword", (_, res) => {
-  res.render("issuedPassword");
-});
+// 비밀번호 변경 페이지
+
+// 프로젝트 참여자 목록 페이지
 
 app.use((err, _, res, __) => {
   res.send("asd");
