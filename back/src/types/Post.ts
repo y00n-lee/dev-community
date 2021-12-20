@@ -16,3 +16,11 @@ export interface IPost {
 export interface IPostModel extends Model<IPost> {
   getPaginatedPosts(query: object, page: number, perPage: number): Promise<number[]>;
 }
+
+export interface PostDTO {
+  postId?: string,
+  title: string,
+  content: string,
+  userId: string,
+  tagList: string[]
+}

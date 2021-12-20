@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PostModel } from "@src/models";
 import { postsService, PostsService } from "@src/services/posts.service";
+import { PostDTO } from "@src/types/Post";
 
 export class PostsConttroller {
   constructor(private readonly postsService: PostsService) {}
@@ -23,8 +24,9 @@ export class PostsConttroller {
   createPost = async (req: Request, res: Response) => {
     const userId = req?.user?.id as string;
     const { title, content, tagList } = req.body;
+    const postDTO: PostDTO = { title, content, userId, tagList };
 
-    await this.postsService.createPost(title, content, userId, tagList);
+    await this.postsService.createPost(postDTO);
     return res.status(201).json({ status: true, message: "등록되었습니다." });
   };
 
@@ -32,8 +34,9 @@ export class PostsConttroller {
     const userId = req?.user?.id as string;
     const { postId } = req.params;
     const { title, content, tagList } = req.body;
+    const postDTO: PostDTO = { postId, title, content, userId, tagList };
 
-    await this.postsService.editPost(postId, title, content, userId, tagList);
+    await this.postsService.editPost(postDTO);
     return res.json({ status: true, message: "수정되었습니다." });
   };
 
