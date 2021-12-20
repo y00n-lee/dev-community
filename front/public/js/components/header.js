@@ -17,10 +17,6 @@ export function makeHeader() {
     <li><a href="/">Logo</a></li>
     <li><a href="/posts">모집게시판</a></li>`;
 
-  getUserInfo()
-    .then((res) => console.log(res))
-    .catch((e) => console.log(e));
-
   navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li>
 <li class="register"><a href="signup">Register</a></li>`;
 
