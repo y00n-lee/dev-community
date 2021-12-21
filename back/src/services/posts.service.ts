@@ -26,9 +26,7 @@ export class PostsService {
 
   async createPost(postDTO: PostDTO) {
     const { title, content, userId, tagList } = postDTO;
-    const tags = await Promise.all(
-      tagList.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
-    );
+    const tags = this.tagModel.getTags(tagList);
 
     PostsService.checkTitleAndContent(title, content);
 
@@ -39,9 +37,7 @@ export class PostsService {
 
   async editPost(postDTO: PostDTO) {
     const { postId, title, content, userId, tagList } = postDTO;
-    const tags = await Promise.all(
-      tagList.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
-    );
+    const tags = this.tagModel.getTags(tagList);
 
     PostsService.checkTitleAndContent(title, content);
 
