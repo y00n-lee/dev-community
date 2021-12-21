@@ -82,6 +82,7 @@
 }
 
 #participate,
-#update {
+#update,
+#delete {
   display: none;
 }
