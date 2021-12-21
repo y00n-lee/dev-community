@@ -25,13 +25,11 @@ function postConstruction(post) {
   }
 }
 
-function setDispalyButtons(user, post) {
+function setDisplayButtons(user, post) {
   if (user.id === post._id) {
-    document.getElementById("update").style.display = "block";
     document.getElementById("delete").style.display = "block";
     document.getElementById("participate").style.display = "none";
   } else {
-    document.getElementById("update").style.display = "none";
     document.getElementById("delete").style.display = "none";
     document.getElementById("participate").style.display = "block";
   }
@@ -92,7 +90,7 @@ getPost(currentPostId)
     else {
       postConstruction(res.data.post);
       checkSignin().then((res1) => {
-        setDispalyButtons(res1.data, res.data.post);
+        setDisplayButtons(res1.data, res.data.post);
         setDeleteButton(res.data.post._id);
         setParticipateButton(res.data.post._id, res1.status);
         // Comments
