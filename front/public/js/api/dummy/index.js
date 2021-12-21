@@ -69,18 +69,18 @@ export const createPost = async ({ title, content, tagList }) => ({
   message: "등록되었습니다.",
 });
 
-export const editPost = ({ postId, title, content, tagList }) => ({
+export const editPost = async ({ postId, title, content, tagList }) => ({
   status: true,
   message: "수정되었습니다.",
 });
 
-export const deletePost = (postId) => ({
+export const deletePost = async (postId) => ({
   status: true,
   message: "삭제되었습니다.",
 });
 
 /* member */
-export const addMember = (postId) => ({
+export const addMember = async (postId) => ({
   status: true,
   message: "참여되었습니다.",
 });
@@ -91,7 +91,7 @@ export const deleteMember = (postId) => ({
 });
 
 /* comment */
-export const addComment = ({ postId, content }) => ({
+export const addComment = async ({ postId, content }) => ({
   status: true,
   message: "처리되었습니다.",
 });
