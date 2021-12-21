@@ -92,3 +92,11 @@
   font-size: 20px;
   font-weight: 400;
 }
+
+#techStackBlock {
+  display: flexbox;
+}
+
+#techStackBlock label {
+  padding-right: 8px;
+}

@@ -139,3 +139,11 @@ select {
   color: red;
   display: none;
 }
+
+#techStackBlock {
+  display: flexbox;
+}
+
+#techStackBlock label {
+  padding-right: 8px;
+}
