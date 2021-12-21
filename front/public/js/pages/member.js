@@ -5,15 +5,15 @@ import { makeSkillTag } from "../components/tag.js";
 import { getPost } from "../api/dummy/index.js";
 
 //DOM elements
-const body = document.querySelector("body");
+const container = document.getElementsByClassName("container")[0];
 const header = makeHeader();
 const footer = makeFooter();
-const main = document.querySelector("#main");
+const main = document.getElementById("main");
 const section = document.querySelector("#main section");
 
 // Header, footer append
-body.insertBefore(header, main);
-body.insertBefore(footer, document.querySelector("script"));
+container.insertBefore(header, main);
+container.appendChild(footer);
 
 const pathname = window.location.pathname.split("/");
 const currentPostId = pathname[pathname.length - 1];

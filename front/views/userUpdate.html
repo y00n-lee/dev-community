@@ -11,35 +11,37 @@
     <link rel="stylesheet" href="/css/footer.css" />
   </head>
   <body>
-    <main id="main" role="main">
-      <p class="group-title"></p>
-      <section class="flex-container">
-        <!-- 유저 데이터 수정 -->
-        <div class="flex-item">
-          <!-- 닉네임 수정 -->
-          <form class="field" type="submit" id="nicknameForm">
-            <p class="label">닉네임</p>
-            <input class="data" id="nicknameValue" />
-            <input type="submit" class="updateBtn" id="nicknameBtn" value="닉네임 수정" />
-          </form>
-          <!-- 기술 스택 수정 -->
-          <form class="field" id="tagForm" type="submit"></form>
-          <!-- 유저 패스워드 수정 -->
-          <form id="passwordForm" type="submit" class="field">
-            <p class="label">현재 비밀번호</p>
-            <input class="data" type="password" id="currPw" />
+    <div class="container">
+      <main id="main" role="main">
+        <p class="group-title"></p>
+        <section class="flex-container">
+          <!-- 유저 데이터 수정 -->
+          <div class="flex-item">
+            <!-- 닉네임 수정 -->
+            <form class="field" type="submit" id="nicknameForm">
+              <p class="label">닉네임</p>
+              <input class="data" id="nicknameValue" />
+              <input type="submit" class="updateBtn" id="nicknameBtn" value="닉네임 수정" />
+            </form>
+            <!-- 기술 스택 수정 -->
+            <form class="field" id="tagForm" type="submit"></form>
+            <!-- 유저 패스워드 수정 -->
+            <form id="passwordForm" type="submit" class="field">
+              <p class="label">현재 비밀번호</p>
+              <input class="data" type="password" id="currPw" />
 
-            <p class="label">변경 비밀번호</p>
-            <input class="data" type="password" id="changePw" />
+              <p class="label">변경 비밀번호</p>
+              <input class="data" type="password" id="changePw" />
 
-            <p class="label">비밀번호 확인</p>
-            <input class="data" type="password" id="checkPw" />
-            <!-- 패스워드 버튼 -->
-            <input type="submit" class="updateBtn" id="passwordBtn" value="비밀번호 변경" />
-          </form>
-        </div>
-      </section>
-    </main>
-    <script type="module" src="/js/userUpdate.js"></script>
+              <p class="label">비밀번호 확인</p>
+              <input class="data" type="password" id="checkPw" />
+              <!-- 패스워드 버튼 -->
+              <input type="submit" class="updateBtn" id="passwordBtn" value="비밀번호 변경" />
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/js/pages/userUpdate.js"></script>
   </body>
 </html>

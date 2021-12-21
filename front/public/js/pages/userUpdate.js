@@ -6,7 +6,7 @@ import { removeChildsAll } from "../components/utils.js";
 import { changePassword } from "../api/user/changePassword.js";
 
 //DOM elements
-const body = document.querySelector("body");
+const container = document.getElementsByClassName("container")[0];
 const header = makeHeader();
 const footer = makeFooter();
 const main = document.getElementById("main");
@@ -16,8 +16,8 @@ const passwordForm = document.getElementById("passwordForm");
 const p = `<p class="label">기술스택</p>`;
 
 // Header, footer append
-body.insertBefore(header, main);
-body.insertBefore(footer, document.querySelector("script"));
+container.insertBefore(header, main);
+container.appendChild(footer);
 
 const pathname = window.location.pathname.split("/");
 const currentUserId = pathname[pathname.length - 1];
