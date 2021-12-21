@@ -46,6 +46,11 @@ app.get("/issuedPassword", (_, res) => res.render("issuedPassword"));
 
 // 프로젝트 참여자 목록 페이지
 
+// 에러 페이지
+app.use("*", (req, res) => {
+  res.render("error");
+});
+
 app.use((err, _, res, __) => {
   res.send("asd");
 });
