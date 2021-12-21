@@ -78,7 +78,9 @@ export class PostsService {
     }
 
     post.members.push(user);
+    user.posts.push(post);
     await post.save();
+    await user.save();
     return post;
   }
 
@@ -95,7 +97,9 @@ export class PostsService {
     }
 
     post.members.pull(user);
+    user.posts.pull(post);
     await post.save();
+    await user.save();
     return post;
   }
 
