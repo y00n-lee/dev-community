@@ -25,29 +25,36 @@ export class UserController {
   };
 
   getUserInfo = async (req: Request, res: Response) => {
+    const _user = req.user as ITokenUser;
     const user = await this.userService.getById(req.params.id, { refreshToken: 0, password: 0 });
 
-    if (!user) return res.status(401).json({ status: false, message: "유저가 존재하지 않습니다." });
+    if (!user) return res.status(403).json({ status: false, message: "유저가 존재하지 않습니다." });
 
     await user.populate("tags");
     await user.populate("posts");
 
-    return res.json({ status: true, data: { user } });
+    const same = _user.id === user.id;
+
+    return res.json({ status: true, data: { user, same } });
   };
 
   editUserInfo = async (req: Request, res: Response) => {
     const _user = req.user as ITokenUser;
     const { id } = req.params;
+    const { name } = req.query;
 
     if (!req.user)
       return res.status(401).json({ status: false, message: "로그인 후 사용가능합니다." });
 
     if (id !== _user.id)
       return res
-        .status(401)
+        .status(403)
         .json({ status: false, message: "로그인한 사용자의 프로필만 수정 가능합니다." });
 
-    res.send("asd");
+    if (name === "tags") await this.userService.updateSkillTags(id, req.body.data);
+    else await this.userService.updateByQuery({ _id: id }, { nickname: req.body.data });
+
+    res.json({ status: true, message: "변경되었습니다." });
   };
 
   resetPassword = async (req: Request, res: Response) => {
@@ -56,7 +63,7 @@ export class UserController {
 
     if (!user)
       return res
-        .status(401)
+        .status(403)
         .json({ status: false, data: { message: "해당 메일로 가입된 사용자가 없습니다." } });
 
     const password = makeVerifyKey(5);
@@ -98,7 +105,7 @@ export class UserController {
 
     return res.json({
       status: true,
-      data: { message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요" },
+      message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요",
     });
   };
 }

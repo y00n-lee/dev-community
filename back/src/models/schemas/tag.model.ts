@@ -18,3 +18,7 @@ TagSchema.statics.findOrCreate = async function (tag: ITag) {
 
   return this.create(tag);
 };
+
+TagSchema.statics.getTags = async function (tags: string[]) {
+  return await Promise.all(tags.map((tag: string) => this.findOrCreate({ content: tag })));
+};
