@@ -9,8 +9,7 @@ const JwtOpt = {
 const JwtVerify = (payload: any, done: VerifiedCallback) => {
   try {
     if (!payload) return done(null, false, { message: "로그인 후 이용 가능합니다." });
-
-    done(null, { id: payload.id });
+    done(null, { id: payload.id, nickname: payload.nickname });
   } catch (e: any) {
     done(e, false);
   }
@@ -23,7 +22,7 @@ const RefreshJwtOpt = {
 
 const RefreshJwtVerify = async (payload: any, done: VerifiedCallback) => {
   try {
-    done(null, { id: payload.id });
+    done(null, { id: payload.id, nickname: payload.nickname });
   } catch (e: any) {
     done(e, false);
   }

@@ -3,6 +3,7 @@ import { IPost } from "./Post";
 
 export interface ITokenUser {
   id: string;
+  nickname: string;
 }
 
 export interface IUserData {
