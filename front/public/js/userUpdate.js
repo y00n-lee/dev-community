@@ -73,7 +73,7 @@ tagForm.addEventListener("submit", () => {
   const taglabel = document.querySelectorAll("input[type='checkbox']:checked + label");
   let tagList = [];
   for (let i = 0; i < taglabel.length; i++) {
-    tagList.append(`${taglabel[i].innerText}`);
+    tagList.push(`${taglabel[i].innerText}`);
   }
   fetch(`${currentUserId}/edit`, {
     method: "PUT",
