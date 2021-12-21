@@ -1,6 +1,6 @@
 import dummy from "./data.js";
 
-export const onSignup = (data) => ({
+export const onSignup = async (data) => ({
   status: true,
 });
 
@@ -29,7 +29,7 @@ export const onSignIn = async (data) => ({
 //   message: "비밀번호가 틀렸습니다",
 // });
 
-export const getUserInfo = (id) => ({
+export const getUserInfo = async (id) => ({
   status: true,
   data: {
     user: {
@@ -50,6 +50,19 @@ export const getUserInfo = (id) => ({
   },
 });
 
+export const checkSignin = async () => ({
+  status: true,
+  data: {
+    id: 1,
+    nickname: "지석호",
+  },
+});
+
+export const editUserInfo = async (id, data, queryname) => ({
+  status: true,
+  message: "변경되었습니다.",
+});
+
 export const resetPassword = async (email) => ({
   status: false,
   message: "임시 비밀번호가 메일로 전송됐습니다.",
@@ -60,9 +73,15 @@ export const inSignout = async () => ({
 });
 
 /* post */
+<<<<<<< HEAD
 export const getPosts = ({ postId, content }) => dummy.posts;
 
 export const getPost = (postId) => dummy.post;
+=======
+export const getPosts = async ({ postId, content }) => dummy.posts;
+
+export const getPost = async (postId) => dummy.post;
+>>>>>>> front-sprint
 
 export const createPost = async ({ title, content, tagList }) => ({
   status: true,
@@ -85,7 +104,7 @@ export const addMember = async (postId) => ({
   message: "참여되었습니다.",
 });
 
-export const deleteMember = (postId) => ({
+export const deleteMember = async (postId) => ({
   status: true,
   message: "취소되었습니다.",
 });
@@ -96,7 +115,7 @@ export const addComment = async ({ postId, content }) => ({
   message: "처리되었습니다.",
 });
 
-export const deleteComment = ({ postId, commentId }) => ({
+export const deleteComment = async ({ postId, commentId }) => ({
   status: true,
   message: "삭제되었습니다.",
 });
