@@ -5,6 +5,7 @@ export const getPosts = async ({ page, perPage }) => {
 			headers: {
 				"Content-Type": "application/json",
 			},
+			credentials: "include",
 		});
 
 		const res = result.json();
