@@ -8,16 +8,18 @@ export class PostsController {
   readPosts = async (req: Request, res: Response) => {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
+    const IsLogin = req.user? true : false;
 
     const [posts, totalPage] = await this.postsService.getPosts({}, page, perPage);
-    return res.json({ status: true, data: { posts, page, perPage, totalPage } });
+    return res.json({ status: true, data: { posts, page, perPage, totalPage, IsLogin } });
   };
 
   readPost = async (req: Request, res: Response) => {
     const { postId } = req.params;
+    const IsLogin = req.user? true : false;
 
     const post = await this.postsService.getById(postId);
-    return res.json({ status: true, data: { post } });
+    return res.json({ status: true, data: { post, IsLogin } });
   };
 
   createPost = async (req: Request, res: Response) => {
@@ -82,6 +84,7 @@ export class PostsController {
     await this.postsService.deleteComment(postId, userId, commentId);
     return res.json({ status: true, message: "삭제되었습니다." });
   };
+
 }
 
 export const postsController = new PostsController(postsService);
