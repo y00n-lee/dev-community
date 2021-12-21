@@ -69,7 +69,7 @@ input[type="password"]:focus::placeholder {
 }
 
 /* 로그인 버튼 */
-.submit {
+.loginBtn {
   width: 100%;
   border: none;
   border-radius: 5px;
@@ -81,10 +81,14 @@ input[type="password"]:focus::placeholder {
   font-weight: 600;
 }
 
-input[type="button"] {
+input[type="submit"] {
   color: var(--ft-color);
   font-size: 14px;
   font-weight: 600;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
 }
 
 /* 회원 가입 */
