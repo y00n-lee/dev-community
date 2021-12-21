@@ -1,5 +1,6 @@
 import { createEleId, createEleClass } from "./utils.js";
-import { onSignin } from "../api/user/onSignin.js";
+//import { onSignin } from "../api/user/onSignin.js";
+import { onSignIn, inSignout } from "../api/dummy/index.js";
 
 export function makeHeader() {
   const header = createEleId("header", "header");
@@ -29,7 +30,8 @@ export function makeHeader() {
 <a href="/posts">모집게시판</a>
 </div>`;
 
-  onSignin({ email: "sukho1007@naver.com", password: "1007" }).then((res) => {
+  onSignIn({ email: "sukho1007@naver.com", password: "1007" }).then((res) => {
+    console.log(res);
     if (!res.status) {
       navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li><li class="register"><a href="signup">Register</a></li>`;
     } else {
