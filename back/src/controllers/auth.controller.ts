@@ -22,7 +22,7 @@ export class AuthController {
 
       const { id } = _user;
 
-      const [accessToken, refreshToken] = await this.authService.signin({ id });
+      const [accessToken, refreshToken] = await this.authService.signin(_user);
       const user = (await this.userService.getById(id, {
         refreshToken: 0,
         keyForVerify: 0,
@@ -61,14 +61,14 @@ export class AuthController {
   };
 
   refresh = async (req: Request, res: Response) => {
-    const { id } = req.user as ITokenUser;
+    const _user = req.user as ITokenUser;
 
-    const isVerifiedToken = await this.authService.verifyRefresh({ id });
+    const isVerifiedToken = await this.authService.verifyRefresh(_user);
 
     if (!isVerifiedToken)
       return res.status(401).json({ status: false, err: "다시 로그인 해주세요" });
 
-    const [accessToken, refreshToken] = await this.authService.signin({ id });
+    const [accessToken, refreshToken] = await this.authService.signin(_user);
 
     res.cookie(jwtContents.header, accessToken, {
       httpOnly: true,

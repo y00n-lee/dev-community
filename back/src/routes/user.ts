@@ -2,9 +2,11 @@ import { Router } from "express";
 
 import { asyncHandler } from "@src/utils/asyncHandler";
 import { userController } from "@src/controllers/user.controller";
-import { JwtAuthGurad } from "@src/passport/gurads/jwt-auth.guard";
+import { ExpiredJwtAuthGurad, JwtAuthGurad } from "@src/passport/gurads/jwt-auth.guard";
 
 const router = Router();
+
+router.get("/", ExpiredJwtAuthGurad, asyncHandler(userController.checkSignin));
 
 router.post("/signup", asyncHandler(userController.signup));
 
