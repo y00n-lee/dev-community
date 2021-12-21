@@ -11,20 +11,19 @@
     <link rel="stylesheet" href="/css/footer.css" />
   </head>
   <body>
-    <main id="main" role="main">
-      <p class="group-title"></p>
-      <section class="flex-container">
-        <form class="flex-item">
-          <!-- 데이터 필드 JS로 생성 -->
-          <input
-            id="updateBtn"
-            type="submit"
-            name="updateBtn"
-            value="프로필 수정"
-          ></input>
-        </form>
-      </section>
-    </main>
+    <div class="container">
+      <main id="main" role="main">
+        <p class="group-title"></p>
+        <section class="flex-container">
+          <div class="flex-item">
+            <form id="profileForm">
+              <!-- 데이터 필드 JS로 생성 -->
+            </form>
+            <input id="updateBtn" type="button" name="updateBtn" value="프로필 수정" />
+          </div>
+        </section>
+      </main>
+    </div>
     <script type="module" src="/js/user.js"></script>
   </body>
 </html>
