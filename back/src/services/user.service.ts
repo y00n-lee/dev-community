@@ -17,9 +17,7 @@ export class UserService {
 
       const { tags } = data;
 
-      const result = await Promise.all(
-        tags.map((tag: string) => this.tagModel.findOrCreate({ content: tag })),
-      );
+      const result = await this.tagModel.getTags(tags);
 
       const keyForVerify = makeVerifyKey(20);
 
@@ -49,6 +47,14 @@ export class UserService {
 
   async updateByQuery(where: any, query: any) {
     return await this.userModel.updateOne(where, query);
+  }
+
+  async updateSkillTags(id: string, tags: string[]) {
+    await this.userModel.updateOne({ _id: id }, { tags: [] });
+
+    const newTags = await this.tagModel.getTags(tags);
+
+    await this.userModel.updateOne({ _id: id }, { $push: { tags: newTags } });
   }
 }
 
