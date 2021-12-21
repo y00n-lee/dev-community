@@ -9,6 +9,10 @@ export class PostsService {
     private readonly commentModel: typeof CommentModel,
   ) {}
 
+  async getPosts(query: object, page: number, perPage: number) {
+    return await this.postModel.getPaginatedPosts(query, page, perPage);
+  }
+  
   async getById(postId: string) {
     const post = await this.postModel
       .findById(postId)

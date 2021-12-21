@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { PostModel } from "@src/models";
 import { postsService, PostsService } from "@src/services/posts.service";
 import { PostDTO } from "@src/types/Post";
 
@@ -10,7 +9,7 @@ export class PostsConttroller {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
 
-    const [posts, totalPage] = await PostModel.getPaginatedPosts({}, page, perPage);
+    const [posts, totalPage] = await this.postsService.getPosts({}, page, perPage);
     return res.json({ status: true, data: { posts, page, perPage, totalPage } });
   };
 
