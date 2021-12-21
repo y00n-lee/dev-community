@@ -1,8 +1,8 @@
-import { makeHeader } from "./components/header.js";
-import { makeFooter } from "./components/footer.js";
-import { createEleClass, addTextNode, addChild } from "./components/utils.js";
-import { makeSkillTag } from "./components/tag.js";
-import { getPost } from "./api/dummy/index.js";
+import { makeHeader } from "../components/header.js";
+import { makeFooter } from "../components/footer.js";
+import { createEleClass, addTextNode, addChild } from "../components/utils.js";
+import { makeSkillTag } from "../components/tag.js";
+import { getPost } from "../api/dummy/index.js";
 
 //DOM elements
 const body = document.querySelector("body");
