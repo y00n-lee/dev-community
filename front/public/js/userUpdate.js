@@ -1,7 +1,7 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleClass, addTextNode } from "./components/utils.js";
 import { getUserInfo } from "./api/dummy/index.js";
+import { makeSkillTag } from "./components/tag.js";
 //DOM elements
 const body = document.querySelector("body");
 const header = makeHeader();
@@ -22,74 +22,90 @@ const passwordBtn = document.getElementById("passwordBtn");
 body.insertBefore(header, main);
 body.insertBefore(footer, document.querySelector("script"));
 
-const user = getUserInfo().data.user;
 const pathname = window.location.pathname.split("/");
-const currentUserId = pathname[pathname.length - 2];
+const currentUserId = pathname[pathname.length - 1];
 
-//data load
-// const user = {};
-// window.onload = fetch(`${currentUserId}`, { method: "GET" }).then((res) => {
-//   if (!res.status) {
-//     alert(res.message);
-//     return;
-//   }
-//   if (res.data.same) {
-//     updateBtn.style = "display:block";
-//   }
-//   user.nickname = res.user.nickname;
-//   user.gender = res.user.gender;
-//   user.skill = res.user.tags;
-//   user.github = res.user.github;
-// });
+// get user data
+window.onload = setUpdateData();
 
-addTextNode(title, `${user.nickname}님의 프로필`);
+function setUpdateData() {
+  getUserInfo(currentUserId)
+    .then((res) => {
+      if (!res.status) return alert(res.message);
 
-const filledData = [user.nickname, user.tags];
-for (let i = 0; i < filledData.length; i++) {
-  document.getElementsByName("filled")[i].placeholder = filledData[i];
+      const { user } = res.data;
+      const name = document.querySelector("input#name");
+      name.placeholder = user.nickname;
+      // addTextNode(document.querySelector(".group-title"), `${user.nickname}님의 프로필`);
+
+      // const skillTag = document.querySelector("input#skilltag");
+      // `<input type="checkbox" checked disabled style="display:none"/>${userData[i]}`
+    })
+    .catch((e) => alert(e.message));
+}
+
+function makeUserInfo(user) {
+  addTextNode(document.querySelector(".group-title"), `${user.nickname}님의 프로필`);
+
+  const field = [`nickname`, `email`, `gender`];
+  const fieldname = [`닉네임`, `이메일`, `성별`];
+
+  const fieldNum = field.length;
+  for (let i = 0; i < fieldNum; i++) {
+    const div = makeDataField(user[field[i]], fieldname[i]);
+    form.insertBefore(div, updateBtn);
+  }
+  const tagList = makeDataField(user.tags, `기술스택`, false);
+  const postList = makeDataField(user.posts, `현재 참여한 스터디`, true);
+  form.insertBefore(tagList, updateBtn);
+  form.insertBefore(postList, updateBtn);
+  // 업데이트 페이지로 버튼 이동 이벤트
+  form.addEventListener("submit", () => {
+    window.location = `/user/${user.id}/edit`;
+  });
 }
 
 // 수정버튼 이벤트 리스너
-nameForm.addEventListener("submit", () => {
-  const name = document.getElementById("name");
-  fetch(`${currentUserId}/edit`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      nickname: `${name.value}`,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      name.placeholder = data;
-      alert(`변경에 성공했습니다.`);
-    });
-});
-tagForm.addEventListener("submit", () => {
-  const tag = document.querySelectorAll("input[type='checkbox']");
-  const checkedTag = document.querySelectorAll("input[type='checkbox']:checked");
-  const taglabel = document.querySelectorAll("input[type='checkbox']:checked + label");
-  let tagList = [];
-  for (let i = 0; i < taglabel.length; i++) {
-    tagList.push(`${taglabel[i].innerText}`);
-  }
-  fetch(`${currentUserId}/edit`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      tags: tagList,
-    }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      tag.alert(`변경에 성공했습니다.`);
-    });
-});
-//TODO : 각 수정 버튼 이벤트 리스너 달기
+// nameForm.addEventListener("submit", () => {
+//   const name = document.getElementById("name");
+//   fetch(`${currentUserId}/edit`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       nickname: `${name.value}`,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       name.placeholder = data;
+//       alert(`변경에 성공했습니다.`);
+//     });
+// });
+// tagForm.addEventListener("submit", () => {
+//   const tag = document.querySelectorAll("input[type='checkbox']");
+//   const checkedTag = document.querySelectorAll("input[type='checkbox']:checked");
+//   const taglabel = document.querySelectorAll("input[type='checkbox']:checked + label");
+//   let tagList = [];
+//   for (let i = 0; i < taglabel.length; i++) {
+//     tagList.push(`${taglabel[i].innerText}`);
+//   }
+//   fetch(`${currentUserId}/edit`, {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       tags: tagList,
+//     }),
+//   })
+//     .then((response) => response.json())
+//     .then((data) => {
+//       tag.alert(`변경에 성공했습니다.`);
+//     });
+// });
+
 // nameField.addEventListener("submit", btnSubmit);
 // function btnSubmit() {
 //   // 정상적으로 업데이트
