@@ -124,8 +124,13 @@ function blockTagExtension(tag, inner) {
 
 // Callback Function
 function checkId() {
+  const emailPattern = /^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/;
+
   if (id.value === "") {
     blockTagExtension(error[0], "필수 정보입니다.");
+    isOkArray[0] = false;
+  } else if (emailPattern.test(id.value) === false) {
+    blockTagExtension(error[0], "이메일 형식이 올바르지 않습니다.");
     isOkArray[0] = false;
   } else {
     error[0].style.display = "none";
