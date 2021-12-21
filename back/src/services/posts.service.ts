@@ -21,6 +21,11 @@ export class PostsService {
       .populate("members", "-password -refreshToken -keyForVerify")
       .populate("comments")
       .populate("tags");
+
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
+
     return post;
   }
 
@@ -28,7 +33,9 @@ export class PostsService {
     const { title, content, userId, tagList } = postDTO;
     const tags = this.tagModel.getTags(tagList);
 
-    PostsService.checkTitleAndContent(title, content);
+    if (!title || !content) {
+      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
+    }
 
     const author = await this.userModel.findById(userId);
     const post = await this.postModel.create({ title, content, author, members: author, tags });
@@ -39,13 +46,21 @@ export class PostsService {
     const { postId, title, content, userId, tagList } = postDTO;
     const tags = this.tagModel.getTags(tagList);
 
-    PostsService.checkTitleAndContent(title, content);
+    if (!title || !content) {
+      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
+    }
 
     const post = await this.postModel
       .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify");
 
-    PostsService.compareUser(post.author._id.toString(), userId);
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
+
+    if (post.author._id.toString() !== userId) {
+      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
+    }
 
     const updatedPost = await this.postModel.findOneAndUpdate(
       { _id: postId },
@@ -60,7 +75,13 @@ export class PostsService {
       .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify");
 
-    PostsService.compareUser(post.author._id.toString(), userId);
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
+
+    if (post.author._id.toString() !== userId) {
+      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
+    }
 
     return await this.postModel.deleteOne({ _id: postId });
   }
@@ -70,7 +91,7 @@ export class PostsService {
     const post = await this.postModel.findById(postId);
 
     if (!post || !user) {
-      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (post.members.indexOf(user._id) >= 0) {
@@ -88,7 +109,7 @@ export class PostsService {
     const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     const loc = post.members.indexOf(user._id);
@@ -107,7 +128,7 @@ export class PostsService {
     const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (!content) {
@@ -126,29 +147,17 @@ export class PostsService {
     const comment = await this.commentModel.findById(commentId);
 
     if (!post || !user) {
-      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (!commentId || !comment) {
-      throw clientErrHandler("유효하지 않은 댓글입니다.", "NoAuth");
+      throw clientErrHandler("유효하지 않은 댓글입니다.", "Bad");
     }
 
     post.comments.pull(comment);
     await post.save();
     await this.commentModel.deleteOne({ _id: commentId });
     return post;
-  }
-
-  static checkTitleAndContent(title: string, content: string) {
-    if (!title || !content) {
-      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
-    }
-  }
-
-  static compareUser(author: string, cur: string) {
-    if (author !== cur) {
-      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
-    }
   }
 }
 
