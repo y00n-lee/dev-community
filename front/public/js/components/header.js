@@ -1,4 +1,5 @@
 import { createEleId, createEleClass } from "./utils.js";
+import { onSignin } from "../api/user/onSignin.js";
 
 export function makeHeader() {
   const header = createEleId("header", "header");
@@ -28,6 +29,26 @@ export function makeHeader() {
 <a href="/posts">모집게시판</a>
 </div>`;
 
+  onSignin({ email: "sukho1007@naver.com", password: "1007" }).then((res) => {
+    if (!res.status) {
+      navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li><li class="register"><a href="signup">Register</a></li>`;
+    } else {
+      const user = res.data.user;
+
+      navLogin.innerHTML = `<li class="login"><a href="/user/${user.id}">${user.nickname}<a>
+    <li class="register"><a href="signup">Log Out</a></li>`;
+
+      const logoutBox = document.querySelector(".register");
+      logoutBox.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        inSignout().then((resp) => {
+          if (!resp.status) alert(resp.message);
+          else window.location = "/";
+        });
+      });
+    }
+  });
   // AppendChild Components - Header
   slider.appendChild(menu);
   nav.appendChild(slider);
