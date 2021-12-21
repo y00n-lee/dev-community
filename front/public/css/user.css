@@ -76,3 +76,16 @@
   font-weight: 400;
   cursor: pointer;
 }
+a {
+  color: black;
+}
+label {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: gray;
+  font-weight: 400;
+  color: white;
+  min-width: 50px;
+  margin: 10px;
+  display: inline-block;
+}
