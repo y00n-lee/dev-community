@@ -1,4 +1,4 @@
-label {
+.tag {
   padding: 10px;
   border-radius: 20px;
   background-color: #6599cc;
@@ -9,3 +9,6 @@ label {
   display: inline-block;
   text-align: center;
 }
+/* .tag input[type="checkbox"]:checked {
+  background-color: #6599cc;
+} */
