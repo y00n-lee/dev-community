@@ -8,7 +8,7 @@ const router = Router();
 
 router.post("/signup", asyncHandler(userController.signup));
 
-router.get("/:id", asyncHandler(userController.getUserInfo));
+router.get("/:id", JwtAuthGurad, asyncHandler(userController.getUserInfo));
 
 router.post("/password/reset", asyncHandler(userController.resetPassword));
 
