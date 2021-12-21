@@ -1,10 +1,11 @@
 label {
   padding: 10px;
   border-radius: 20px;
-  background-color: gray;
+  background-color: #6599cc;
   font-weight: 400;
   color: white;
-  min-width: 50px;
+  min-width: 80px;
   margin: 10px;
   display: inline-block;
+  text-align: center;
 }
