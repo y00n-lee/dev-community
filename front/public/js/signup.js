@@ -1,7 +1,8 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 import { addTextNode } from "./components/utils.js";
-import { onSignup } from "./api/user/onSIgnup.js";
+//import { onSignup } from "./api/user/onSIgnup.js";
+import { onSignup } from "./api/dummy/index.js";
 
 const container = document.querySelector(".container");
 const isOkArray = [false, false, false, false, false, false, false];
@@ -68,8 +69,10 @@ document.getElementById("submit").addEventListener("click", function () {
       //gitAdd: document.getElementById('gitAdd').value
     })
       .then((res) => {
-        if (!res.status) alert(res.message);
-        else window.location = "/";
+        if (res.status) {
+          alert("회원가입 되었습니다!");
+          window.location = "/signin";
+        }
       })
       .catch((e) => alert(e.message));
   }
