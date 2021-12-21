@@ -27,11 +27,11 @@
           <form class="field" id="skilltag" target="iframe"></form>
           <div class="field">
             <p class="label">기술스택</p>
-            <input type="checkbox" class="data skilltag" name="filled" id="vue" checked />
+            <input type="checkbox" class="skilltag" name="filled" id="vue" checked />
             <label for="vue">vue.js</label>
-            <input type="checkbox" class="data skilltag" name="filled" id="react" />
+            <input type="checkbox" class="skilltag" name="filled" id="react" checked />
             <label for="react">react.js</label>
-            <input type="checkbox" class="data skilltag" name="filled" id="vjs" />
+            <input type="checkbox" class="skilltag" name="filled" id="vjs" />
             <label for="vjs">vanilla JS</label>
             <input type="submit" class="updateBtn" name="filledBtn" value="수정" />
             <div class="error_next_box" style="visibility: hidden"></div>
@@ -58,9 +58,5 @@
     </main>
     <iframe id="iframe" name="iframe" style="display: none"></iframe>
     <script type="module" src="/js/userUpdate.js"></script>
-    <script>
-      const tag = document.querySelectorAll("input[type='checkbox']:checked + label").innerText;
-      console.log(tag);
-    </script>
   </body>
 </html>

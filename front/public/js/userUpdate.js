@@ -45,14 +45,11 @@ const currentUserId = pathname[pathname.length - 2];
 addTextNode(title, `${user.nickname}님의 프로필`);
 
 const filledData = [user.nickname, user.tags];
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < filledData.length; i++) {
   document.getElementsByName("filled")[i].placeholder = filledData[i];
-  // document.getElementsByName("filledBtn")[i].addEventListener("click", (e) => {
-  //   console.log(e);
-  //   console.log("callback test");
-  // });
 }
 
+// 수정버튼 이벤트 리스너
 nameForm.addEventListener("submit", () => {
   const name = document.getElementById("name");
   fetch(`${currentUserId}/edit`, {
@@ -65,13 +62,18 @@ nameForm.addEventListener("submit", () => {
     }),
   })
     .then((response) => response.json())
-    .then((data) => (name.placeholder = data));
+    .then((data) => {
+      name.placeholder = data;
+      alert(`변경에 성공했습니다.`);
+    });
 });
 tagForm.addEventListener("submit", () => {
-  const tag = document.querySelectorAll("input[type='checkbox']:checked + label");
+  const tag = document.querySelectorAll("input[type='checkbox']");
+  const checkedTag = document.querySelectorAll("input[type='checkbox']:checked");
+  const taglabel = document.querySelectorAll("input[type='checkbox']:checked + label");
   let tagList = [];
-  for (let i = 0; i < tag.length; i++) {
-    tagList.append(tag.innerText);
+  for (let i = 0; i < taglabel.length; i++) {
+    tagList.append(`${taglabel[i].innerText}`);
   }
   fetch(`${currentUserId}/edit`, {
     method: "PUT",
@@ -79,11 +81,13 @@ tagForm.addEventListener("submit", () => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      nickname: tagList,
+      tags: tagList,
     }),
   })
     .then((response) => response.json())
-    .then((data) => (tag.placeholder = data));
+    .then((data) => {
+      tag.alert(`변경에 성공했습니다.`);
+    });
 });
 //TODO : 각 수정 버튼 이벤트 리스너 달기
 // nameField.addEventListener("submit", btnSubmit);
