@@ -50,7 +50,7 @@ function makeUserInfo(user) {
   form.insertBefore(postList, updateBtn);
   // 업데이트 페이지로 버튼 이동 이벤트
   form.addEventListener("submit", () => {
-    window.location = `/user/${user.id}/edit`;
+    window.location = `edit/user/${user.id}`;
   });
 }
 
