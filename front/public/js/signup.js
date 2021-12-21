@@ -64,7 +64,8 @@ document.getElementById("submit").addEventListener("click", function () {
         Number(document.getElementById("dd").value),
       ),
       gender: document.getElementById("gender").value,
-      tags: [],
+      tags: tagsList,
+      //gitAdd: document.getElementById('gitAdd').value
     })
       .then((res) => {
         if (!res.status) alert(res.message);
