@@ -16,24 +16,23 @@
       <section class="flex-container">
         <!-- 유저 데이터 수정 -->
         <div class="flex-item">
-          <!-- <img class="image" /> -->
           <!-- <div class="field"> -->
           <form class="field" id="nickname" target="iframe">
             <p class="label">닉네임</p>
-            <input class="data" name="filled" id="email" />
+            <input class="data" name="filled" id="name" />
             <input type="submit" class="updateBtn" name="filledBtn" id="nameBtn" value="수정" />
             <div class="error_next_box" style="visibility: hidden"></div>
           </form>
           <!-- </div> -->
-          <div class="field">
-            <p class="label">이메일</p>
-            <input class="data" name="filled" />
-            <input type="submit" class="updateBtn" name="filledBtn" value="수정" />
-            <div class="error_next_box" style="visibility: hidden"></div>
-          </div>
+          <form class="field" id="skilltag" target="iframe"></form>
           <div class="field">
             <p class="label">기술스택</p>
-            <input class="data" name="filled" />
+            <input type="checkbox" class="data skilltag" name="filled" id="vue" checked />
+            <label for="vue">vue.js</label>
+            <input type="checkbox" class="data skilltag" name="filled" id="react" />
+            <label for="react">react.js</label>
+            <input type="checkbox" class="data skilltag" name="filled" id="vjs" />
+            <label for="vjs">vanilla JS</label>
             <input type="submit" class="updateBtn" name="filledBtn" value="수정" />
             <div class="error_next_box" style="visibility: hidden"></div>
           </div>
@@ -59,5 +58,9 @@
     </main>
     <iframe id="iframe" name="iframe" style="display: none"></iframe>
     <script type="module" src="/js/userUpdate.js"></script>
+    <script>
+      const tag = document.querySelectorAll("input[type='checkbox']:checked + label").innerText;
+      console.log(tag);
+    </script>
   </body>
 </html>

@@ -9,11 +9,9 @@ const footer = makeFooter();
 
 const main = document.querySelector("#main");
 const title = document.querySelector("#main .group-title");
-// const image = document.querySelector("#main section .flex-item img");
 
-const nameField = document.getElementById("nickname");
-const emailBtn = document.getElementById("emailBtn");
-const tagBtn = document.getElementById("tagBtn");
+const nameForm = document.getElementById("nickname");
+const tagForm = document.getElementById("skilltag");
 
 const nowPw = document.getElementById("nowPw");
 const changePw = document.getElementById("changePw");
@@ -25,12 +23,28 @@ body.insertBefore(header, main);
 body.insertBefore(footer, document.querySelector("script"));
 
 const user = getUserInfo().data.user;
-// console.log(user);
+const pathname = window.location.pathname.split("/");
+const currentUserId = pathname[pathname.length - 2];
+
+//data load
+// const user = {};
+// window.onload = fetch(`${currentUserId}`, { method: "GET" }).then((res) => {
+//   if (!res.status) {
+//     alert(res.message);
+//     return;
+//   }
+//   if (res.data.same) {
+//     updateBtn.style = "display:block";
+//   }
+//   user.nickname = res.user.nickname;
+//   user.gender = res.user.gender;
+//   user.skill = res.user.tags;
+//   user.github = res.user.github;
+// });
 
 addTextNode(title, `${user.nickname}님의 프로필`);
-// image.src = `../img/about/man1.png`;
 
-const filledData = [user.nickname, user.email, user.tag];
+const filledData = [user.nickname, user.tags];
 for (let i = 0; i < 3; i++) {
   document.getElementsByName("filled")[i].placeholder = filledData[i];
   // document.getElementsByName("filledBtn")[i].addEventListener("click", (e) => {
@@ -38,19 +52,55 @@ for (let i = 0; i < 3; i++) {
   //   console.log("callback test");
   // });
 }
-nameField.addEventListener("submit", btnSubmit);
-function btnSubmit() {
-  // 정상적으로 업데이트
-  alert(this);
-  console.log(this);
-  // if (ele.value === "") {
-  //   alert("변경하려면 값을 입력하세요");
-  //   return;
-  // }
-  // alert(`변경에 성공했습니다`);
-  // 아니라면
-  // alert(` 변경에 실패했습니다`);
-}
+
+nameForm.addEventListener("submit", () => {
+  const name = document.getElementById("name");
+  fetch(`${currentUserId}/edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nickname: `${name.value}`,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => (name.placeholder = data));
+});
+tagForm.addEventListener("submit", () => {
+  const tag = document.querySelectorAll("input[type='checkbox']:checked + label");
+  let tagList = [];
+  for (let i = 0; i < tag.length; i++) {
+    tagList.append(tag.innerText);
+  }
+  fetch(`${currentUserId}/edit`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      nickname: tagList,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => (tag.placeholder = data));
+});
+//TODO : 각 수정 버튼 이벤트 리스너 달기
+// nameField.addEventListener("submit", btnSubmit);
+// function btnSubmit() {
+//   // 정상적으로 업데이트
+//   alert(this);
+//   console.log(this);
+//   // if (ele.value === "") {
+//   //   alert("변경하려면 값을 입력하세요");
+//   //   return;
+//   // }
+//   // alert(`변경에 성공했습니다`);
+//   // 아니라면
+//   // alert(` 변경에 실패했습니다`);
+// }
+
+//TODO : 유효성 검사
 // function confirmPw() {
 //   const nowPw = document.getElementById("nowPw").value;
 //   const chPw = document.getElementById("chPw").value;
