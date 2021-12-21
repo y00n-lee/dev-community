@@ -1,6 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleClass, addTextNode, addChild } from "./components/utils.js";
+import { createEleClass, addTextNode, addChild, makeSkillTag } from "./components/utils.js";
 import { getPost } from "./api/dummy/index.js";
 
 //DOM elements
@@ -32,11 +32,12 @@ function makeMemberCard(user) {
   const article = createEleClass("article", "flex-item");
   const memberName = createEleClass("p", "member-name"); // 회원 이름
   const memberEmail = createEleClass("p", "introduce"); // 회원 소개말
-  const memberSkill = createEleClass("p", "member-skill"); // 회원 기술 스택
 
   addChild(article, memberName, user.nickname);
   addChild(article, memberEmail, user.email);
-  addChild(article, memberSkill, user.tags);
+  for (let i = 0; i < user.tags.length; i++) {
+    article.appendChild(makeSkillTag(user.tags[i]));
+  }
 
   section.appendChild(article);
 }
