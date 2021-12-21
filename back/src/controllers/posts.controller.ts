@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { postsService, PostsService } from "@src/services/posts.service";
 import { PostDTO } from "@src/types/Post";
 
-export class PostsConttroller {
+export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   readPosts = async (req: Request, res: Response) => {
@@ -84,4 +84,4 @@ export class PostsConttroller {
   };
 }
 
-export const postsController = new PostsConttroller(postsService);
+export const postsController = new PostsController(postsService);
