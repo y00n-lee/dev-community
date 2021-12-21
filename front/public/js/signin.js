@@ -1,5 +1,6 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
+import { onSignIn } from "./api/dummy/index.js";
 
 //Body
 const container = document.querySelector(".container");
@@ -17,10 +18,10 @@ container.appendChild(loginSection);
 // - 아이디가 db에 있고 비밀번호가 틀리다면 -> 비밀번호를 확인해주세요
 // - 아이디가 db에 없다면 -> 가입된 정보가 없습니다.
 const loginForm = document.querySelector("#loginForm");
-const formEmail = document.getElementsByName("id")[0];
-const formPassword = document.getElementsByName("password")[0];
+const formEmail = document.querySelector(".loginId");
+const formPassword = document.querySelector(".loginPassword");
 
-loginForm.addEventListener("submit", async (e) => {
+loginForm.addEventListener("submit", (e) => {
   e.preventDefault();
 
   if (!formEmail.value || !formPassword.value) {
@@ -28,7 +29,12 @@ loginForm.addEventListener("submit", async (e) => {
   } else if (formPassword.value.length <= 8) {
     alert("비밀번호는 8자리 이상입니다.");
   } else {
-    loginForm.submit();
+    onSignIn({ email: "sukho1007@naver.com", password: "1007" })
+      .then((res) => {
+        if (!res.status) alert(res.message);
+        else window.location = "/";
+      })
+      .catch((e) => alert(e.message));
   }
 });
 
