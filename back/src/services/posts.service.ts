@@ -1,5 +1,6 @@
 import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
 import { PostDTO } from "@src/types/Post";
+import { clientErrHandler } from "@src/utils/clientErrHandler";
 
 export class PostsService {
   constructor(
@@ -12,7 +13,7 @@ export class PostsService {
   async getPosts(query: object, page: number, perPage: number) {
     return await this.postModel.getPaginatedPosts(query, page, perPage);
   }
-  
+
   async getById(postId: string) {
     const post = await this.postModel
       .findById(postId)
@@ -73,15 +74,11 @@ export class PostsService {
     const post = await this.postModel.findById(postId);
 
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
     }
 
     if (post.members.indexOf(user._id) >= 0) {
-      const err = new Error("이미 참여한 게시글입니다.");
-      err.name = "AlreadyJoin";
-      throw err;
+      throw clientErrHandler("이미 참여한 게시글입니다.", "AlreadyJoin");
     }
 
     post.members.push(user);
@@ -93,16 +90,12 @@ export class PostsService {
     const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
     }
 
     const loc = post.members.indexOf(user._id);
     if (loc === -1) {
-      const err = new Error("참여하지 않은 상태입니다.");
-      err.name = "NoMember";
-      throw err;
+      throw clientErrHandler("참여하지 않은 상태입니다.", "NoMember");
     }
 
     post.members.pull(user);
@@ -114,15 +107,11 @@ export class PostsService {
     const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
     const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
     }
 
     if (!content) {
-      const err = new Error("내용을 입력해주세요.");
-      err.name = "NoTitleContent";
-      throw err;
+      throw clientErrHandler("내용을 입력해주세요.", "NoTitleContent");
     }
 
     const comment = await this.commentModel.create({ author: user, content });
@@ -137,15 +126,11 @@ export class PostsService {
     const comment = await this.commentModel.findById(commentId);
 
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "NoAuth");
     }
 
     if (!commentId || !comment) {
-      const err = new Error("유효하지 않은 댓글입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("유효하지 않은 댓글입니다.", "NoAuth");
     }
 
     post.comments.pull(comment);
@@ -156,17 +141,13 @@ export class PostsService {
 
   static checkTitleAndContent(title: string, content: string) {
     if (!title || !content) {
-      const err = new Error("제목과 내용을 입력해 주세요.");
-      err.name = "NoTitleContent";
-      throw err;
+      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
     }
   }
 
   static compareUser(author: string, cur: string) {
     if (author !== cur) {
-      const err = new Error("다른 사용자가 작성한 게시글입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
     }
   }
 }
