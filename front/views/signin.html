@@ -15,21 +15,21 @@
       <!-- header -->
       <!-- login -->
       <section class="loginBox">
-        <form id="loginForm" action="/signin" method="POST">
+        <form id="loginForm" type="submit">
           <h2>Developer Post</h2>
           <span class="user">ID</span>
-          <input class="id" type="email" name="id" placeholder="아이디를 입력하세요." />
+          <input class="loginId" type="email" name="id" placeholder="아이디를 입력하세요." />
           <span class="user">Password</span>
           <input
-            class="password"
+            class="loginPassword"
             type="password"
             name="password"
             placeholder="비밀번호를 입력하세요."
           />
           <div class="search">
-            <a href="/issuedPassword">계정/ 비밀번호 찾기</a>
+            <a href="/issuedPassword">비밀번호 찾기</a>
           </div>
-          <input class="submit" type="button" value="로그인" />
+          <input class="loginBtn" type="submit" value="로그인" />
           <div class="signbox">
             <span>아직 회원이 아니신가요?</span>
             <a href="/signup">회원가입</a>

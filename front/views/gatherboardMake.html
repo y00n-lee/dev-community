@@ -1,16 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>자유게시판 글작성 화면입니다.</title>
+    <title>모집게시판 글 작성 화면입니다.</title>
     <link rel="stylesheet" href="/css/default.css" />
-    <link rel="stylesheet" href="/css/gatherboardMake.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/gatherboardMake.css" />
   </head>
   <body>
+    <div class="container">
+      <div id="main">
+        <h2 id="head">모집게시판</h2>
+        <section id="makeBlock">
+          <form id="gatherboardMake" name="gatherboardMake" action="/posts" method="post">
+            <div>
+              <h3><label for="title">글 제목</label></h3>
+              <span class="box">
+                <input id="title" type="text" name="title" class="int" maxlength="40" required />
+              </span>
+            </div>
+            <div>
+              <h3><label for="contentText">내용</label></h3>
+              <span class="textbox">
+                <textarea name="contentText" id="content" cols="60" rows="20" required></textarea>
+              </span>
+            </div>
+            <div>
+              <h3><label for="techStack">기술 스택</label></h3>
+              <div id="techStackBlock"></div>
+            </div>
+            <div class="submit_area">
+              <input type="submit" class="submit" name="submit" value="작성" />
+            </div>
+            <div class="submit_area">
+              <button type="text" class="submit" onclick="location.href='/posts'">취소</button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
     <script type="module" src="/js/gatherboardMake.js"></script>
   </body>
 </html>
