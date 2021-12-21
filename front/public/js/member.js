@@ -31,13 +31,13 @@ window.onload = (function () {
 function makeMemberCard(user) {
   const article = createEleClass("article", "flex-item");
   const memberName = createEleClass("p", "member-name"); // 회원 이름
-  const memberEmail = createEleClass("p", "introduce"); // 회원 소개말
+  const memberEmail = createEleClass("p", "email"); // 회원 이메일
 
   addChild(article, memberName, user.nickname);
-  addChild(article, memberEmail, user.email);
   for (let i = 0; i < user.tags.length; i++) {
     article.appendChild(makeSkillTag(user.tags[i]));
   }
+  addChild(article, memberEmail, user.email);
 
   section.appendChild(article);
 }
