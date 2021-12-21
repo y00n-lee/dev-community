@@ -8,4 +8,5 @@ export interface ITagDocument extends ITag, Document {}
 
 export interface ITagModel extends Model<ITagDocument> {
   findOrCreate(tag: ITag): Promise<ITagDocument>;
+  getTags(tags: string[]): Promise<ITagDocument[]>;
 }
