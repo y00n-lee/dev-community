@@ -1,3 +1,5 @@
+import dummy from "./data.js";
+
 export const onSignup = (data) => ({
   status: true,
 });
@@ -45,4 +47,46 @@ export const getUserInfo = (id) => ({
 
 export const inSignout = () => ({
   status: true,
+});
+
+/* post */
+export const getPosts = ({ postId, content }) => (dummy.posts);
+
+export const getPost = (postId) => (dummy.post);
+
+export const createPost = ({ title, content, tagList }) => ({
+  status: true,
+  message: "등록되었습니다.",
+});
+
+export const editPost = ({ postId, title, content, tagList }) => ({
+  status: true,
+  message: "수정되었습니다.",
+});
+
+export const deletePost = (postId) => ({
+  status: true,
+  message: "삭제되었습니다.",
+});
+
+/* member */
+export const addMember = (postId) => ({
+  status: true,
+  message: "참여되었습니다.",
+});
+
+export const deleteMember = (postId) => ({
+  status: true,
+  message: "취소되었습니다.",
+});
+
+/* comment */
+export const addComment = ({ postId, content }) => ({
+  status: true,
+  message: "처리되었습니다.",
+});
+
+export const deleteComment = ({ postId, commentId }) => ({
+  status: true,
+  message: "삭제되었습니다.",
 });
