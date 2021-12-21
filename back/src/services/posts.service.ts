@@ -1,50 +1,68 @@
 import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
 import { PostDTO } from "@src/types/Post";
+import { clientErrHandler } from "@src/utils/clientErrHandler";
 
 export class PostsService {
   constructor(
     private readonly postModel: typeof PostModel,
     private readonly userModel: typeof UserModel,
+    private readonly tagModel: typeof TagModel,
+    private readonly commentModel: typeof CommentModel,
   ) {}
 
+  async getPosts(query: object, page: number, perPage: number) {
+    return await this.postModel.getPaginatedPosts(query, page, perPage);
+  }
+
   async getById(postId: string) {
-    const post = await PostModel.findById(postId)
+    const post = await this.postModel
+      .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify")
       .populate("members", "-password -refreshToken -keyForVerify")
       .populate("comments")
       .populate("tags");
+
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
+
     return post;
   }
 
   async createPost(postDTO: PostDTO) {
     const { title, content, userId, tagList } = postDTO;
-    const tags = await Promise.all(
-      tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
-    );
+    const tags = this.tagModel.getTags(tagList);
 
-    PostsService.checkTitleAndContent(title, content);
+    if (!title || !content) {
+      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
+    }
 
-    const author = await UserModel.findById(userId);
-    const post = await PostModel.create({ title, content, author, members: author, tags });
+    const author = await this.userModel.findById(userId);
+    const post = await this.postModel.create({ title, content, author, members: author, tags });
     return post;
   }
 
   async editPost(postDTO: PostDTO) {
     const { postId, title, content, userId, tagList } = postDTO;
-    const tags = await Promise.all(
-      tagList.map((tag: string) => TagModel.findOrCreate({ content: tag })),
-    );
+    const tags = this.tagModel.getTags(tagList);
 
-    PostsService.checkTitleAndContent(title, content);
+    if (!title || !content) {
+      throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
+    }
 
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
+    const post = await this.postModel
+      .findById(postId)
+      .populate("author", "-password -refreshToken -keyForVerify");
 
-    PostsService.compareUser(post.author._id.toString(), userId);
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
 
-    const updatedPost = await PostModel.findOneAndUpdate(
+    if (post.author._id.toString() !== userId) {
+      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
+    }
+
+    const updatedPost = await this.postModel.findOneAndUpdate(
       { _id: postId },
       { $set: { title, content, tags, isEdit: true } },
       { new: true },
@@ -53,116 +71,94 @@ export class PostsService {
   }
 
   async deletePost(postId: string, userId: string) {
-    const post = await PostModel.findById(postId).populate(
-      "author",
-      "-password -refreshToken -keyForVerify",
-    );
+    const post = await this.postModel
+      .findById(postId)
+      .populate("author", "-password -refreshToken -keyForVerify");
 
-    PostsService.compareUser(post.author._id.toString(), userId);
+    if (!post) {
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
+    }
 
-    return await PostModel.deleteOne({ _id: postId });
+    if (post.author._id.toString() !== userId) {
+      throw clientErrHandler("다른 사용자가 작성한 게시글입니다.", "NoTitleContent");
+    }
+
+    return await this.postModel.deleteOne({ _id: postId });
   }
 
   async addMember(postId: string, userId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
 
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (post.members.indexOf(user._id) >= 0) {
-      const err = new Error("이미 참여한 게시글입니다.");
-      err.name = "AlreadyJoin";
-      throw err;
+      throw clientErrHandler("이미 참여한 게시글입니다.", "AlreadyJoin");
     }
 
     post.members.push(user);
+    user.posts.push(post);
     await post.save();
+    await user.save();
     return post;
   }
 
   async deleteMember(postId: string, userId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     const loc = post.members.indexOf(user._id);
     if (loc === -1) {
-      const err = new Error("참여하지 않은 상태입니다.");
-      err.name = "NoMember";
-      throw err;
+      throw clientErrHandler("참여하지 않은 상태입니다.", "NoMember");
     }
 
     post.members.pull(user);
+    user.posts.pull(post);
     await post.save();
+    await user.save();
     return post;
   }
 
   async addComment(postId: string, userId: string, content: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (!content) {
-      const err = new Error("내용을 입력해주세요.");
-      err.name = "NoTitleContent";
-      throw err;
+      throw clientErrHandler("내용을 입력해주세요.", "NoTitleContent");
     }
 
-    const comment = await CommentModel.create({ author: user, content });
+    const comment = await this.commentModel.create({ author: user, content });
     post.comments.push(comment);
     await post.save();
     return comment;
   }
 
   async deleteComment(postId: string, userId: string, commentId: string) {
-    const user = await UserModel.findById(userId, "-password -refreshToken -keyForVerify");
-    const post = await PostModel.findById(postId);
-    const comment = await CommentModel.findById(commentId);
+    const user = await this.userModel.findById(userId, "-password -refreshToken -keyForVerify");
+    const post = await this.postModel.findById(postId);
+    const comment = await this.commentModel.findById(commentId);
 
     if (!post || !user) {
-      const err = new Error("잘못된 요청입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
 
     if (!commentId || !comment) {
-      const err = new Error("유효하지 않은 댓글입니다.");
-      err.name = "NoAuth";
-      throw err;
+      throw clientErrHandler("유효하지 않은 댓글입니다.", "Bad");
     }
 
     post.comments.pull(comment);
     await post.save();
+    await this.commentModel.deleteOne({ _id: commentId });
     return post;
-  }
-
-  static checkTitleAndContent(title: string, content: string) {
-    if (!title || !content) {
-      const err = new Error("제목과 내용을 입력해 주세요.");
-      err.name = "NoTitleContent";
-      throw err;
-    }
-  }
-
-  static compareUser(author: string, cur: string) {
-    if (author !== cur) {
-      const err = new Error("다른 사용자가 작성한 게시글입니다.");
-      err.name = "NoAuth";
-      throw err;
-    }
   }
 }
 
-export const postsService = new PostsService(PostModel, UserModel);
+export const postsService = new PostsService(PostModel, UserModel, TagModel, CommentModel);

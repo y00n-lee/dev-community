@@ -3,7 +3,7 @@ import { ErrorRequestHandler } from "express";
 const errorMiddleware: ErrorRequestHandler = (err, _, res, __) => {
   if (
     err.name === "AlreadyJoin" ||
-    err.name === "NoAuth" ||
+    err.name === "Bad" ||
     err.name === "NoTitleContent" ||
     err.name === "NoMember"
   ) {

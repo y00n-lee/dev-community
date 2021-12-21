@@ -1,24 +1,25 @@
 import { Request, Response } from "express";
-import { PostModel } from "@src/models";
 import { postsService, PostsService } from "@src/services/posts.service";
 import { PostDTO } from "@src/types/Post";
 
-export class PostsConttroller {
+export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   readPosts = async (req: Request, res: Response) => {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
+    const IsLogin = req.user? true : false;
 
-    const [posts, totalPage] = await PostModel.getPaginatedPosts({}, page, perPage);
-    return res.json({ status: true, data: { posts, page, perPage, totalPage } });
+    const [posts, totalPage] = await this.postsService.getPosts({}, page, perPage);
+    return res.json({ status: true, data: { posts, page, perPage, totalPage, IsLogin } });
   };
 
   readPost = async (req: Request, res: Response) => {
     const { postId } = req.params;
+    const IsLogin = req.user? true : false;
 
     const post = await this.postsService.getById(postId);
-    return res.json({ status: true, data: { post } });
+    return res.json({ status: true, data: { post, IsLogin } });
   };
 
   createPost = async (req: Request, res: Response) => {
@@ -83,6 +84,7 @@ export class PostsConttroller {
     await this.postsService.deleteComment(postId, userId, commentId);
     return res.json({ status: true, message: "삭제되었습니다." });
   };
+
 }
 
-export const postsController = new PostsConttroller(postsService);
+export const postsController = new PostsController(postsService);

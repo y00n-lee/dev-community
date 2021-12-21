@@ -12,6 +12,10 @@ export const PostSchema = new Schema<IPost>(
       ref: "User",
       required: true,
     },
+    content: {
+      type: String,
+      required: true,
+    },
     views: {
       type: Number,
       default: 0,
