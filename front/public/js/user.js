@@ -1,7 +1,7 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
-import { createEleClass, addTextNode } from "./components/utils.js";
-import { getUserInfo } from "./api/dummy/index.js";
+import { createEleClass, addTextNode, makeSkillTag } from "./components/utils.js";
+import { getUserInfo, getPost } from "./api/dummy/index.js";
 //DOM elements
 const body = document.querySelector("body");
 const header = makeHeader();
@@ -45,6 +45,7 @@ function makeUserInfo(user) {
   }
   const tagList = makeDataField(user.tags, `기술스택`, false);
   const postList = makeDataField(user.posts, `현재 참여한 스터디`, true);
+  console.log(user.posts);
   form.insertBefore(tagList, updateBtn);
   form.insertBefore(postList, updateBtn);
   // 업데이트 페이지로 버튼 이동 이벤트
@@ -59,7 +60,6 @@ function makeDataField(userData, fieldname, aTag) {
   const dataLabel = createEleClass(`p`, `label`);
   addTextNode(dataLabel, fieldname);
   dataField.appendChild(dataLabel);
-  console.log(typeof userData);
   if (typeof userData === "string") {
     const _data = createEleClass(`p`, `data`);
     addTextNode(_data, userData);
@@ -84,17 +84,14 @@ function makeListField(userData, aTag) {
   if (aTag) {
     for (let i = 0; i < userData.length; i++) {
       const _data = createEleClass(`a`, `data`);
-      // TODO : url 변경
-      _data.setAttribute("href", `http://localhost:3000/posts/${userData[i].id}`);
+      _data.setAttribute("href", `http://localhost:3000/projet/${userData[i].id}`);
       _data.innerText = userData[i].title;
       dataList.appendChild(_data);
     }
     return dataList;
   }
   for (let i = 0; i < userData.length; i++) {
-    const label = document.createElement("label");
-    label.innerHTML = `<input type="checkbox" checked disabled style="display:none"/>${userData[i]}`;
-    dataList.appendChild(label);
+    dataList.appendChild(makeSkillTag(userData[i]));
   }
   return dataList;
 }
