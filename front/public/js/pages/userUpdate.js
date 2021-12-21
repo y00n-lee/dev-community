@@ -1,9 +1,9 @@
-import { makeHeader } from "./components/header.js";
-import { makeFooter } from "./components/footer.js";
-import { editUserInfo, getUserInfo } from "./api/dummy/index.js";
-import { makeSkillTag } from "./components/tag.js";
-import { removeChildsAll } from "./components/utils.js";
-import { changePassword } from "./api/user/changePassword.js";
+import { makeHeader } from "../components/header.js";
+import { makeFooter } from "../components/footer.js";
+import { editUserInfo, getUserInfo } from "../api/dummy/index.js";
+import { makeSkillTag } from "../components/tag.js";
+import { removeChildsAll } from "../components/utils.js";
+import { changePassword } from "../api/user/changePassword.js";
 
 //DOM elements
 const body = document.querySelector("body");
