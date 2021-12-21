@@ -36,7 +36,9 @@
   height: 150px;
   margin: 20px auto 20px auto;
 }
-.member-name, .introduce, .group-title {
+.member-name,
+.introduce,
+.group-title {
   padding: 20px;
   word-break: keep-all;
 }
