@@ -54,15 +54,17 @@ document.getElementById("make").addEventListener("click", function () {
       tagList: tagsList,
     })
       .then((res) => {
-        alert(res.message);
-        if (res.status) window.location = "/posts";
+        if (res.status) {
+          alert(res.message);
+          window.location = "/posts";
+        }
       })
       .catch((e) => alert(e.message));
   }
 });
 
 document.getElementById("cancel").addEventListener("click", function () {
-  window.location.href = "/posts";
+  window.location = "/posts";
 });
 // Footer
 const footer = makeFooter();
