@@ -60,11 +60,3 @@
 .updateBtn:last-of-type {
   margin-bottom: 50px;
 }
-/* Error Message */
-.error_next_box {
-  /* margin-top: 9px; */
-  height: 12px;
-  font-size: 12px;
-  color: red;
-  display: none;
-}
