@@ -1,7 +1,7 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 import { makeComments } from "./components/comments.js";
-import { createEleId, createEleClass, addTextNode } from "./components/utils.js";
+import { createEleClass, addTextNode } from "./components/utils.js";
 // User Function
 
 // Make Button Function
@@ -47,7 +47,7 @@ container.prepend(header);
 // Main
 const main = document.getElementById("main");
 // Gather Title
-document.getElementById("gatherTitle").appendChild(document.createTextNode(`${gatherData.title}`));
+addTextNode(document.getElementById("gatherTitle"), `${gatherData.title}`);
 // Gather Content
 document
   .getElementById("gatherContent")
