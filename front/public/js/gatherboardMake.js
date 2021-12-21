@@ -54,8 +54,8 @@ document.getElementById("make").addEventListener("click", function () {
       tagList: tagsList,
     })
       .then((res) => {
-        if (!res.status) alert(res.message);
-        else window.location = "/posts";
+        alert(res.message);
+        if (res.status) window.location = "/posts";
       })
       .catch((e) => alert(e.message));
   }
