@@ -64,7 +64,7 @@ export const getPosts = ({ postId, content }) => dummy.posts;
 
 export const getPost = (postId) => dummy.post;
 
-export const createPost = ({ title, content, tagList }) => ({
+export const createPost = async ({ title, content, tagList }) => ({
   status: true,
   message: "등록되었습니다.",
 });
