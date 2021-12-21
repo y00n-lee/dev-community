@@ -36,8 +36,8 @@ function appendComment(comments, user) {
   event.preventDefault();
   if (document.getElementById("cmtComment").value.length > 0) {
     const comment = {
-      _id: user.data.user._id,
-      author: user.data.user.nickname,
+      _id: user.id,
+      author: user.nickname,
       content: `${document.getElementById("cmtComment").value}`,
       createAt: new Date(),
       updateAt: new Date(),
@@ -55,7 +55,7 @@ function cmtMainTail(post, user) {
   // Comment Author
   const cmtAuthorTd = document.createElement("td");
   const cmtAuthor = createEleClass("div", "cmtTableAuthor");
-  addTextNode(cmtAuthor, `${user.data.user.nickname}`);
+  addTextNode(cmtAuthor, `${user.nickname}`);
   cmtAuthorTd.appendChild(cmtAuthor);
   cmtFormTableRow.appendChild(cmtAuthorTd);
 
@@ -71,11 +71,10 @@ function cmtMainTail(post, user) {
   const cmtBtn = createEleId("button", "cmtBtn");
   addTextNode(cmtBtn, "등록");
   cmtForm.addEventListener("submit", function () {
-    appendComment(post.comments, user);
+    //appendComment(post.comments, user);
     addComment({ postId: post._id, content: `${document.getElementById("cmtComment").value}` })
       .then((res) => {
-        if (!res.status) alert(res.message);
-        //else window.location = "/posts";
+        if (res.status) alert(res.message);
       })
       .catch((e) => alert(e.message));
   });
