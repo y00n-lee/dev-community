@@ -73,15 +73,9 @@ export const inSignout = async () => ({
 });
 
 /* post */
-<<<<<<< HEAD
-export const getPosts = ({ postId, content }) => dummy.posts;
-
-export const getPost = (postId) => dummy.post;
-=======
 export const getPosts = async ({ postId, content }) => dummy.posts;
 
 export const getPost = async (postId) => dummy.post;
->>>>>>> front-sprint
 
 export const createPost = async ({ title, content, tagList }) => ({
   status: true,

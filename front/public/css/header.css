@@ -6,15 +6,12 @@
   --slider-text-color: #7979d3;
 }
 
-<<<<<<< HEAD
-=======
 .container {
   width: 100%;
   /* height: 100vh; */
   margin: 0 auto;
 }
 
->>>>>>> front-sprint
 /* Header */
 #header {
   position: -webkit-sticky;

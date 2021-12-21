@@ -27,7 +27,6 @@ export function makeHeader() {
 </div>`;
 
   onSignIn({ email: "sukho1007@naver.com", password: "1007" }).then((res) => {
-    console.log(res);
     if (!res.status) {
       navLogin.innerHTML = `<li class="login"><a href="/signin">Log In</a></li><li class="register"><a href="signup">Register</a></li>`;
     } else {
