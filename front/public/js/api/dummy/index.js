@@ -55,14 +55,14 @@ export const resetPassword = async (email) => ({
   message: "임시 비밀번호가 메일로 전송됐습니다.",
 });
 
-export const inSignout = () => ({
+export const inSignout = async () => ({
   status: true,
 });
 
 /* post */
-export const getPosts = ({ postId, content }) => (dummy.posts);
+export const getPosts = ({ postId, content }) => dummy.posts;
 
-export const getPost = (postId) => (dummy.post);
+export const getPost = (postId) => dummy.post;
 
 export const createPost = ({ title, content, tagList }) => ({
   status: true,
