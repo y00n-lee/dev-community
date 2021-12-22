@@ -1,7 +1,7 @@
 import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
 import { makeComments } from "../components/comments.js";
-import { addTextNode } from "../components/utils.js";
+import { addTextNode, removeChildsAll } from "../components/utils.js";
 
 //import { getPost } from "./api/posts/getPost.js";
 import { getPost, deletePost, addMember, checkSignin, deleteMember } from "../api/dummy/index.js";
@@ -9,8 +9,17 @@ import { getPost, deletePost, addMember, checkSignin, deleteMember } from "../ap
 //import { editPost } from "./api/posts/editPost.js";
 //import { deletePost } from "./api/posts/deletePost.js";
 //import { deleteMember } from "./api/posts/deleteMember.js";
+import { makeSkillTag } from "../components/tag.js";
 
 // 사용자 함수
+// TechStack Checkbox
+function tagBox(techStack) {
+  const div = document.getElementById("tagForm");
+  techStack.forEach((el) => {
+    div.appendChild(makeSkillTag(el, true, false));
+  });
+}
+
 // Post Construction
 function postConstruction(post) {
   // Post Title
@@ -18,12 +27,11 @@ function postConstruction(post) {
   // Post Content
   addTextNode(document.getElementById("gatherContent"), `${post.content}`);
   // Gather TechStack
-  const gatherTechStackSpan = document.getElementById("gatherTechStack");
+  const tags = [];
   for (let i = 0; i < post.tags.length; i++) {
-    const techStackImg = document.createElement("p");
-    techStackImg.appendChild(document.createTextNode(``));
-    gatherTechStackSpan.appendChild(techStackImg);
+    tags.push(post.tags[i].content);
   }
+  tagBox(tags);
 }
 
 function setDisplayButtons(user, post) {
