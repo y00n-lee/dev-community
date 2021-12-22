@@ -1,77 +1,119 @@
 import { makeHeader } from "./components/header.js";
 import { makeFooter } from "./components/footer.js";
 import { makeComments } from "./components/comments.js";
-import { createEleClass, addTextNode } from "./components/utils.js";
-// User Function
+import { addTextNode } from "./components/utils.js";
 
-// Make Button Function
-function makeLinkButton(link, content) {
-  const div = createEleClass("div", "btn_area");
-  const btn = createEleClass("button", "btn");
+//import { getPost } from "./api/posts/getPost.js";
+import { getPost, deletePost, addMember, checkSignin, deleteMember } from "./api/dummy/index.js";
+//import { getUserInfo } from "./api/user/getUserInfo.js";
+//import { editPost } from "./api/posts/editPost.js";
+//import { deletePost } from "./api/posts/deletePost.js";
+//import { deleteMember } from "./api/posts/deleteMember.js";
 
-  btn.setAttribute("onclick", `location.href='${link}'`);
-  btn.appendChild(document.createTextNode(`${content}`));
-  div.appendChild(btn);
-
-  return div;
+// 사용자 함수
+// Post Construction
+function postConstruction(post) {
+  // Post Title
+  addTextNode(document.getElementById("gatherTitle"), `${post.title}`);
+  // Post Content
+  addTextNode(document.getElementById("gatherContent"), `${post.content}`);
+  // Gather TechStack
+  const gatherTechStackSpan = document.getElementById("gatherTechStack");
+  for (let i = 0; i < post.tags.length; i++) {
+    const techStackImg = document.createElement("p");
+    techStackImg.appendChild(document.createTextNode(``));
+    gatherTechStackSpan.appendChild(techStackImg);
+  }
 }
 
-// dummy data
-const gatherData = {
-  emailId: "kisagge@naver.com",
-  title: "프론트엔드 프로젝트 하실 분 구합니다!!",
-  content: "React나 Spring 다룰 줄 아시는 분 구합니다. 가능하신 분은 연락주세요!!!",
-  techStack: ["React", "Spring"],
-  looks: 0,
-  comments: [
-    {
-      cmt: "연락주세요",
-      author: "Yuna Kim",
-    },
-    {
-      cmt: "가능합니다!",
-      author: "James",
-    },
-  ],
-};
+function setDisplayButtons(user, post) {
+  if (user.id === post.author._id) {
+    document.getElementById("delete").style.display = "block";
+    document.getElementById("participate").style.display = "none";
+  } else {
+    document.getElementById("delete").style.display = "none";
+    document.getElementById("participate").style.display = "block";
+  }
+}
+// Setting Delete Button
+function setDeleteButton(postId) {
+  document.getElementById("delete").addEventListener("click", function () {
+    deletePost(postId)
+      .then((res) => {
+        if (!res.status) return alert(res.message);
+        window.location = "/posts";
+      })
+      .catch((e) => alert(e.message));
+  });
+}
 
-const user = {
-  emailId: "kisagge@naver.com",
-  nickname: "GgemKko",
-};
+// Setting Participation button
+function setParticipateButton(post, user) {
+  const memberIds = [];
+  post.members.forEach((el) => {
+    memberIds.push(el._id);
+  });
+  if (memberIds.includes(user.data.id)) {
+    document.getElementById("participate").innerText = "참가해제";
+  } else {
+    document.getElementById("participate").innerText = "참가하기";
+  }
+
+  document.getElementById("participate").addEventListener("click", function () {
+    if (!user.status) {
+      alert("로그인 후 이용 가능합니다.");
+    } else {
+      if (memberIds.includes(user.data.id)) {
+        deleteMember(post._id)
+          .then((res) => {
+            alert(res.message);
+            if (res.status) window.location.reload();
+          })
+          .catch((e) => alert(e.message));
+      } else {
+        addMember(post._id)
+          .then((res) => {
+            alert(res.message);
+            if (res.status) window.location.reload();
+          })
+          .catch((e) => alert(e.message));
+      }
+    }
+  });
+}
+
+const pathname = window.location.pathname.split("/");
+const currentPostId = pathname[pathname.length - 1];
 
 const container = document.querySelector(".container");
 // Header
 const header = makeHeader();
 container.prepend(header);
-// Main
-const main = document.getElementById("main");
-// Gather Title
-addTextNode(document.getElementById("gatherTitle"), `${gatherData.title}`);
-// Gather Content
-document
-  .getElementById("gatherContent")
-  .appendChild(document.createTextNode(`${gatherData.content}`));
 
-// Gather TechStack
-const gatherTechStackSpan = document.getElementById("gatherTechStack");
-for (let i = 0; i < gatherData.techStack.length; i++) {
-  const techStackImg = document.createElement("p");
-  techStackImg.appendChild(document.createTextNode(`${gatherData.techStack[i]}`));
-  gatherTechStackSpan.appendChild(techStackImg);
-}
-
-//Button
-if (user.emailId == gatherData.emailId) {
-  document.getElementById("update").style.display = "block";
-  document.getElementById("participate").style.display = "none";
-} else {
-  document.getElementById("update").style.display = "none";
-  document.getElementById("participate").style.display = "block";
-}
-
-makeComments(gatherData.comments, user);
+// Setting GotoList Button
+document.getElementById("gotoList").addEventListener("click", function () {
+  window.location.href = "/posts";
+});
 
 //footer
 const footer = makeFooter();
 container.append(footer);
+
+// 비동기 처리 부분
+getPost(currentPostId)
+  .then((res) => {
+    if (!res.status) alert(res.message);
+    else {
+      postConstruction(res.data.post);
+      setDeleteButton(res.data.post._id);
+      checkSignin()
+        .then((res1) => {
+          setDisplayButtons(res1.data, res.data.post);
+          setParticipateButton(res.data.post, res1);
+          // Comments
+          makeComments(res.data.post, res1.data);
+        })
+        .catch((e1) => alert(e1.message));
+    }
+  })
+  .catch((e) => alert(e.message));

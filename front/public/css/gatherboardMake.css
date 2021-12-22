@@ -82,7 +82,7 @@
   margin: 20px 0 20px;
 }
 
-.submit {
+.submitBtn {
   width: 100%;
   padding: 21px 0 17px;
   border: 0;
@@ -91,4 +91,12 @@
   background-color: var(--bg-color);
   font-size: 20px;
   font-weight: 400;
+}
+
+#techStackBlock {
+  display: flexbox;
+}
+
+#techStackBlock label {
+  padding-right: 8px;
 }

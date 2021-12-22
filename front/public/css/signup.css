@@ -60,7 +60,8 @@
 .box.int_id,
 .box.int_pass,
 .box.int_name,
-.box_int_nick {
+.box.int_nick,
+.box.int_gitAdd {
   padding-right: 40px;
 }
 
@@ -137,4 +138,12 @@ select {
   font-size: 12px;
   color: red;
   display: none;
+}
+
+#techStackBlock {
+  display: flexbox;
+}
+
+#techStackBlock label {
+  padding-right: 8px;
 }
