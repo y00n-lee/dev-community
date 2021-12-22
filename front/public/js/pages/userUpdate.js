@@ -55,12 +55,19 @@ function setUpdateData() {
     .catch((e) => alert(e.message));
 }
 
+// Event Listener
 nameForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const nickname = document.getElementById("nicknameValue").value;
   btnSubmit("nickname", nickname);
 });
-
+newTag.addEventListener("keydown", (e) => {
+  if (window.event.keyCode === 13) {
+    const tagName = newTag.value;
+    const tag = makeSkillTag(tagName, true, true);
+    tagForm.insertBefore(tag, newTag);
+  }
+});
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const tagList = selectTag();
@@ -70,7 +77,6 @@ passwordForm.addEventListener("submit", (e) => {
   e.preventDefault();
   confirmPassword();
 });
-
 // nickname, tags 변경 이벤트 함수
 function btnSubmit(queryname, data) {
   editUserInfo(currentUserId, data, queryname)
