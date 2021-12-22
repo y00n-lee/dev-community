@@ -16,11 +16,8 @@ export function toggleTag() {
   if (!span) return;
 
   input.checked = !input.checked;
-  if (input.checked) {
-    span.classList.add("select");
-  } else {
-    span.classList.remove("select");
-  }
+  if (input.checked) span.classList.add("select");
+  else span.classList.remove("select");
 }
 
 // 태그 선택 함수
