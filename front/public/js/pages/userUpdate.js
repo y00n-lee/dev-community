@@ -2,7 +2,7 @@ import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
 import { editUserInfo, getUserInfo, inSignout } from "../api/dummy/index.js";
 import { makeSkillTag } from "../components/tag.js";
-import { removeChildsAll } from "../components/utils.js";
+import { removeChildsAll, isNull } from "../components/utils.js";
 import { changePassword } from "../api/user/changePassword.js";
 
 //DOM elements
@@ -92,7 +92,7 @@ function confirmPassword() {
   const changePw = document.getElementById("changePw").value;
   const checkPw = document.getElementById("checkPw").value;
   // TODO : 빈 값 체크 함수로 변경
-  if (!currPw || !changePw || !checkPw)
+  if (isNull([currPw, changePw, checkPw]))
     return alert("현재 비밀번호, 변경 비밀번호, 비밀번호 확인을 모두 입력해주세요!");
 
   if (changePw !== checkPw) return alert("변경할 비밀번호와 비밀번호 확인이 다릅니다");
