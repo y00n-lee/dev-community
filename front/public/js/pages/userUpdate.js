@@ -1,6 +1,6 @@
 import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
-import { editUserInfo, getUserInfo } from "../api/dummy/index.js";
+import { editUserInfo, getUserInfo, inSignout } from "../api/dummy/index.js";
 import { makeSkillTag } from "../components/tag.js";
 import { removeChildsAll } from "../components/utils.js";
 import { changePassword } from "../api/user/changePassword.js";
@@ -103,11 +103,14 @@ function confirmPassword() {
       .then((res) => {
         if (res.status) {
           alert(res.message);
-          document.location = "/signin";
         }
       })
       .catch((e) => alert(e.message));
-    console.log("qusrud");
+    inSignout()
+      .then((res) => {
+        if (res.status) alert(res.message);
+      })
+      .then((e) => e.message);
   } else return alert("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
 }
 
