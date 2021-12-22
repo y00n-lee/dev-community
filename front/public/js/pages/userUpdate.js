@@ -11,16 +11,10 @@ const footer = makeFooter();
 const main = document.getElementById("main");
 const nameForm = document.getElementById("nicknameForm");
 const tagForm = document.getElementById("tagForm");
+const tagField = document.getElementById("tagField");
+const tagBtn = document.getElementById("tagBtn");
 const passwordForm = document.getElementById("passwordForm");
 const title = document.getElementsByClassName("page-title")[0];
-
-const p = `<p class="label">기술스택</p>`;
-const tagBtn = document.createElement("div");
-tagBtn.innerHTML = `<input type="submit" class="updateBtn" id="tagBtn" value="기술 스택 수정" />`;
-const newTag = document.createElement("input");
-newTag.setAttribute("class", "data");
-newTag.setAttribute("id", "tagValue");
-newTag.setAttribute("placeholder", "추가하고 싶은 기술스택을 입력하고 엔터를 눌러주세요");
 
 // Header, footer append
 container.insertBefore(header, main);
@@ -40,17 +34,14 @@ function setUpdateData() {
 
       const { nickname, tags } = res.data.user;
       const name = document.getElementById("nicknameValue");
-      name.value = nickname;
+      name.placeholder = nickname;
       title.innerText = `${nickname}님의 프로필`;
-      removeChildsAll(tagForm);
-      tagForm.innerHTML = p;
+
       for (let i = 0; i < tags.length; i++) {
         const tag = makeSkillTag(tags[i], true, true);
-        tagForm.appendChild(tag);
+        tagField.appendChild(tag);
         tag.addEventListener("click", toggleTag);
       }
-      tagForm.appendChild(newTag);
-      tagForm.appendChild(tagBtn);
     })
     .catch((e) => alert(e.message));
 }
@@ -61,14 +52,19 @@ nameForm.addEventListener("submit", (e) => {
   const nickname = document.getElementById("nicknameValue").value;
   btnSubmit("nickname", nickname);
 });
-newTag.addEventListener("keydown", (e) => {
-  if (window.event.keyCode === 13) {
-    const tagName = newTag.value;
-    const tag = makeSkillTag(tagName, true, true);
-    tagForm.insertBefore(tag, newTag);
-  }
-});
+
+// 기술 태그 창에 값 입력 후 엔터 시 이벤트 리스너
 tagForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const tagValue = document.getElementById("tagValue");
+  const tag = makeSkillTag(tagValue.value, true, true);
+  tagField.appendChild(tag);
+  tagValue.value = "";
+  tagValue.focus();
+});
+
+// 기술 태그 수정 버튼 눌렀을 때의 이벤트 리스너
+tagBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const tagList = selectTag();
   btnSubmit("tags", tagList);
