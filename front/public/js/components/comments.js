@@ -1,5 +1,5 @@
 import { createEleId, createEleClass, addTextNode, removeChildsAll } from "./utils.js";
-import { addComment } from "../api/dummy/index.js";
+import { addComment, getPost } from "../api/dummy/index.js";
 //import { addComment } from "../api/posts/addComment.js";
 
 // Comments Header
@@ -31,23 +31,6 @@ function commentsLists(comments) {
     cmtLists.appendChild(cmtList);
   }
 }
-
-function appendComment(comments, user) {
-  event.preventDefault();
-  if (document.getElementById("cmtComment").value.length > 0) {
-    const comment = {
-      _id: user.id,
-      author: user.nickname,
-      content: `${document.getElementById("cmtComment").value}`,
-      createAt: new Date(),
-      updateAt: new Date(),
-    };
-    comments.push(comment);
-    cmtHeader(comments);
-    commentsLists(comments);
-    cmtMainTail(comments, user);
-  }
-}
 // Comments Make
 function cmtMainTail(post, user) {
   const cmtFormTableRow = document.getElementById("cmtFormTableRow");
@@ -71,11 +54,23 @@ function cmtMainTail(post, user) {
   const cmtBtn = createEleId("button", "cmtBtn");
   addTextNode(cmtBtn, "등록");
   cmtForm.addEventListener("submit", function () {
-    //appendComment(post.comments, user);
     if (document.getElementById("cmtComment").value.length > 0) {
       addComment({ postId: post._id, content: `${document.getElementById("cmtComment").value}` })
         .then((res) => {
-          if (res.status) alert(res.message);
+          if (res.status) {
+            alert(res.message);
+            getPost(post._id)
+              .then((res1) => {
+                if (res1.status) {
+                  const comments = res1.data.post.comments;
+                  event.preventDefault();
+                  cmtHeader(comments);
+                  commentsLists(comments);
+                  cmtMainTail(comments, user);
+                }
+              })
+              .catch((e1) => alert(e1.message));
+          }
         })
         .catch((e) => alert(e.message));
     } else {
