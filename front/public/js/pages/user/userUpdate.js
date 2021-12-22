@@ -38,7 +38,7 @@ function setUpdateData() {
       title.innerText = `${nickname}님의 프로필`;
 
       for (let i = 0; i < tags.length; i++) {
-        const tag = makeSkillTag(tags[i], true, true);
+        const tag = makeSkillTag(tags[i].content, true, true);
         tagField.appendChild(tag);
         tag.addEventListener("click", toggleTag);
       }

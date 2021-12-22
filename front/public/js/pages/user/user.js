@@ -43,7 +43,9 @@ function drawUserInfo(user) {
   field.github.innerHTML += `<p class="data">${github}</p>`;
   field.gender.innerHTML += `<p class="data">${gender}</p>`;
 
-  Object.values(tags).forEach((tag) => tagField.appendChild(makeSkillTag(tag, true, false)));
+  Object.values(tags).forEach((tag) =>
+    tagField.appendChild(makeSkillTag(tag.content, true, false)),
+  );
   Object.values(posts).forEach((post) => {
     const title = post.title;
     const postId = post._id;
