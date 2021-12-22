@@ -20,3 +20,6 @@
 .select {
   background-color: #6599cc;
 }
+.tagName:not(.toggle) {
+  cursor: default;
+}
