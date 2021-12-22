@@ -17,9 +17,35 @@
         <section class="flex-container">
           <div class="flex-item">
             <form id="profileForm">
-              <!-- 데이터 필드 JS로 생성 -->
+              <!-- 데이터 필드 -->
+              <div class="field" name="nickname">
+                <p class="label">닉네임</p>
+              </div>
+              <div class="field" name="email">
+                <p class="label">이메일</p>
+              </div>
+              <div class="field" name="github">
+                <p class="label">깃허브</p>
+              </div>
+              <div class="field" name="gender">
+                <p class="label">성별</p>
+              </div>
+              <div class="field" name="tags">
+                <p class="label">기술스택</p>
+                <div id="tagField"></div>
+              </div>
+              <div class="field" name="posts">
+                <p class="label">현재 참여한 스터디</p>
+                <div id="postField"></div>
+              </div>
             </form>
-            <input id="updateBtn" type="button" name="updateBtn" value="프로필 수정" />
+            <input
+              id="updateBtn"
+              type="button"
+              name="updateBtn"
+              value="프로필 수정"
+              style="display: none"
+            />
           </div>
         </section>
       </main>
