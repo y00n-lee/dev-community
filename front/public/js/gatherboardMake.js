@@ -19,7 +19,17 @@ function techStackCheckBox(techStack) {
 }
 
 // dummy data
-const techStackData = ["HTML", "CSS", "JAVASCRIPT", "NODEJS", "SPRING", "EXPRESS", "REACT"];
+const techStackData = [
+  "HTML",
+  "CSS",
+  "JAVASCRIPT",
+  "NODEJS",
+  "SPRING",
+  "EXPRESS",
+  "REACT",
+  "C++",
+  "PYTHON",
+];
 
 //Body
 const container = document.querySelector(".container");
