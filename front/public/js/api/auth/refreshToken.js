@@ -1,4 +1,4 @@
-export const checkExpirationToken = async ({ email, password }) => {
+export const checkExpirationToken = async () => {
   try {
     const result = await fetch("http://localhost:9999/auth/refresh", {
       method: "POST",

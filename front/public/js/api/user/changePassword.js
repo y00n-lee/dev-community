@@ -1,7 +1,7 @@
 export const changePassword = async ({ currentPassword, password }) => {
   try {
     const result = await fetch("http://localhost:9999/user/password/reset", {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },

@@ -4,7 +4,7 @@ export const onSignup = async (data) => ({
   status: true,
 });
 
-export const onSignIn = async (data) => ({
+export const onSignin = async (data) => ({
   status: true,
   data: {
     user: {
@@ -24,11 +24,10 @@ export const onSignIn = async (data) => ({
   },
 });
 
-export const getUserInfo = async (id) => ({
-  // export const onSignIn = async (data) => ({
-  //   status: false,
-  //   message: "비밀번호가 틀렸습니다",
-  // });
+export const changePassword = async (currentPassword, password) => ({
+  status: true,
+  message: "비밀번호가 변경되었습니다. 다시 로그인해주세요.",
+});
 
 export const getUserInfo = async (id) => ({
   status: true,
