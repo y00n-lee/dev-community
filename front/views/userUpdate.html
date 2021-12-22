@@ -24,7 +24,24 @@
               <input type="submit" class="updateBtn" id="nicknameBtn" value="닉네임 수정" />
             </form>
             <!-- 기술 스택 수정 -->
-            <form class="field" id="tagForm" type="submit"></form>
+            <form class="field" id="tagForm" type="submit">
+              <p class="label">기술스택</p>
+              <div id="tagField"></div>
+              <input
+                type="text"
+                class="data"
+                id="tagValue"
+                placeholder="추가하고 싶은 기술스택을 입력하고 엔터를 눌러주세요"
+                maxlength="40"
+              />
+            </form>
+            <input
+              for="tagForm"
+              type="button"
+              class="updateBtn"
+              id="tagBtn"
+              value="기술 스택 수정"
+            />
             <!-- 유저 패스워드 수정 -->
             <form id="passwordForm" type="submit" class="field">
               <p class="label">현재 비밀번호</p>
@@ -42,6 +59,6 @@
         </section>
       </main>
     </div>
-    <script type="module" src="/js/pages/userUpdate.js"></script>
+    <script type="module" src="/js/pages/user/userUpdate.js"></script>
   </body>
 </html>

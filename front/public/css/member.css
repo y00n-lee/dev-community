@@ -32,7 +32,7 @@
 }
 .member-name,
 .introduce,
-.group-title {
+.page-title {
   padding: 20px;
   word-break: keep-all;
 }
@@ -47,7 +47,7 @@
   margin: 20px auto;
   width: 80%;
 }
-.group-title {
+.page-title {
   font-size: 50px;
   text-align: center;
 }
