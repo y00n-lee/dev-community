@@ -18,20 +18,6 @@ for (let i = 1; i < 13; i++) {
   document.getElementById("mm").appendChild(month);
 }
 
-function techStackCheckBox(techStack) {
-  const div = document.getElementById("techStackBlock");
-  for (let i = 0; i < techStack.length; i++) {
-    const checkInputLabel = document.createElement("label");
-    const checkInput = document.createElement("input");
-    checkInput.setAttribute("type", "checkbox");
-    checkInput.setAttribute("name", "techStack");
-    checkInput.setAttribute("value", `${techStack[i]}`);
-    checkInputLabel.appendChild(checkInput);
-    checkInputLabel.appendChild(document.createTextNode(`${techStack[i]}`));
-    div.appendChild(checkInputLabel);
-  }
-}
-
 const techStackData = [];
 
 // TechStack Checkbox
