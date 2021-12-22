@@ -1,7 +1,7 @@
 import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
 import { editUserInfo, getUserInfo, inSignout } from "../api/dummy/index.js";
-import { makeSkillTag } from "../components/tag.js";
+import { makeSkillTag, selectTag, toggleTag } from "../components/tag.js";
 import { removeChildsAll, isNull } from "../components/utils.js";
 import { changePassword } from "../api/user/changePassword.js";
 
@@ -13,7 +13,15 @@ const main = document.getElementById("main");
 const nameForm = document.getElementById("nicknameForm");
 const tagForm = document.getElementById("tagForm");
 const passwordForm = document.getElementById("passwordForm");
+const title = document.getElementsByClassName("page-title")[0];
+
 const p = `<p class="label">기술스택</p>`;
+const tagBtn = document.createElement("div");
+tagBtn.innerHTML = `<input type="submit" class="updateBtn" id="tagBtn" value="기술 스택 수정" />`;
+const newTag = document.createElement("input");
+newTag.setAttribute("class", "data");
+newTag.setAttribute("id", "tagValue");
+newTag.setAttribute("placeholder", "추가하고 싶은 기술스택을 입력하고 엔터를 눌러주세요");
 
 // Header, footer append
 container.insertBefore(header, main);
@@ -33,12 +41,17 @@ function setUpdateData() {
 
       const { nickname, tags } = res.data.user;
       const name = document.getElementById("nicknameValue");
-      console.log(nickname);
       name.value = nickname;
-
+      title.innerText = `${nickname}님의 프로필`;
       removeChildsAll(tagForm);
       tagForm.innerHTML = p;
-      for (let i = 0; i < tags.length; i++) tagForm.appendChild(makeSkillTag(tags[i]));
+      for (let i = 0; i < tags.length; i++) {
+        const tag = makeSkillTag(tags[i], true, true);
+        tagForm.appendChild(tag);
+        tag.addEventListener("click", toggleTag);
+      }
+      tagForm.appendChild(newTag);
+      tagForm.appendChild(tagBtn);
     })
     .catch((e) => alert(e.message));
 }
@@ -70,11 +83,7 @@ function btnSubmit(queryname) {
       })
       .catch((e) => alert(e.message));
   } else {
-    const tags = document.querySelectorAll(`.tag`);
-    const tagList = [];
-    tags.forEach((ele) => {
-      if (ele.firstChild.cheked) tagList.push(ele.innerText);
-    });
+    const tagList = selectTag();
     editUserInfo(currentUserId, tagList, "tags")
       .then((res) => {
         if (res.status) {
