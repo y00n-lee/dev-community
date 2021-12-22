@@ -1,8 +1,8 @@
-import { makeHeader } from "../components/header.js";
-import { makeFooter } from "../components/footer.js";
-import { addTextNode } from "../components/utils.js";
-import { makeSkillTag } from "../components/tag.js";
-import { getUserInfo } from "../api/dummy/index.js";
+import { makeHeader } from "../../components/header.js";
+import { makeFooter } from "../../components/footer.js";
+import { addTextNode } from "../../components/utils.js";
+import { makeSkillTag } from "../../components/tag.js";
+import { getUserInfo } from "../../api/dummy/index.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];
