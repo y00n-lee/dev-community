@@ -91,7 +91,6 @@ function confirmPassword() {
   const currPw = document.getElementById("currPw").value;
   const changePw = document.getElementById("changePw").value;
   const checkPw = document.getElementById("checkPw").value;
-  // TODO : 빈 값 체크 함수로 변경
   if (isNull([currPw, changePw, checkPw]))
     return alert("현재 비밀번호, 변경 비밀번호, 비밀번호 확인을 모두 입력해주세요!");
 
