@@ -1,13 +1,13 @@
-import { makeHeader } from "./components/header.js";
-import { makeFooter } from "./components/footer.js";
-import { resetPassword } from "./api/dummy/index.js";
+import { makeHeader } from "../../components/header.js";
+import { makeFooter } from "../../components/footer.js";
+import { resetPassword } from "../../api/dummy/index.js";
 
 //Body
 const container = document.querySelector(".container");
 
 // Header
 const header = makeHeader();
-container.appendChild(header);
+container.prepend(header);
 
 // 찾기
 const searchSection = document.querySelector(".searchBox");

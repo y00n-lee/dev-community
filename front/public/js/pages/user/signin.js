@@ -1,13 +1,13 @@
-import { makeHeader } from "./components/header.js";
-import { makeFooter } from "./components/footer.js";
-import { onSignIn } from "./api/dummy/index.js";
+import { makeHeader } from "../../components/header.js";
+import { makeFooter } from "../../components/footer.js";
+import { onSignIn } from "../../api/dummy/index.js";
 
 //Body
 const container = document.querySelector(".container");
 
 // Header
 const header = makeHeader();
-container.appendChild(header);
+container.prepend(header);
 
 // 로그인
 const loginSection = document.querySelector(".loginBox");
