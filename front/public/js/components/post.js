@@ -1,32 +1,34 @@
 import { createEleClass } from "./utils.js";
 
 export function Post(data) {
-  const article = createEleClass("article", "post");
-  const h2 = createEleClass("h2", "post-title");
-  const h4 = createEleClass("h4", "post-author");
-  const strong = createEleClass("strong", "post-stack");
-  const p = createEleClass("p", "post-content");
-  const span = createEleClass("span", "post-look");
+  const postCard = createEleClass("article", "post");
+  const title = createEleClass("h2", "post-title");
+  const author = createEleClass("h4", "post-author");
+  const tags = createEleClass("strong", "post-stack");
+  const content = createEleClass("p", "post-content");
+  const views = createEleClass("span", "post-look");
 
-  // 데이터 처리영역 (형식 변경)
-  h2.innerText = data.title;
-  h4.innerText = data.author;
-  strong.innerText = data.stacks;
-  p.innerText = data.content;
-  span.innerText = data.looks;
+  title.innerText = data.title;
+  author.innerText = data.author.nickname;
 
-  if (p.innerText.length > 50) {
-    p.innerText = p.innerText.substring(0, 49) + "...";
+  for (let i = 0; i < data.tags.length; i++) {
+    tags.innerText += data.tags[i].content + " ";
   }
-  article.appendChild(h2);
-  article.appendChild(h4);
-  article.appendChild(strong);
-  article.appendChild(p);
-  article.appendChild(span);
+  content.innerText = data.content;
+  views.innerText = data.views;
 
-  article.addEventListener("click", () => {
-    window.location = `/posts/${data.id}`;
+  if (content.innerText.length > 50) {
+    content.innerText = content.innerText.substring(0, 49) + "...";
+  }
+  postCard.appendChild(title);
+  postCard.appendChild(author);
+  postCard.appendChild(tags);
+  postCard.appendChild(content);
+  postCard.appendChild(views);
+
+  postCard.addEventListener("click", () => {
+    window.location = `/posts/${data._id}`;
   });
 
-  return article;
+  return postCard;
 }

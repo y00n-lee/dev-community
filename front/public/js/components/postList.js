@@ -1,68 +1,53 @@
 import { Post } from "./post.js";
 import { createEleId } from "./utils.js";
+import { createEleClass } from "./utils.js";
+import { getPosts } from "../api/dummy/index.js";
 
-const data = [
-  {
-    id: 0,
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content: "어쩌구저쩌구 이런 사람을 찾아요!",
-    looks: 27,
-  },
-  {
-    id: 1,
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content: "어쩌구저쩌구 이런 사람을 찾아요!",
-    looks: 2,
-  },
-  {
-    id: 2,
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content: "어쩌구저쩌구 이런 사람을 찾아요!",
-    looks: 255,
-  },
-  {
-    id: 3,
+// main의 최신글
+export const getRecentPostList = getPosts({ page: 1, perPage: 6 })
+  .then((res) => {
+    if (!res.status) return alert(res.message);
 
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content: "어쩌구저쩌구 이런 사람을 찾아요!",
-    looks: 25,
-  },
-  {
-    id: 4,
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content:
-      "어쩌구저쩌구 이런 사람을 찾아요!라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라라",
-    looks: 5,
-  },
-  {
-    id: 5,
-    title: "찾습니다.",
-    author: "철수",
-    stacks: ["html", "css", "js"],
-    content: "어쩌구저쩌구 이런 사람을 찾아요!",
-    looks: 305,
-  },
-];
+    const postList = res.data.posts;
+    return createPostCard(postList, postList.length);
+  })
+  .catch((e) => alert(e.message));
 
-export function createPostCard() {
+// 모집게시판의 글(pagination)
+export const getPostList = (page, perPage) => {
+  const pageContent = document.querySelector(".pageContent");
+
+  getPosts({ page: page, perPage: perPage })
+    .then((res) => {
+      if (!res.status) return alert(res.message);
+
+      const postList = res.data.posts;
+      const postCard = createPostCard(postList, postList.length);
+      pageContent.appendChild(postCard);
+
+      return res;
+    })
+    .then((res) => {
+      const pageList = createEleClass("div", "pageList");
+
+      for (let i = 1; i <= res.data.totalPage; i++) {
+        const pageNum = createEleClass("a", "pageNum");
+        pageNum.appendChild(document.createTextNode(`${i} `));
+        pageNum.setAttribute("href", `/posts?perPage=6&page=${i}`); // 경로 추가
+        pageList.appendChild(pageNum);
+      }
+      pageContent.appendChild(pageList);
+      return res;
+    })
+    .catch((e) => alert(e.message));
+};
+
+function createPostCard(post, n) {
   const section = createEleId("section", "post-list");
-
   // 최신글부터 6개 띄워주기
-  // for (let i = 0; i < data.length; i++) {
-  for (let i = 0; i < 6; i++) {
-    const postCard = Post(data[i]);
+  for (let i = 0; i < n; i++) {
+    const postCard = Post(post[i]);
     section.appendChild(postCard);
   }
-
   return section;
 }
