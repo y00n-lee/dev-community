@@ -1,4 +1,4 @@
-export const onSignout = async ({ email, password }) => {
+export const onSignout = async () => {
   try {
     const result = await fetch("http://localhost:9999/auth/signout", {
       method: "POST",

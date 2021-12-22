@@ -43,6 +43,7 @@ app.get("/edit/user/:id", (req, res) => res.render("userUpdate"));
 app.get("/issuedPassword", (_, res) => res.render("issuedPassword"));
 
 // 프로젝트 참여자 목록 페이지
+app.get("/project/:id", (_, res) => res.render("member"));
 
 // 에러 페이지
 app.use("*", (req, res) => {
@@ -50,7 +51,7 @@ app.use("*", (req, res) => {
 });
 
 app.use((err, _, res, __) => {
-  res.send("error");
+  res.render("error");
 });
 
 app.listen(3000, () => {
