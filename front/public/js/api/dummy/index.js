@@ -24,10 +24,11 @@ export const onSignIn = async (data) => ({
   },
 });
 
-// export const onSignIn = async (data) => ({
-//   status: false,
-//   message: "비밀번호가 틀렸습니다",
-// });
+export const getUserInfo = async (id) => ({
+  // export const onSignIn = async (data) => ({
+  //   status: false,
+  //   message: "비밀번호가 틀렸습니다",
+  // });
 
 export const getUserInfo = async (id) => ({
   status: true,
@@ -38,8 +39,11 @@ export const getUserInfo = async (id) => ({
       nickname: "지석호",
       birth: "2021-10-06T15:00:00.000Z",
       gender: "male",
-      tags: [],
-      posts: [],
+      tags: ["js", "react", "vue", "mongoDB"],
+      posts: [
+        { title: "react프로젝트 하실 분 구합니다!", id: 10 },
+        { title: "CS 공부할 사람 모여라~", id: 2 },
+      ],
       emailVerified: false,
       keyForVerify: "e0d393a393ffdabc6767fFQtFD/+AiiB6crhqDPm",
       passwordReset: false,
@@ -47,6 +51,7 @@ export const getUserInfo = async (id) => ({
       updatedAt: "2021-12-20T04:46:44.333Z",
       __v: 0,
     },
+    same: true,
   },
 });
 

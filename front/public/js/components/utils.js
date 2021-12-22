@@ -23,3 +23,8 @@ export function removeChildsAll(node) {
     node.removeChild(node.firstChild);
   }
 }
+// 자식노드에 데이터를 넣어 부모노드에 추가하는 함수
+export function addChild(parent, child, data) {
+  addTextNode(child, data);
+  parent.appendChild(child);
+}

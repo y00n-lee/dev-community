@@ -1,3 +1,4 @@
+@import url("tag.css");
 :root {
   --bg-color: #7979d3;
   --ft-color: #fff;
@@ -18,36 +19,32 @@
 
 .flex-item {
   width: 375px;
-  /* height: 400px; */
   display: block;
   text-align: center;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   border-radius: 25px;
   margin: 30px 50px;
 }
-/* .about-img {
-  width: 100%;
-  max-width: 2000px;
-  display: block;
-  margin: auto;
-} */
 .image {
   width: 150px;
   height: 150px;
   margin: 20px auto 20px auto;
 }
-.member-name, .introduce, .group-title {
+.member-name,
+.introduce,
+.group-title {
   padding: 20px;
   word-break: keep-all;
 }
 .member-name {
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
+  font-weight: 400;
 }
-.introduce {
-  font-size: 13px;
+.email {
+  font-size: 20px;
   display: block;
-  margin: auto;
+  margin: 20px auto;
   width: 80%;
 }
 .group-title {
