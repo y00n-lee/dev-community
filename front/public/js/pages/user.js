@@ -35,7 +35,7 @@ window.onload = (function () {
 })();
 
 function makeUserInfo(user) {
-  addTextNode(document.querySelector(".group-title"), `${user.nickname}님의 프로필`);
+  addTextNode(document.querySelector(".page-title"), `${user.nickname}님의 프로필`);
 
   const field = [`nickname`, `email`, `gender`];
   const fieldname = [`닉네임`, `이메일`, `성별`];
@@ -77,7 +77,7 @@ function makeDataField(userData, fieldname, aTag) {
   }
 
   const dataList = makeListField(userData, aTag);
-  dataField.appendChild(dataList);
+  dataField.appendChild(dataList); //dataList.posts
   return dataField;
 }
 // 배열 값을 가진 데이터필드 생성 함수
@@ -85,6 +85,7 @@ function makeListField(userData, aTag) {
   const dataList = document.createElement("div");
   if (aTag) {
     for (let i = 0; i < userData.length; i++) {
+      // posts.length
       const _data = createEleClass(`a`, `data`);
       _data.setAttribute("href", `/project/${userData[i]._id}`);
       _data.innerText = userData[i].title;
