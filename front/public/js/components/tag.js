@@ -22,3 +22,12 @@ export function toggleTag() {
     span.classList.remove("select");
   }
 }
+
+// 태그 선택 함수
+export function selectTag() {
+  const select = document.getElementsByClassName("select");
+  const tagList = [];
+
+  for (let i = 0; i < select.length; i++) tagList.push(select[i].innerText);
+  return tagList;
+}
