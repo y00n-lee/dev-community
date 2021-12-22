@@ -30,8 +30,8 @@ app.get("/posts", (_, res) => res.render("posts"));
 // 단일 게시글 페이지
 app.get("/posts/:id", (req, res) => res.render("gatherboardDetail"));
 
-// 게시글 수정 페이지
-app.get("/edit/post/:id", (_, res) => res.render("gatherboardMake"));
+// 게시글 작성 페이지
+app.get("/post", (_, res) => res.render("gatherboardMake"));
 
 // 유저 프로필 페이지
 app.get("/user/:id", (_, res) => res.render("user"));
@@ -42,8 +42,6 @@ app.get("/edit/user/:id", (req, res) => res.render("userUpdate"));
 // 비밀번호 재발급 페이지
 app.get("/issuedPassword", (_, res) => res.render("issuedPassword"));
 
-// 비밀번호 변경 페이지
-
 // 프로젝트 참여자 목록 페이지
 
 // 에러 페이지
@@ -52,7 +50,7 @@ app.use("*", (req, res) => {
 });
 
 app.use((err, _, res, __) => {
-  res.send("asd");
+  res.send("error");
 });
 
 app.listen(3000, () => {

@@ -66,7 +66,7 @@ document.getElementById("submit").addEventListener("click", function () {
       ),
       gender: document.getElementById("gender").value,
       tags: tagsList,
-      //gitAdd: document.getElementById('gitAdd').value
+      github: document.getElementById("github").value,
     })
       .then((res) => {
         alert(res.message);

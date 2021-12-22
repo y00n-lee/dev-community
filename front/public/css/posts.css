@@ -58,3 +58,14 @@ main {
   position: relative;
   left: 80%;
 }
+.post-write:hover {
+  cursor: pointer;
+}
+
+/* 페이지 이동 버튼 */
+.pageList {
+  text-align: center;
+}
+.pageList a {
+  color: red;
+}
