@@ -72,11 +72,15 @@ function cmtMainTail(post, user) {
   addTextNode(cmtBtn, "등록");
   cmtForm.addEventListener("submit", function () {
     //appendComment(post.comments, user);
-    addComment({ postId: post._id, content: `${document.getElementById("cmtComment").value}` })
-      .then((res) => {
-        if (res.status) alert(res.message);
-      })
-      .catch((e) => alert(e.message));
+    if (document.getElementById("cmtComment").value.length > 0) {
+      addComment({ postId: post._id, content: `${document.getElementById("cmtComment").value}` })
+        .then((res) => {
+          if (res.status) alert(res.message);
+        })
+        .catch((e) => alert(e.message));
+    } else {
+      alert("내용을 입력하세요.");
+    }
   });
   cmtBtnTd.appendChild(cmtBtn);
   cmtFormTableRow.appendChild(cmtBtnTd);
