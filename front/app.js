@@ -30,8 +30,8 @@ app.get("/posts", (_, res) => res.render("posts"));
 // 단일 게시글 페이지
 app.get("/posts/:id", (req, res) => res.render("gatherboardDetail"));
 
-// 게시글 수정 페이지
-app.get("/edit/post/:id", (_, res) => res.render("gatherboardMake"));
+// 게시글 작성 페이지
+app.get("/post", (_, res) => res.render("gatherboardMake"));
 
 // 유저 프로필 페이지
 app.get("/user/:id", (_, res) => res.render("user"));

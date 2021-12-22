@@ -69,7 +69,7 @@ export const editUserInfo = async (id, data, queryname) => ({
 });
 
 export const resetPassword = async (email) => ({
-  status: false,
+  status: true,
   message: "임시 비밀번호가 메일로 전송됐습니다.",
 });
 
@@ -78,7 +78,7 @@ export const inSignout = async () => ({
 });
 
 /* post */
-export const getPosts = async ({ postId, content }) => dummy.posts;
+export const getPosts = async ({ page, perPage }) => dummy.posts;
 
 export const getPost = async (postId) => dummy.post;
 
