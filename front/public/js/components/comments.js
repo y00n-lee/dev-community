@@ -1,7 +1,8 @@
 import { createEleId, createEleClass, addTextNode, removeChildsAll } from "./utils.js";
-import { addComment, getPost } from "../api/dummy/index.js";
+import { addComment } from "../api/dummy/index.js";
 //import { addComment } from "../api/posts/addComment.js";
 
+//import { chekcSignin} from "../api/user/checkSignin.js";
 // Comments Header
 function cmtHeader(comments) {
   removeChildsAll(document.getElementById("cmtCount"));
@@ -35,12 +36,6 @@ function commentsLists(comments) {
 function cmtMainTail(post, user) {
   const cmtFormTableRow = document.getElementById("cmtFormTableRow");
   removeChildsAll(cmtFormTableRow);
-  // Comment Author
-  const cmtAuthorTd = document.createElement("td");
-  const cmtAuthor = createEleClass("div", "cmtTableAuthor");
-  addTextNode(cmtAuthor, `${user.nickname}`);
-  cmtAuthorTd.appendChild(cmtAuthor);
-  cmtFormTableRow.appendChild(cmtAuthorTd);
 
   // Comment
   const cmtCommentTd = document.createElement("td");
@@ -53,24 +48,14 @@ function cmtMainTail(post, user) {
   const cmtBtnTd = createEleClass("td", "cmtBtnTd");
   const cmtBtn = createEleId("button", "cmtBtn");
   addTextNode(cmtBtn, "등록");
-  cmtForm.addEventListener("submit", function () {
-    if (document.getElementById("cmtComment").value.length > 0) {
-      addComment({ postId: post._id, content: `${document.getElementById("cmtComment").value}` })
-        .then((res) => {
-          if (res.status) {
-            alert(res.message);
-            getPost(post._id)
-              .then((res1) => {
-                if (res1.status) {
-                  const comments = res1.data.post.comments;
-                  event.preventDefault();
-                  cmtHeader(comments);
-                  commentsLists(comments);
-                  cmtMainTail(comments, user);
-                }
-              })
-              .catch((e1) => alert(e1.message));
-          }
+  cmtForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+    const commentValue = document.getElementById("cmtComment").value;
+    if (commentValue.length > 0) {
+      addComment({ postId: post._id, content: commentValue })
+        .then((res1) => {
+          alert(res1.message);
+          if (res1.status) window.location.reload();
         })
         .catch((e) => alert(e.message));
     } else {

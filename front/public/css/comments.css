@@ -47,15 +47,11 @@
   padding: 5px;
 }
 
-.cmtTableAuthor {
-  padding: 5px;
-}
-
 #cmtComment {
   border: 1px solid var(--bg-color);
   font-size: 15px;
   padding: 5px;
-  width: 300px;
+  width: 400px;
   resize: vertical;
 }
 
