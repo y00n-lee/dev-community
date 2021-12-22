@@ -69,10 +69,8 @@ document.getElementById("submit").addEventListener("click", function () {
       //gitAdd: document.getElementById('gitAdd').value
     })
       .then((res) => {
-        if (res.status) {
-          alert("회원가입 되었습니다!");
-          window.location = "/signin";
-        }
+        alert(res.message);
+        if (res.status) window.location = "/signin";
       })
       .catch((e) => alert(e.message));
   }
