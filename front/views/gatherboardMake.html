@@ -9,13 +9,14 @@
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/gatherboardMake.css" />
+    <link rel="stylesheet" href="/css/tag.css" />
   </head>
   <body>
     <div class="container">
       <div id="main">
         <h2 id="head">모집게시판</h2>
         <section id="makeBlock">
-          <form id="gatherboardMake" name="gatherboardMake" action="/posts" method="post">
+          <form id="gatherboardMake" name="gatherboardMake" action="/posts">
             <div>
               <h3><label for="title">글 제목</label></h3>
               <span class="box">
@@ -28,11 +29,13 @@
                 <textarea name="contentText" id="content" cols="60" rows="20" required></textarea>
               </span>
             </div>
-            <div>
-              <h3><label for="techStack">기술 스택</label></h3>
+            <!-- <div>
+              
               <div id="techStackBlock"></div>
-            </div>
+            </div> -->
           </form>
+          <h3><label for="techStack">기술 태그</label></h3>
+          <form class="field" id="tagForm" type="submit"></form>
           <div class="submit_area">
             <button class="submitBtn" id="make">작성</button>
           </div>
@@ -42,6 +45,6 @@
         </section>
       </div>
     </div>
-    <script type="module" src="/js/gatherboardMake.js"></script>
+    <script type="module" src="/js/pages/gatherboardMake.js"></script>
   </body>
 </html>
