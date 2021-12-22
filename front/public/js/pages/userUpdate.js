@@ -1,9 +1,8 @@
 import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
-import { editUserInfo, getUserInfo, inSignout } from "../api/dummy/index.js";
+import { editUserInfo, getUserInfo, inSignout, changePassword } from "../api/dummy/index.js";
 import { makeSkillTag, selectTag, toggleTag } from "../components/tag.js";
 import { removeChildsAll, isNull } from "../components/utils.js";
-import { changePassword } from "../api/user/changePassword.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];
@@ -58,12 +57,14 @@ function setUpdateData() {
 
 nameForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  btnSubmit("nickname");
+  const nickname = document.getElementById("nicknameValue").value;
+  btnSubmit("nickname", nickname);
 });
 
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  btnSubmit("tags");
+  const tagList = selectTag();
+  btnSubmit("tags", tagList);
 });
 passwordForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -71,28 +72,15 @@ passwordForm.addEventListener("submit", (e) => {
 });
 
 // nickname, tags 변경 이벤트 함수
-function btnSubmit(queryname) {
-  if (queryname === "nickname") {
-    const nickname = document.getElementById("nicknameValue").value;
-    editUserInfo(currentUserId, nickname, `${queryname}`)
-      .then((res) => {
-        if (res.status) {
-          alert(res.message);
-          setUpdateData();
-        }
-      })
-      .catch((e) => alert(e.message));
-  } else {
-    const tagList = selectTag();
-    editUserInfo(currentUserId, tagList, "tags")
-      .then((res) => {
-        if (res.status) {
-          alert(res.message);
-          setUpdateData();
-        }
-      })
-      .catch((e) => alert(e.message));
-  }
+function btnSubmit(queryname, data) {
+  editUserInfo(currentUserId, data, queryname)
+    .then((res) => {
+      if (res.status) {
+        alert(res.message);
+        window.location.reload();
+      }
+    })
+    .catch((e) => alert(e.message));
 }
 
 // 비밀번호 확인 함수
@@ -105,19 +93,16 @@ function confirmPassword() {
 
   if (changePw !== checkPw) return alert("변경할 비밀번호와 비밀번호 확인이 다릅니다");
   if (validationPw(checkPw)) {
-    // TODO : changePassword 함수 동작 확인
     changePassword({ currentPassword: `${currPw}`, password: `${checkPw}` })
       .then((res) => {
-        if (res.status) {
-          alert(res.message);
-        }
+        alert(res.message);
+        if (res.status) return inSignout();
+      })
+      .then((res) => {
+        if (res.status) window.location = "/";
+        else alert(res.message);
       })
       .catch((e) => alert(e.message));
-    inSignout()
-      .then((res) => {
-        if (res.status) alert(res.message);
-      })
-      .then((e) => e.message);
   } else return alert("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
 }
 
