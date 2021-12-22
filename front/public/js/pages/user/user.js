@@ -52,4 +52,4 @@ function drawUserInfo(user) {
 }
 
 // 업데이트 페이지로 버튼 이동 이벤트
-updateBtn.addEventListener("click", () => (window.location = `/edit/user/${user._id}`));
+updateBtn.addEventListener("click", () => (window.location = `/edit/user/${currentUserId}`));
