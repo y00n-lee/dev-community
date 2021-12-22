@@ -10,8 +10,12 @@
   text-align: center;
   cursor: pointer;
 }
-.tagName:hover {
+.toggle:hover {
   background-color: olivedrab;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.toggle:active {
+  background-color: rgb(129, 155, 78);
 }
 .select {
   background-color: #6599cc;
