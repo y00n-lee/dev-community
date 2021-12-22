@@ -89,13 +89,15 @@ getPost(currentPostId)
     if (!res.status) alert(res.message);
     else {
       postConstruction(res.data.post);
-      checkSignin().then((res1) => {
-        setDisplayButtons(res1.data, res.data.post);
-        setDeleteButton(res.data.post._id);
-        setParticipateButton(res.data.post._id, res1.status);
-        // Comments
-        makeComments(res.data.post, res1.data);
-      });
+      checkSignin()
+        .then((res1) => {
+          setDisplayButtons(res1.data, res.data.post);
+          setDeleteButton(res.data.post._id);
+          setParticipateButton(res.data.post._id, res1.status);
+          // Comments
+          makeComments(res.data.post, res1.data);
+        })
+        .catch((e1) => alert(e1.message));
     }
   })
   .catch((e) => alert(e.message));
