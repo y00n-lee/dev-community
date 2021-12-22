@@ -1,7 +1,6 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
 import { getPostList } from "../../components/postList.js";
-import { checkSignin } from "../../api/dummy/index.js";
 
 //Body
 const container = document.querySelector(".container");
@@ -11,16 +10,12 @@ const header = makeHeader();
 container.prepend(header);
 
 // 로그인 여부에 따른 글작성
+const user = JSON.parse(sessionStorage.getItem("user"));
 const writeBtn = document.querySelector(".post-write");
+
 writeBtn.addEventListener("click", () => {
-  checkSignin().then((res) => {
-    // 로그인이 안되어있다면
-    if (!res.status) alert("로그인을 하셔야합니다.");
-    // 로그인이 되어있다면
-    else {
-      writeBtn.setAttribute("href", `/post`);
-    }
-  });
+  if (!user) alert("로그인을 하셔야 이용가능합니다.");
+  else writeBtn.setAttribute("href", `/post`);
 });
 
 const parsingUrl = {};
@@ -29,7 +24,6 @@ window.location.search
   .split("&")
   .forEach((el) => {
     const [key, value] = el.split("=");
-    console.log(key, value);
     parsingUrl[key] = value;
   });
 

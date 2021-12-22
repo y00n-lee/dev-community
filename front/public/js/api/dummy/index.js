@@ -55,9 +55,9 @@ export const getUserInfo = async (id) => ({
 });
 
 export const checkSignin = async () => ({
-  status: true,
+  status: false,
   data: {
-    id: 1,
+    id: "1",
     nickname: "지석호",
   },
 });
