@@ -1,0 +1,18 @@
+export const getUserInfo = async (id, data, queryname) => {
+  try {
+    const result = await fetch(`http://localhost:9999/user/${id}/edit?name=${queryname}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ data }),
+      credentials: "include",
+    });
+
+    const res = result.json();
+
+    return res;
+  } catch (e) {
+    return { status: false, message: "서버 에러입니다." };
+  }
+};

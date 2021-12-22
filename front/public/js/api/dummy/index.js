@@ -1,6 +1,6 @@
 import dummy from "./data.js";
 
-export const onSignup = (data) => ({
+export const onSignup = async (data) => ({
   status: true,
 });
 
@@ -30,6 +30,7 @@ export const getUserInfo = async (id) => ({
   //   message: "비밀번호가 틀렸습니다",
   // });
 
+export const getUserInfo = async (id) => ({
   status: true,
   data: {
     user: {
@@ -54,53 +55,66 @@ export const getUserInfo = async (id) => ({
   },
 });
 
+export const checkSignin = async () => ({
+  status: true,
+  data: {
+    id: 1,
+    nickname: "지석호",
+  },
+});
+
+export const editUserInfo = async (id, data, queryname) => ({
+  status: true,
+  message: "변경되었습니다.",
+});
+
 export const resetPassword = async (email) => ({
   status: false,
   message: "임시 비밀번호가 메일로 전송됐습니다.",
 });
 
-export const inSignout = () => ({
+export const inSignout = async () => ({
   status: true,
 });
 
 /* post */
-export const getPosts = ({ postId, content }) => dummy.posts;
+export const getPosts = async ({ postId, content }) => dummy.posts;
 
-export const getPost = (postId) => dummy.post;
+export const getPost = async (postId) => dummy.post;
 
-export const createPost = ({ title, content, tagList }) => ({
+export const createPost = async ({ title, content, tagList }) => ({
   status: true,
   message: "등록되었습니다.",
 });
 
-export const editPost = ({ postId, title, content, tagList }) => ({
+export const editPost = async ({ postId, title, content, tagList }) => ({
   status: true,
   message: "수정되었습니다.",
 });
 
-export const deletePost = (postId) => ({
+export const deletePost = async (postId) => ({
   status: true,
   message: "삭제되었습니다.",
 });
 
 /* member */
-export const addMember = (postId) => ({
+export const addMember = async (postId) => ({
   status: true,
   message: "참여되었습니다.",
 });
 
-export const deleteMember = (postId) => ({
+export const deleteMember = async (postId) => ({
   status: true,
   message: "취소되었습니다.",
 });
 
 /* comment */
-export const addComment = ({ postId, content }) => ({
+export const addComment = async ({ postId, content }) => ({
   status: true,
   message: "처리되었습니다.",
 });
 
-export const deleteComment = ({ postId, commentId }) => ({
+export const deleteComment = async ({ postId, commentId }) => ({
   status: true,
   message: "삭제되었습니다.",
 });
