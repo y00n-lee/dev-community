@@ -91,15 +91,14 @@ function confirmPassword() {
   const currPw = document.getElementById("currPw").value;
   const changePw = document.getElementById("changePw").value;
   const checkPw = document.getElementById("checkPw").value;
+  // TODO : 빈 값 체크 함수로 변경
   if (!currPw || !changePw || !checkPw)
     return alert("현재 비밀번호, 변경 비밀번호, 비밀번호 확인을 모두 입력해주세요!");
 
-  const userPassword = `12345`; // TODO: user password 값 가져오기
-  if (currPw !== userPassword) return alert("현재 비밀번호가 틀렸습니다.");
   if (changePw !== checkPw) return alert("변경할 비밀번호와 비밀번호 확인이 다릅니다");
   if (validationPw(checkPw)) {
     // TODO : changePassword 함수 동작 확인
-    changePassword({ currentPassword: `${userPassword}`, password: `${checkPw}` })
+    changePassword({ currentPassword: `${currPw}`, password: `${checkPw}` })
       .then((res) => {
         if (res.status) {
           alert(res.message);
