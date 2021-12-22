@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footer.css" />
     <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/tag.css" />
   </head>
   <body>
     <div class="container">
@@ -120,10 +121,7 @@
               </span>
               <span class="error_next_box">필수 정보입니다.</span>
             </div>
-            <div id="techStackDiv">
-              <h3><label for="techStack">기술 스택</label></h3>
-              <div id="techStackBlock"></div>
-            </div>
+            <div id="techStackDiv"></div>
             <div id="githubDiv">
               <h3><label for="github">Github주소 (선택)</label></h3>
               <span class="box int_github">
@@ -138,6 +136,8 @@
               </span>
             </div>
           </form>
+          <h3><label for="techStack">기술 태그</label></h3>
+          <form class="field" id="tagForm" type="submit"></form>
           <div class="submit_area">
             <button class="submitBtn" id="submit">가입하기</button>
           </div>
@@ -147,6 +147,6 @@
         </div>
       </div>
     </div>
-    <script type="module" src="/js/signup.js"></script>
+    <script type="module" src="/js/pages/signup.js"></script>
   </body>
 </html>

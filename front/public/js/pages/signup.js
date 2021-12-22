@@ -3,6 +3,8 @@ import { makeFooter } from "../components/footer.js";
 import { addTextNode } from "../components/utils.js";
 //import { onSignup } from "./api/user/onSIgnup.js";
 import { onSignup } from "../api/dummy/index.js";
+import { makeSkillTag, selectTag } from "../components/tag.js";
+import { removeChildsAll } from "../components/utils.js";
 
 const container = document.querySelector(".container");
 const isOkArray = [false, false, false, false, false, false, false];
@@ -30,9 +32,30 @@ function techStackCheckBox(techStack) {
   }
 }
 
-const techStackData = ["HTML", "CSS", "JAVASCRIPT", "NODEJS", "SPRING", "EXPRESS", "REACT"];
+const techStackData = [];
 
-techStackCheckBox(techStackData);
+// TechStack Checkbox
+function tagBox(techStack, inputId) {
+  const div = document.getElementById("tagForm");
+  techStack.forEach((el) => {
+    div.appendChild(makeSkillTag(el, true, false));
+  });
+  div.innerHTML += `<span class="box">
+  <input id="${inputId}" type="text" name="${inputId}" class="int" maxlength="40"/>
+</span>`;
+}
+
+// Main
+tagBox(techStackData, "techTag");
+
+document.getElementById("tagForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+  let techTagValue = document.getElementById("techTag").value;
+  techStackData.push(techTagValue);
+  removeChildsAll(document.getElementById("tagForm"));
+  tagBox(techStackData, "techTag");
+  document.getElementById("techTag").focus();
+});
 
 document.getElementById("submit").addEventListener("click", function () {
   //유효성 검사
@@ -49,12 +72,7 @@ document.getElementById("submit").addEventListener("click", function () {
   } else if (!isOkArray[6]) {
     alert("성별을 확인하세요.");
   } else {
-    const query = 'input[name="techStack"]:checked';
-    const techStackCheck = document.querySelectorAll(query);
-    const tagsList = [];
-    techStackCheck.forEach((el) => {
-      tagsList.push(el.value);
-    });
+    const tagsList = selectTag();
     onSignup({
       email: document.getElementById("emailId").value,
       password: document.getElementById("password").value,
@@ -69,8 +87,10 @@ document.getElementById("submit").addEventListener("click", function () {
       github: document.getElementById("github").value,
     })
       .then((res) => {
-        alert(res.message);
-        if (res.status) window.location = "/signin";
+        if (res.status) {
+          alert("회원가입 되셨습니다!");
+          window.location = "/signin";
+        }
       })
       .catch((e) => alert(e.message));
   }
@@ -85,7 +105,7 @@ container.append(makeFooter());
 const id = document.querySelector("#emailId");
 const nickname = document.querySelector("#nickname");
 const pswd = document.querySelector("#password");
-const pswdCf = document.querySelector("#password_confirm");
+const pswdCf = document.getElementById("password_confirm");
 const userName = document.querySelector("#name");
 
 const yy = document.querySelector("#yy");
@@ -99,7 +119,7 @@ const error = document.querySelectorAll(".error_next_box");
 id.addEventListener("focusout", checkId);
 nickname.addEventListener("focusout", checkNick);
 pswd.addEventListener("focusout", checkPw);
-pswdCf.addEventListener("focustout", comparePw);
+pswdCf.addEventListener("focusout", comparePw);
 userName.addEventListener("focusout", checkName);
 yy.addEventListener("focusout", isBirthCompleted);
 mm.addEventListener("focusout", isBirthCompleted);
@@ -168,17 +188,14 @@ function checkPw() {
 
 function comparePw() {
   if (pswdCf.value === pswd.value && pswdCf.value != "") {
-    console.log(1);
     error[3].style.display = "none";
     isOkArray[3] = true;
   } else if (pswdCf.value !== pswd.value) {
-    console.log(2);
     blockTagExtension(error[3], "비밀번호가 일치하지 않습니다.");
     isOkArray[3] = false;
   }
 
   if (pswdCf.value === "") {
-    console.log(3);
     blockTagExtension(error[3], "필수 정보입니다.");
     isOkArray[3] = false;
   }
