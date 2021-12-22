@@ -33,7 +33,7 @@ function commentsLists(comments) {
   }
 }
 // Comments Make
-function cmtMainTail(post, user) {
+function cmtMainTail(post) {
   const cmtFormTableRow = document.getElementById("cmtFormTableRow");
   removeChildsAll(cmtFormTableRow);
 
@@ -66,11 +66,11 @@ function cmtMainTail(post, user) {
   cmtFormTableRow.appendChild(cmtBtnTd);
 }
 
-export function makeComments(post, user) {
+export function makeComments(post) {
   // 게시글 헤더
   cmtHeader(post.comments);
   // 게시글의 댓글 출력
   commentsLists(post.comments);
   // 게시글의 댓글 입력 부분
-  cmtMainTail(post, user);
+  cmtMainTail(post);
 }
