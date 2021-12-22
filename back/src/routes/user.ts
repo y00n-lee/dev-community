@@ -10,7 +10,7 @@ router.get("/", ExpiredJwtAuthGurad, asyncHandler(userController.checkSignin));
 
 router.post("/signup", asyncHandler(userController.signup));
 
-router.get("/:id", JwtAuthGurad, asyncHandler(userController.getUserInfo));
+router.get("/:id", ExpiredJwtAuthGurad, asyncHandler(userController.getUserInfo));
 
 router.post("/password/reset", asyncHandler(userController.resetPassword));
 

@@ -7,9 +7,13 @@ import { jwtContents } from "@src/utils/constants";
 
 import { ICreateUser } from "@src/types/CoreResponse";
 import { ITokenUser, IUserDocument } from "@src/types/User";
+import { postsService, PostsService } from "@src/services/posts.service";
 
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly postService: PostsService,
+  ) {}
 
   checkSignin = async (req: Request, res: Response) => {
     const _user = req.user;
@@ -29,7 +33,7 @@ export class UserController {
 
     await emailAuthentication(host, req.body.email, keyForVerify);
 
-    return res.json({ status: true });
+    return res.json({ status: true, message: "회원가입이 완료되었습니다." });
   };
 
   getUserInfo = async (req: Request, res: Response) => {
@@ -38,10 +42,14 @@ export class UserController {
 
     if (!user) return res.status(403).json({ status: false, message: "유저가 존재하지 않습니다." });
 
+    const posts = await this.postService.getByAuthor(user.id);
+
     await user.populate("tags");
     await user.populate("posts");
 
     const same = _user.id === user.id;
+
+    if (posts) user.posts.push(...posts);
 
     return res.json({ status: true, data: { user, same } });
   };
@@ -72,7 +80,7 @@ export class UserController {
     if (!user)
       return res
         .status(403)
-        .json({ status: false, data: { message: "해당 메일로 가입된 사용자가 없습니다." } });
+        .json({ status: false, message: "해당 메일로 가입된 사용자가 없습니다." });
 
     const password = makeVerifyKey(5);
     const hashedPassword = await makeHashPassword(password);
@@ -84,7 +92,7 @@ export class UserController {
 
     await sendChangedPassword(email, password);
 
-    return res.json({ status: true, data: { message: "임시 비밀번호가 메일에 전송됐습니다." } });
+    return res.json({ status: true, message: "임시 비밀번호가 메일에 전송됐습니다." });
   };
 
   changePassword = async (req: Request, res: Response) => {
@@ -118,4 +126,4 @@ export class UserController {
   };
 }
 
-export const userController = new UserController(userService);
+export const userController = new UserController(userService, postsService);

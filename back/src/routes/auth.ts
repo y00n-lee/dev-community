@@ -1,17 +1,13 @@
 import { Router } from "express";
 import { authController } from "@src/controllers/auth.controller";
 import { asyncHandler } from "@src/utils/asyncHandler";
-import {
-  JwtAuthGurad,
-  ExpiredJwtAuthGurad,
-  RJwtAuthGurad,
-} from "@src/passport/gurads/jwt-auth.guard";
+import { ExpiredJwtAuthGurad, RJwtAuthGurad } from "@src/passport/gurads/jwt-auth.guard";
 
 const router = Router();
 
 router.post("/signin", asyncHandler(authController.signin));
 
-router.post("/signout", JwtAuthGurad, asyncHandler(authController.signout));
+router.post("/signout", ExpiredJwtAuthGurad, asyncHandler(authController.signout));
 
 router.post("/refresh", ExpiredJwtAuthGurad, RJwtAuthGurad, asyncHandler(authController.refresh));
 

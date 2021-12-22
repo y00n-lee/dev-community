@@ -23,7 +23,7 @@ export class AuthService {
 
   async signin(payload: ITokenUser) {
     const accessToken = this.jwtService.sign(payload, jwtContents.secret, {
-      expiresIn: "5m",
+      expiresIn: "20m",
     });
 
     const refreshToken = this.jwtService.sign(payload, jwtContents.secret, {

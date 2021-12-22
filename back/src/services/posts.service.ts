@@ -1,5 +1,6 @@
 import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
 import { PostDTO } from "@src/types/Post";
+import { IUserDocument } from "@src/types/User";
 import { clientErrHandler } from "@src/utils/clientErrHandler";
 
 export class PostsService {
@@ -19,7 +20,7 @@ export class PostsService {
       .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify")
       .populate("members", "-password -refreshToken -keyForVerify")
-      .populate("comments")
+      .populate({ path: "comments", populate: { path: "author" } })
       .populate("tags");
 
     if (!post) {
@@ -31,20 +32,20 @@ export class PostsService {
 
   async createPost(postDTO: PostDTO) {
     const { title, content, userId, tagList } = postDTO;
-    const tags = this.tagModel.getTags(tagList);
+    const tags = await this.tagModel.getTags(tagList);
 
     if (!title || !content) {
       throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
     }
 
-    const author = await this.userModel.findById(userId);
+    const author = (await this.userModel.findById(userId)) as IUserDocument;
     const post = await this.postModel.create({ title, content, author, members: author, tags });
     return post;
   }
 
   async editPost(postDTO: PostDTO) {
     const { postId, title, content, userId, tagList } = postDTO;
-    const tags = this.tagModel.getTags(tagList);
+    const tags = await this.tagModel.getTags(tagList);
 
     if (!title || !content) {
       throw clientErrHandler("제목과 내용을 입력해 주세요.", "NoTitleContent");
@@ -157,6 +158,17 @@ export class PostsService {
     post.comments.pull(comment);
     await post.save();
     await this.commentModel.deleteOne({ _id: commentId });
+    return post;
+  }
+
+  async getByAuthor(id: string) {
+    const post = await this.postModel
+      .find({ author: id })
+      .populate("author", "-password -refreshToken -keyForVerify")
+      .populate("members", "-password -refreshToken -keyForVerify")
+      .populate("comments")
+      .populate("tags");
+
     return post;
   }
 }
