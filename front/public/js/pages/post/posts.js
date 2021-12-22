@@ -29,7 +29,6 @@ window.location.search
   .split("&")
   .forEach((el) => {
     const [key, value] = el.split("=");
-    console.log(key, value);
     parsingUrl[key] = value;
   });
 
