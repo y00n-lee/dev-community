@@ -2,7 +2,7 @@ import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
 import { createEleClass, addTextNode } from "../components/utils.js";
 import { makeSkillTag } from "../components/tag.js";
-import { getUserInfo, getPost } from "../api/dummy/index.js";
+import { getUserInfo } from "../api/dummy/index.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];
@@ -93,7 +93,7 @@ function makeListField(userData, aTag) {
     return dataList;
   }
   for (let i = 0; i < userData.length; i++) {
-    dataList.appendChild(makeSkillTag(userData[i]));
+    dataList.appendChild(makeSkillTag(userData[i], true, false));
   }
   return dataList;
 }

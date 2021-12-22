@@ -1,9 +1,8 @@
 import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
-import { editUserInfo, getUserInfo } from "../api/dummy/index.js";
-import { makeSkillTag } from "../components/tag.js";
-import { removeChildsAll } from "../components/utils.js";
-import { changePassword } from "../api/user/changePassword.js";
+import { editUserInfo, getUserInfo, inSignout, changePassword } from "../api/dummy/index.js";
+import { makeSkillTag, selectTag, toggleTag } from "../components/tag.js";
+import { removeChildsAll, isNull } from "../components/utils.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];
@@ -13,7 +12,15 @@ const main = document.getElementById("main");
 const nameForm = document.getElementById("nicknameForm");
 const tagForm = document.getElementById("tagForm");
 const passwordForm = document.getElementById("passwordForm");
+const title = document.getElementsByClassName("page-title")[0];
+
 const p = `<p class="label">기술스택</p>`;
+const tagBtn = document.createElement("div");
+tagBtn.innerHTML = `<input type="submit" class="updateBtn" id="tagBtn" value="기술 스택 수정" />`;
+const newTag = document.createElement("input");
+newTag.setAttribute("class", "data");
+newTag.setAttribute("id", "tagValue");
+newTag.setAttribute("placeholder", "추가하고 싶은 기술스택을 입력하고 엔터를 눌러주세요");
 
 // Header, footer append
 container.insertBefore(header, main);
@@ -33,57 +40,53 @@ function setUpdateData() {
 
       const { nickname, tags } = res.data.user;
       const name = document.getElementById("nicknameValue");
-      console.log(nickname);
       name.value = nickname;
-
+      title.innerText = `${nickname}님의 프로필`;
       removeChildsAll(tagForm);
       tagForm.innerHTML = p;
-      for (let i = 0; i < tags.length; i++) tagForm.appendChild(makeSkillTag(tags[i]));
+      for (let i = 0; i < tags.length; i++) {
+        const tag = makeSkillTag(tags[i], true, true);
+        tagForm.appendChild(tag);
+        tag.addEventListener("click", toggleTag);
+      }
+      tagForm.appendChild(newTag);
+      tagForm.appendChild(tagBtn);
     })
     .catch((e) => alert(e.message));
 }
 
+// Event Listener
 nameForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  btnSubmit("nickname");
+  const nickname = document.getElementById("nicknameValue").value;
+  btnSubmit("nickname", nickname);
 });
-
+newTag.addEventListener("keydown", (e) => {
+  if (window.event.keyCode === 13) {
+    const tagName = newTag.value;
+    const tag = makeSkillTag(tagName, true, true);
+    tagForm.insertBefore(tag, newTag);
+  }
+});
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  btnSubmit("tags");
+  const tagList = selectTag();
+  btnSubmit("tags", tagList);
 });
 passwordForm.addEventListener("submit", (e) => {
   e.preventDefault();
   confirmPassword();
 });
-
 // nickname, tags 변경 이벤트 함수
-function btnSubmit(queryname) {
-  if (queryname === "nickname") {
-    const nickname = document.getElementById("nicknameValue").value;
-    editUserInfo(currentUserId, nickname, `${queryname}`)
-      .then((res) => {
-        if (res.status) {
-          alert(res.message);
-          setUpdateData();
-        }
-      })
-      .catch((e) => alert(e.message));
-  } else {
-    const tags = document.querySelectorAll(`.tag`);
-    const tagList = [];
-    tags.forEach((ele) => {
-      if (ele.firstChild.cheked) tagList.push(ele.innerText);
-    });
-    editUserInfo(currentUserId, tagList, "tags")
-      .then((res) => {
-        if (res.status) {
-          alert(res.message);
-          setUpdateData();
-        }
-      })
-      .catch((e) => alert(e.message));
-  }
+function btnSubmit(queryname, data) {
+  editUserInfo(currentUserId, data, queryname)
+    .then((res) => {
+      if (res.status) {
+        alert(res.message);
+        window.location.reload();
+      }
+    })
+    .catch((e) => alert(e.message));
 }
 
 // 비밀번호 확인 함수
@@ -91,23 +94,21 @@ function confirmPassword() {
   const currPw = document.getElementById("currPw").value;
   const changePw = document.getElementById("changePw").value;
   const checkPw = document.getElementById("checkPw").value;
-  if (!currPw || !changePw || !checkPw)
+  if (isNull([currPw, changePw, checkPw]))
     return alert("현재 비밀번호, 변경 비밀번호, 비밀번호 확인을 모두 입력해주세요!");
 
-  const userPassword = `12345`; // TODO: user password 값 가져오기
-  if (currPw !== userPassword) return alert("현재 비밀번호가 틀렸습니다.");
   if (changePw !== checkPw) return alert("변경할 비밀번호와 비밀번호 확인이 다릅니다");
   if (validationPw(checkPw)) {
-    // TODO : changePassword 함수 동작 확인
-    changePassword({ currentPassword: `${userPassword}`, password: `${checkPw}` })
+    changePassword({ currentPassword: `${currPw}`, password: `${checkPw}` })
       .then((res) => {
-        if (res.status) {
-          alert(res.message);
-          document.location = "/signin";
-        }
+        alert(res.message);
+        if (res.status) return inSignout();
+      })
+      .then((res) => {
+        if (res.status) window.location = "/";
+        else alert(res.message);
       })
       .catch((e) => alert(e.message));
-    console.log("qusrud");
   } else return alert("8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.");
 }
 
