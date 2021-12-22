@@ -1,6 +1,6 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-import { onSignIn } from "../../api/dummy/index.js";
+import { onSignin } from "../../api/dummy/index.js";
 
 //Body
 const container = document.querySelector(".container");
@@ -26,7 +26,7 @@ loginForm.addEventListener("submit", (e) => {
   } else if (formPassword.value.length < 8) {
     alert("비밀번호는 8자리 이상입니다.");
   } else {
-    onSignIn({ email: formEmail.value, password: formPassword.value })
+    onSignin({ email: formEmail.value, password: formPassword.value })
       .then((res) => {
         if (!res.status) alert(res.message);
         else window.location = "/";

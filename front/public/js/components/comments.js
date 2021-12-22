@@ -21,7 +21,7 @@ function commentsLists(comments) {
 
     // Author
     const author = createEleClass("span", "cmtAuthor");
-    addTextNode(author, `작성자: ${comments[i].author}`);
+    addTextNode(author, `작성자: ${comments[i].author.nickname}`);
     cmtList.appendChild(author);
 
     // Comment

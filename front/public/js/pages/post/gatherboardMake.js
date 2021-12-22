@@ -1,9 +1,9 @@
-import { makeHeader } from "../components/header.js";
-import { makeFooter } from "../components/footer.js";
+import { makeHeader } from "../../components/header.js";
+import { makeFooter } from "../../components/footer.js";
 //import { createPost } from "./api/posts/createPost.js";
-import { createPost } from "../api/dummy/index.js";
-import { makeSkillTag, selectTag } from "../components/tag.js";
-import { removeChildsAll } from "../components/utils.js";
+import { createPost } from "../../api/dummy/index.js";
+import { makeSkillTag, selectTag } from "../../components/tag.js";
+import { removeChildsAll } from "../../components/utils.js";
 
 // dummy data
 const techStackData = [];
