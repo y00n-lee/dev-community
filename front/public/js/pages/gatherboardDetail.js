@@ -11,6 +11,8 @@ import { getPost, deletePost, addMember, checkSignin, deleteMember } from "../ap
 //import { deleteMember } from "./api/posts/deleteMember.js";
 import { makeSkillTag } from "../components/tag.js";
 
+const user = JSON.parse(sessionStorage.getItem("user"));
+
 // 사용자 함수
 // TechStack Checkbox
 function tagBox(techStack) {
@@ -35,7 +37,7 @@ function postConstruction(post) {
 }
 
 function setDisplayButtons(user, post) {
-  if (user.id === post.author._id) {
+  if (user._id === post.author._id) {
     document.getElementById("delete").style.display = "block";
     document.getElementById("participate").style.display = "none";
   } else {
@@ -61,17 +63,17 @@ function setParticipateButton(post, user) {
   post.members.forEach((el) => {
     memberIds.push(el._id);
   });
-  if (memberIds.includes(user.data.id)) {
+  if (memberIds.includes(user._id)) {
     document.getElementById("participate").innerText = "참가해제";
   } else {
     document.getElementById("participate").innerText = "참가하기";
   }
 
   document.getElementById("participate").addEventListener("click", function () {
-    if (!user.status) {
+    if (typeof user._id === "undefined") {
       alert("로그인 후 이용 가능합니다.");
     } else {
-      if (memberIds.includes(user.data.id)) {
+      if (memberIds.includes(user._id)) {
         deleteMember(post._id)
           .then((res) => {
             alert(res.message);
@@ -114,14 +116,9 @@ getPost(currentPostId)
     else {
       postConstruction(res.data.post);
       setDeleteButton(res.data.post._id);
-      checkSignin()
-        .then((res1) => {
-          setDisplayButtons(res1.data, res.data.post);
-          setParticipateButton(res.data.post, res1);
-          // Comments
-          makeComments(res.data.post, res1.data);
-        })
-        .catch((e1) => alert(e1.message));
+      setDisplayButtons(user, res.data.post);
+      setParticipateButton(res.data.post, user);
+      makeComments(res.data.post);
     }
   })
   .catch((e) => alert(e.message));
