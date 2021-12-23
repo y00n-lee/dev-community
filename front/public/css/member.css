@@ -1,28 +1,7 @@
 @import url("tag.css");
-:root {
-  --bg-color: #7979d3;
-  --ft-color: #fff;
-  --font-size: 9px;
-}
-
-.flex-container {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-evenly;
-}
-/* IE10+ */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  .flex-container {
-    justify-content: space-around;
-  }
-}
 
 .flex-item {
   width: 375px;
-  display: block;
-  text-align: center;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  border-radius: 25px;
   margin: 30px 50px;
 }
 .image {

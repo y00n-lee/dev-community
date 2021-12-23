@@ -58,8 +58,8 @@
 .slider {
   display: none;
 }
-@media screen and (max-width: 900px) {
-  /* 타블렛 세로, 모바일*/
+@media screen and (max-width: 768px) {
+  /* 모바일*/
   .slider {
     display: initial;
   }

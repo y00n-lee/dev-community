@@ -5,7 +5,6 @@
   box-sizing: border-box;
   border: 0;
 }
-
 ol,
 ul {
   list-style: none;
@@ -23,12 +22,10 @@ a {
 input {
   outline: none;
 }
-
 .container {
   width: 100%;
-  height: 100px;
-  min-height: 100vh;
-  padding-bottom: 100px;
+  height: 100%;
+  min-height: 100%;
   margin: 0 auto;
   position: relative;
 }
@@ -36,6 +33,8 @@ input {
   --bg-color: #7979d3;
   --ft-color: #fff;
   --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
 }
 .flex-container {
   display: flex;
