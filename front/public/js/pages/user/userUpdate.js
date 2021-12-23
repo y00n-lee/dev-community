@@ -39,7 +39,7 @@ function setUpdateData() {
 
       const { nickname, tags } = res.data.user;
       const name = document.getElementById("nicknameValue");
-      name.placeholder = nickname;
+      name.value = nickname;
       title.innerText = `${nickname}님의 프로필`;
 
       for (let i = 0; i < tags.length; i++) {
@@ -54,16 +54,17 @@ function setUpdateData() {
 // Event Listener
 nameForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const nickname = document.getElementById("nicknameValue").value;
+  const nickname = document.getElementById("nicknameValue").value.replace(/^\s+|\s+$/gm, "");
+  if (!nickname) return alert("빈 값을 입력하셨습니다.");
   btnSubmit("nickname", nickname);
 });
 
 // 기술 태그 창에 값 입력 후 엔터 시 이벤트 리스너
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const tagValue = document.getElementById("tagValue");
-  if (!tagValue.value) return;
-  const tag = makeSkillTag(tagValue.value, true, true);
+  const tagValue = document.getElementById("tagValue").value.replace(/^\s+|\s+$/gm, "");
+  if (!tagValue) return;
+  const tag = makeSkillTag(tagValue, true, true);
   tagField.appendChild(tag);
   tagValue.value = "";
   tagValue.focus();
@@ -73,8 +74,6 @@ tagForm.addEventListener("submit", (e) => {
 tagBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const tagList = selectTag();
-  const tagValue = document.getElementById("tagValue");
-  tagList.push(tagValue);
   btnSubmit("tags", tagList);
 });
 passwordForm.addEventListener("submit", (e) => {
@@ -98,6 +97,7 @@ function confirmPassword() {
   const currPw = document.getElementById("currPw").value;
   const changePw = document.getElementById("changePw").value;
   const checkPw = document.getElementById("checkPw").value;
+
   if (isNull([currPw, changePw, checkPw]))
     return alert("현재 비밀번호, 변경 비밀번호, 비밀번호 확인을 모두 입력해주세요!");
 
