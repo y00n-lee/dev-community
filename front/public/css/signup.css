@@ -64,17 +64,12 @@
 .box.int_github {
   padding-right: 40px;
 }
-
-.bir_wrap {
-  display: table;
+#bir_wrap {
+  display: flex;
   width: 100%;
 }
-
-#bir_yy,
-#bir_mm,
-#bir_dd {
-  display: table-cell;
-  width: 153px;
+#bir_mm {
+  flex-basis: 20%;
 }
 
 #bir_mm {

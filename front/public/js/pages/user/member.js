@@ -1,8 +1,8 @@
-import { makeHeader } from "../components/header.js";
-import { makeFooter } from "../components/footer.js";
-import { createEleClass, addTextNode, addChild } from "../components/utils.js";
-import { makeSkillTag } from "../components/tag.js";
-import { getPost } from "../api/dummy/index.js";
+import { makeHeader, responsiveHeader } from "../../components/header.js";
+import { makeFooter, responsiveFooter } from "../../components/footer.js";
+import { createEleClass, addTextNode, addChild } from "../../components/utils.js";
+import { makeSkillTag } from "../../components/tag.js";
+import { getPost } from "../../api/dummy/index.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];
@@ -46,3 +46,7 @@ function makeMemberCard(nickname, tags, email) {
   addChild(article, memberEmail, email);
   section.appendChild(article);
 }
+
+// 반응형 헤더,푸터
+responsiveFooter();
+responsiveHeader();
