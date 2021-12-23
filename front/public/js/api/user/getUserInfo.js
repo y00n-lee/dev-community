@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const getUserInfo = async (id) => {
   try {
     const result = await fetch(`${url}/user/${id}`, {

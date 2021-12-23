@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const checkExpirationToken = async () => {
   try {
     const result = await fetch(`${url}/auth/refresh`, {

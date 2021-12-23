@@ -1,7 +1,7 @@
 import { Post } from "./post.js";
 import { createEleId } from "./utils.js";
 import { createEleClass } from "./utils.js";
-import { getPosts } from "../api/dummy/index.js";
+import { getPosts } from "../api/posts/getPosts.js";
 
 // main의 최신글
 export const getRecentPostList = getPosts({ page: 1, perPage: 6 })

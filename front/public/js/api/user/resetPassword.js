@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const resetPassword = async (email) => {
   try {
     const result = await fetch(`${url}/user/password/reset`, {
@@ -6,6 +7,7 @@ export const resetPassword = async (email) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
+      body: JSON.stringify({ email }),
     });
 
     const res = result.json();

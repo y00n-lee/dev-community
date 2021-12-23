@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const onSignout = async () => {
   try {
     const result = await fetch(`${url}/auth/signout`, {

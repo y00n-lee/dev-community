@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const editUserInfo = async (id, data, queryname) => {
   try {
     const result = await fetch(`${url}/user/${id}/edit?name=${queryname}`, {

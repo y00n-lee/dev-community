@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const getPosts = async ({ page, perPage }) => {
   try {
     const result = await fetch(`${url}/posts?page=${page}&perPage=${perPage}`, {

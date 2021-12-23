@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const changePassword = async ({ currentPassword, password }) => {
   try {
     const result = await fetch(`${url}/user/password/change`, {

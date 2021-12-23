@@ -3,7 +3,6 @@ import { makeFooter } from "../../components/footer.js";
 import { makeSkillTag, selectTag } from "../../components/tag.js";
 import { removeChildsAll } from "../../components/utils.js";
 
-// import { createPost } from "../../api/dummy/index.js";
 import { createPost } from "../../api/posts/createPost.js";
 
 // dummy data

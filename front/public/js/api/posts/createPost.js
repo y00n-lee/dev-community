@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const createPost = async ({ title, content, tagList }) => {
   try {
     const result = await fetch(`${url}/posts`, {

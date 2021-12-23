@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const deleteComment = async ({ postId, commentId }) => {
   try {
     const result = await fetch(`${url}/posts/${postId}/comment`, {

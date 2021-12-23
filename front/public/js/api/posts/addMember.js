@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const addMember = async (postId) => {
   try {
     const result = await fetch(`${url}/posts/${postId}/member`, {

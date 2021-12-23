@@ -1,8 +1,6 @@
 import { createEleId, createEleClass, addTextNode, removeChildsAll } from "./utils.js";
-import { addComment } from "../api/dummy/index.js";
-//import { addComment } from "../api/posts/addComment.js";
+import { addComment } from "../api/posts/addComment.js";
 
-//import { chekcSignin} from "../api/user/checkSignin.js";
 // Comments Header
 function cmtHeader(comments) {
   removeChildsAll(document.getElementById("cmtCount"));

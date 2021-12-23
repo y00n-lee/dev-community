@@ -1,3 +1,4 @@
+import { url } from "../../config/prodApi.js";
 export const onSignup = async ({ email, password, nickname, birth, gender, tags, github }) => {
   try {
     const result = await fetch(`${url}/user/signup`, {

@@ -1,10 +1,8 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-import { addTextNode } from "../../components/utils.js";
 import { makeSkillTag, selectTag } from "../../components/tag.js";
 import { removeChildsAll } from "../../components/utils.js";
 
-import { onSignup } from "../../api/dummy/index.js";
 import { onSignup } from "../../api/user/onSIgnup.js";
 
 const container = document.querySelector(".container");

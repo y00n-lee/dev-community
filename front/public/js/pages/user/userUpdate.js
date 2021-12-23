@@ -3,7 +3,6 @@ import { makeFooter, responsiveFooter } from "../../components/footer.js";
 import { makeSkillTag, selectTag, toggleTag } from "../../components/tag.js";
 import { isNull } from "../../components/utils.js";
 
-// import { editUserInfo, getUserInfo, onSignout, changePassword } from "../../api/dummy/index.js";
 import { getUserInfo } from "../../api/user/getUserInfo.js";
 import { editUserInfo } from "../../api/user/editUserInfo.js";
 import { changePassword } from "../../api/user/changePassword.js";
