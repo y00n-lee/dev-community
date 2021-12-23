@@ -1,7 +1,6 @@
 import { createEleClass } from "./utils.js";
 
 export function Post(data) {
-  console.log(data);
   const postCard = createEleClass("article", "post");
   const title = createEleClass("h2", "post-title");
   const author = createEleClass("h5", "post-author");
@@ -13,11 +12,13 @@ export function Post(data) {
   title.innerText = data.title;
   author.innerText = data.author.nickname;
 
-  for (let i = 0; i < data.tags.length; i++) {
+  const tagCount = data.tags.length > 3 ? 3 : data.tags.length;
+  for (let i = 0; i < tagCount; i++) {
     const tags = createEleClass("span", "post-stack");
     tags.innerText = data.tags[i].content;
     tagsList.appendChild(tags);
   }
+
   content.innerText = data.content;
   const happyNewYear = new Date(data.author.createdAt);
   const year = happyNewYear.getFullYear();
