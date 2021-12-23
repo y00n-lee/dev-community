@@ -57,6 +57,7 @@ document.getElementById("make").addEventListener("click", function () {
       title: _title,
       content: _content,
       tagList: tagsList,
+      time: new Date(Date.now()),
     })
       .then((res) => {
         alert(res.message);
