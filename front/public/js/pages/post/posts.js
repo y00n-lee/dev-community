@@ -14,7 +14,7 @@ const user = JSON.parse(sessionStorage.getItem("user"));
 const writeBtn = document.querySelector(".post-write");
 
 writeBtn.addEventListener("click", () => {
-  if (!user) alert("로그인을 하셔야 이용가능합니다.");
+  if (!user) alert("로그인 후 이용 가능합니다.");
   else writeBtn.setAttribute("href", `/post`);
 });
 
