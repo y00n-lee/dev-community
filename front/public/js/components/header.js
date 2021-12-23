@@ -41,7 +41,7 @@ export function makeHeader() {
         <a href="/signin">Log In</a>
       </li>
       <li class="register">
-        <a href="signup">Register</a>
+        <a href="/signup">Register</a>
       </li>`;
     } else {
       const user = res.data;
@@ -53,7 +53,7 @@ export function makeHeader() {
         <a href="/user/${user.id}">${user.nickname}<a>
       </li>
       <li class="register">
-        <a href="signup">Log Out</a>
+        <a>Log Out</a>
       </li>`;
 
       const logoutBox = document.querySelector(".register");
