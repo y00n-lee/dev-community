@@ -1,6 +1,5 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-// import { onSignin } from "../../api/dummy/index.js";
 import { onSignin } from "../../api/auth/onSignin.js";
 
 const user = JSON.parse(sessionStorage.getItem("user"));

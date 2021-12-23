@@ -1,7 +1,7 @@
 import { createEleId, createEleClass } from "./utils.js";
 import { checkSignin } from "../api/user/onSignin.js";
 import { onSignout } from "../api/auth/onSignout.js";
-import { checkExpirationToken } from "../api/auth/refreshToken";
+import { checkExpirationToken } from "../api/auth/refreshToken.js";
 
 export function makeHeader() {
   const header = createEleId("header", "header");

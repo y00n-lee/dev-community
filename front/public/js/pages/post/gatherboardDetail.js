@@ -4,8 +4,6 @@ import { makeComments } from "../../components/comments.js";
 import { addTextNode } from "../../components/utils.js";
 import { makeSkillTag } from "../../components/tag.js";
 
-//import { getPost } from "./api/posts/getPost.js";
-// import { getPost, deletePost, addMember, deleteMember } from "../../api/dummy/index.js";
 import { getPost } from "../../api/posts/getPost.js";
 import { addMember } from "../../api/posts/addMember.js";
 import { deletePost } from "../../api/posts/deletePost.js";
