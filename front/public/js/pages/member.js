@@ -40,7 +40,8 @@ function makeMemberCard(nickname, tags, email) {
   const memberEmail = createEleClass("p", "email"); // 회원 이메일
 
   addChild(article, memberName, nickname);
-  for (let i = 0; i < tags.length; i++) article.appendChild(makeSkillTag(tags[i], true, false));
+  for (let i = 0; i < tags.length; i++)
+    article.appendChild(makeSkillTag(tags[i].content, true, false));
 
   addChild(article, memberEmail, email);
   section.appendChild(article);
