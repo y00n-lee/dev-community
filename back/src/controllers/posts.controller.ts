@@ -8,7 +8,7 @@ export class PostsController {
   readPosts = async (req: Request, res: Response) => {
     const page = Number(req.query.page || 1);
     const perPage = Number(req.query.perPage || 10);
-    const IsLogin = req.user? true : false;
+    const IsLogin = req.user ? true : false;
 
     const [posts, totalPage] = await this.postsService.getPosts({}, page, perPage);
     return res.json({ status: true, data: { posts, page, perPage, totalPage, IsLogin } });
@@ -16,7 +16,7 @@ export class PostsController {
 
   readPost = async (req: Request, res: Response) => {
     const { postId } = req.params;
-    const IsLogin = req.user? true : false;
+    const IsLogin = req.user ? true : false;
 
     const post = await this.postsService.getById(postId);
     return res.json({ status: true, data: { post, IsLogin } });
@@ -24,8 +24,8 @@ export class PostsController {
 
   createPost = async (req: Request, res: Response) => {
     const userId = req?.user?.id as string;
-    const { title, content, tagList } = req.body;
-    const postDTO: PostDTO = { title, content, userId, tagList };
+    const { title, content, tagList, time } = req.body;
+    const postDTO: PostDTO = { title, content, userId, tagList, time };
 
     await this.postsService.createPost(postDTO);
     return res.status(201).json({ status: true, message: "등록되었습니다." });
@@ -84,7 +84,6 @@ export class PostsController {
     await this.postsService.deleteComment(postId, userId, commentId);
     return res.json({ status: true, message: "삭제되었습니다." });
   };
-
 }
 
 export const postsController = new PostsController(postsService);

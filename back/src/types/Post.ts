@@ -12,6 +12,7 @@ export interface IPost {
   members: Types.DocumentArray<IUserDocument>;
   tags: Types.DocumentArray<ITagDocument>;
   isEdit: boolean;
+  time: Date | null;
 }
 
 export interface IPostModel extends Model<IPost> {
@@ -19,9 +20,10 @@ export interface IPostModel extends Model<IPost> {
 }
 
 export interface PostDTO {
-  postId?: string,
-  title: string,
-  content: string,
-  userId: string,
-  tagList: string[]
+  postId?: string;
+  title: string;
+  content: string;
+  userId: string;
+  tagList: string[];
+  time?: Date;
 }

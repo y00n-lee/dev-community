@@ -23,6 +23,10 @@ export class PostsService {
       .populate({ path: "comments", populate: { path: "author" } })
       .populate("tags");
 
+    post.views += 1;
+
+    await post.save();
+
     if (!post) {
       throw clientErrHandler("잘못된 요청입니다.", "Bad");
     }
@@ -31,7 +35,7 @@ export class PostsService {
   }
 
   async createPost(postDTO: PostDTO) {
-    const { title, content, userId, tagList } = postDTO;
+    const { title, content, userId, tagList, time } = postDTO;
     const tags = await this.tagModel.getTags(tagList);
 
     if (!title || !content) {
@@ -39,7 +43,14 @@ export class PostsService {
     }
 
     const author = (await this.userModel.findById(userId)) as IUserDocument;
-    const post = await this.postModel.create({ title, content, author, members: author, tags });
+    const post = await this.postModel.create({
+      title,
+      content,
+      author,
+      members: author,
+      tags,
+      time,
+    });
     return post;
   }
 

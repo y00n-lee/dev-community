@@ -42,6 +42,10 @@ export const PostSchema = new Schema<IPost>(
       type: Boolean,
       default: false,
     },
+    time: {
+      type: Date,
+      required: true,
+    },
   },
   {
     timestamps: true,
