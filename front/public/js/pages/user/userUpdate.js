@@ -28,6 +28,11 @@ window.onload = setUpdateData();
 
 // display user nickname, tags
 function setUpdateData() {
+  const user = JSON.parse(sessionStorage.getItem("user"));
+  if (!user) {
+    alert("로그인 시에만 수정하실 수 있습니다");
+    window.location = "/";
+  }
   getUserInfo(currentUserId)
     .then((res) => {
       if (!res.status) return alert(res.message);
