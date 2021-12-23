@@ -21,7 +21,7 @@ export class PostsService {
       .populate("author", "-password -refreshToken -keyForVerify")
       .populate("members", "-password -refreshToken -keyForVerify")
       .populate({ path: "comments", populate: { path: "author" } })
-      .populate("tags");
+      .populate({ path: "tags", populate: { path: "tags" } });
 
     post.views += 1;
 

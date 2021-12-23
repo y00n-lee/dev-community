@@ -4,7 +4,7 @@ import passport from "passport";
 export const JwtAuthGurad = (req: Request, res: Response, next: NextFunction) => {
   try {
     passport.authenticate("jwt", { session: false }, async (err, _user, info) => {
-      if (!_user) next(info);
+      if (!_user) next({ message: "로그인 후 이용 가능합니다." });
       req.user = _user;
       next();
     })(req, res, next);
