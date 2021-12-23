@@ -1,5 +1,5 @@
 import { url } from "../../config/prodApi.js";
-export const createPost = async ({ title, content, tagList }) => {
+export const createPost = async ({ title, content, tagList, time }) => {
   try {
     const result = await fetch(`${url}/posts`, {
       method: "POST",
@@ -7,7 +7,7 @@ export const createPost = async ({ title, content, tagList }) => {
         "Content-Type": "application/json",
       },
       credentials: "include",
-      body: JSON.stringify({ title, content, tagList }),
+      body: JSON.stringify({ title, content, tagList, time }),
     });
 
     const res = result.json();
