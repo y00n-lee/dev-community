@@ -67,6 +67,8 @@ tagForm.addEventListener("submit", (e) => {
 tagBtn.addEventListener("click", (e) => {
   e.preventDefault();
   const tagList = selectTag();
+  const tagValue = document.getElementById("tagValue");
+  tagList.push(tagValue);
   btnSubmit("tags", tagList);
 });
 passwordForm.addEventListener("submit", (e) => {
