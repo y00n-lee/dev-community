@@ -1,7 +1,7 @@
 import { createEleId, createEleClass } from "./utils.js";
 import { checkSignin } from "../api/user/onSignin.js";
 import { onSignout } from "../api/auth/onSignout.js";
-import { onSignout, checkSignin } from "../api/dummy/index.js";
+import { checkExpirationToken } from "../api/auth/refreshToken";
 
 export function makeHeader() {
   const header = createEleId("header", "header");
@@ -26,22 +26,21 @@ export function makeHeader() {
       <a style="display:hidden; padding:30px;"></a>
       <a href="/posts">모집게시판</a>
     </div>`;
-  // checkExpirationToken().then((res) => {
-  //   return checkSignin();
-  // });
 
-  checkSignin().then((res) => {
-    if (!res.status) {
-      sessionStorage.removeItem("user");
-      navLogin.innerHTML = `
+  checkExpirationToken()
+    .then(() => checkSignin())
+    .then((res) => {
+      if (!res.status) {
+        sessionStorage.removeItem("user");
+        navLogin.innerHTML = `
       <li class="login"><a href="/signin">Log In</a></li>
       <li class="register"><a href="signup">Register</a></li>`;
-    } else {
-      const user = res.data;
+      } else {
+        const user = res.data;
 
-      sessionStorage.setItem("user", JSON.stringify({ _id: user.id, ninkname: user.nickname }));
+        sessionStorage.setItem("user", JSON.stringify({ _id: user.id, ninkname: user.nickname }));
 
-      navLogin.innerHTML = `
+        navLogin.innerHTML = `
       <li class="login">
         <a href="/user/${user.id}">${user.nickname}<a>
       </li>
@@ -49,20 +48,20 @@ export function makeHeader() {
         <a>Log Out</a>
       </li>`;
 
-      const logoutBox = document.querySelector(".register");
-      logoutBox.addEventListener("click", (e) => {
-        e.preventDefault();
+        const logoutBox = document.querySelector(".register");
+        logoutBox.addEventListener("click", (e) => {
+          e.preventDefault();
 
-        onSignout().then((resp) => {
-          if (!resp.status) alert(resp.message);
-          else {
-            sessionStorage.removeItem("user");
-            window.location = "/";
-          }
+          onSignout().then((resp) => {
+            if (!resp.status) alert(resp.message);
+            else {
+              sessionStorage.removeItem("user");
+              window.location = "/";
+            }
+          });
         });
-      });
-    }
-  });
+      }
+    });
   // AppendChild Components - Header
   slider.appendChild(menu);
   navBar.appendChild(overlay);
