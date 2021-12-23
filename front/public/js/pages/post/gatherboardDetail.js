@@ -25,6 +25,7 @@ function tagBox(techStack) {
 // Post Construction
 function postConstruction(post) {
   // Post Title
+  document.getElementById("author").innerText += user.nickname;
   addTextNode(document.getElementById("gatherTitle"), `${post.title}`);
   // Post Content
   addTextNode(document.getElementById("gatherContent"), `${post.content}`);
@@ -99,6 +100,10 @@ const container = document.querySelector(".container");
 // Header
 const header = makeHeader();
 container.prepend(header);
+
+document.getElementById("author").addEventListener("click", function () {
+  window.location.href = `/user/${user._id}`;
+});
 
 // Setting GotoList Button
 document.getElementById("gotoList").addEventListener("click", function () {
