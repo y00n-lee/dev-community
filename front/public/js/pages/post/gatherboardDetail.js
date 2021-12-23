@@ -37,7 +37,7 @@ function postConstruction(post) {
 }
 
 function setDisplayButtons(user, post) {
-  if (user._id === post.author._id) {
+  if (user?._id === post.author._id) {
     document.getElementById("delete").style.display = "block";
     document.getElementById("participate").style.display = "none";
   } else {
@@ -63,17 +63,17 @@ function setParticipateButton(post, user) {
   post.members.forEach((el) => {
     memberIds.push(el._id);
   });
-  if (memberIds.includes(user._id)) {
+  if (memberIds.includes(user?._id)) {
     document.getElementById("participate").innerText = "참가해제";
   } else {
     document.getElementById("participate").innerText = "참가하기";
   }
 
   document.getElementById("participate").addEventListener("click", function () {
-    if (typeof user._id === "undefined") {
+    if (!user) {
       alert("로그인 후 이용 가능합니다.");
     } else {
-      if (memberIds.includes(user._id)) {
+      if (memberIds.includes(user?._id)) {
         deleteMember(post._id)
           .then((res) => {
             alert(res.message);
