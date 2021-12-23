@@ -16,7 +16,7 @@ export function makeHeader() {
     </label>`;
 
   navMenu.innerHTML = `
-    <li><a href="/">Logo</a></li>
+    <li><a href="/"><img src="../img/headerLogo.png" alt="logo" style = "height:20px"></a></li>
     <li><a href="/posts">모집게시판</a></li>`;
 
   menu.innerHTML = `
