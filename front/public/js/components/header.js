@@ -1,6 +1,7 @@
 import { createEleId, createEleClass } from "./utils.js";
 //import { checkSignin } from "../api/user/onSignin.js";
-import { inSignout, checkSignin } from "../api/dummy/index.js";
+import { onSignout, checkSignin } from "../api/dummy/index.js";
+import { checkExpirationToken } from "../api/auth/refreshToken.js";
 
 export function makeHeader() {
   const header = createEleId("header", "header");
@@ -28,6 +29,9 @@ export function makeHeader() {
     <div style="width: 200px;">
       <a href="/posts">모집게시판</a>
     </div>`;
+  // checkExpirationToken().then((res) => {
+  //   return checkSignin();
+  // });
 
   checkSignin().then((res) => {
     if (!res.status) {
@@ -42,7 +46,7 @@ export function makeHeader() {
     } else {
       const user = res.data;
 
-      sessionStorage.setItem("user", JSON.stringify({ id: user.id, ninkname: user.nickname }));
+      sessionStorage.setItem("user", JSON.stringify({ _id: user.id, ninkname: user.nickname }));
 
       navLogin.innerHTML = `
       <li class="login">
@@ -56,7 +60,7 @@ export function makeHeader() {
       logoutBox.addEventListener("click", (e) => {
         e.preventDefault();
 
-        inSignout().then((resp) => {
+        onSignout().then((resp) => {
           if (!resp.status) alert(resp.message);
           else {
             sessionStorage.removeItem("user");

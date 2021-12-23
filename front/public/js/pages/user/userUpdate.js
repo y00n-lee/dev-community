@@ -1,6 +1,6 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-import { editUserInfo, getUserInfo, inSignout, changePassword } from "../../api/dummy/index.js";
+import { editUserInfo, getUserInfo, onSignout, changePassword } from "../../api/dummy/index.js";
 import { makeSkillTag, selectTag, toggleTag } from "../../components/tag.js";
 import { removeChildsAll, isNull } from "../../components/utils.js";
 
@@ -98,7 +98,7 @@ function confirmPassword() {
     changePassword({ currentPassword: `${currPw}`, password: `${checkPw}` })
       .then((res) => {
         alert(res.message);
-        if (res.status) return inSignout();
+        if (res.status) return onSignout();
       })
       .then((res) => {
         if (res.status) window.location = "/";

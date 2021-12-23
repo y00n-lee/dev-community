@@ -72,7 +72,7 @@ export const resetPassword = async (email) => ({
   message: "임시 비밀번호가 메일로 전송됐습니다.",
 });
 
-export const inSignout = async () => ({
+export const onSignout = async () => ({
   status: true,
 });
 

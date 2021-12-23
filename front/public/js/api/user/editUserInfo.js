@@ -1,4 +1,4 @@
-export const getUserInfo = async (id, data, queryname) => {
+export const editUserInfo = async (id, data, queryname) => {
   try {
     const result = await fetch(`http://localhost:9999/user/${id}/edit?name=${queryname}`, {
       method: "PUT",
