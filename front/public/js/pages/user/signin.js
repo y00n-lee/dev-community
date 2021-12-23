@@ -2,6 +2,9 @@ import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
 import { onSignin } from "../../api/dummy/index.js";
 
+const user = JSON.parse(sessionStorage.getItem("user"));
+if (user) window.location = "/";
+
 //Body
 const container = document.querySelector(".container");
 
