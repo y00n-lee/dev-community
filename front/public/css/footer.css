@@ -1,10 +1,11 @@
 /* footer */
 #footer {
   width: 100%;
-  position: relative;
+  height: 50px;
+  margin-top: 50px;
   bottom: 0;
-  height: 100px;
-  text-align: center;
+  left: 0;
+  right: 0;
 }
 
 #footer > div {
