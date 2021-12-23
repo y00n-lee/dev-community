@@ -37,12 +37,13 @@ window.onload = (function () {
 function drawUserInfo(user) {
   const { nickname, email, github, gender, tags, posts } = user;
   const checkedGithub = !github ? `깃허브 주소를 입력하지 않았습니다` : github;
+  const fm = gender === "male" ? "남성" : "여성";
   addTextNode(document.querySelector(".page-title"), `${nickname}님의 프로필`);
   const field = document.getElementsByClassName("field");
   field.nickname.innerHTML += `<p class="data">${nickname}</p>`;
   field.email.innerHTML += `<p class="data">${email}</p>`;
   field.github.innerHTML += `<p class="data">${checkedGithub}</p>`;
-  field.gender.innerHTML += `<p class="data">${gender}</p>`;
+  field.gender.innerHTML += `<p class="data">${fm}</p>`;
 
   Object.values(tags).forEach((tag) =>
     tagField.appendChild(makeSkillTag(tag.content, true, false)),
