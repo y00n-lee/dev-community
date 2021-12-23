@@ -5,8 +5,11 @@
   --slider-color: #fff;
   --slider-text-color: #7979d3;
 }
-main {
+/* .main  */
+#main {
   position: relative;
+  width: 80%;
+  margin: 0 auto;
 }
 #gatherPost {
   margin: 30px 0 50px 30px;
@@ -15,18 +18,18 @@ main {
   color: #333;
 }
 #post-list {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
+  /* width: 1300px; */
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  grid-gap: 30px;
 }
 .post {
-  position: relative;
-  width: 400px;
-  height: 450px;
-  border-radius: 8px;
+  height: 300px;
   padding: 30px;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  margin: 20px 30px;
 }
 .post-title {
   margin-bottom: 15px;
@@ -34,20 +37,22 @@ main {
 .post-author {
   margin-bottom: 15px;
 }
-.post-stack {
-}
+
 .post-content {
   margin-top: 15px;
 }
 .post-look {
+  position: relative;
   display: block;
   text-align: right;
   font-size: 12px;
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
+  margin-top: 20px;
 }
 
+.write-wrap {
+  margin-bottom: 20px;
+  text-align: right;
+}
 .post-write {
   border: 1px solid;
   border-radius: 5px;
@@ -56,7 +61,6 @@ main {
   background-color: var(--bg-color);
   display: inline-block;
   position: relative;
-  left: 80%;
 }
 .post-write:hover {
   cursor: pointer;
@@ -65,6 +69,7 @@ main {
 /* 페이지 이동 버튼 */
 .pageList {
   text-align: center;
+  margin: 30px 0;
 }
 .pageList a {
   color: red;
