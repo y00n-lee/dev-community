@@ -1,5 +1,5 @@
-import { makeHeader } from "../../components/header.js";
-import { makeFooter } from "../../components/footer.js";
+import { makeHeader, responsiveHeader } from "../../components/header.js";
+import { makeFooter, responsiveFooter } from "../../components/footer.js";
 import { addTextNode } from "../../components/utils.js";
 import { makeSkillTag } from "../../components/tag.js";
 import { getUserInfo } from "../../api/dummy/index.js";
@@ -56,3 +56,6 @@ function drawUserInfo(user) {
 
 // 업데이트 페이지로 버튼 이동 이벤트
 updateBtn.addEventListener("click", () => (window.location = `/edit/user/${currentUserId}`));
+// 반응형 헤더,푸터
+responsiveFooter();
+responsiveHeader();
