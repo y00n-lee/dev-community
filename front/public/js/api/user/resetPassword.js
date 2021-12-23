@@ -1,4 +1,4 @@
-export const resetPaaword = async (email) => {
+export const resetPassword = async (email) => {
   try {
     const result = await fetch("http://localhost:9999/user/password/reset", {
       method: "POST",
