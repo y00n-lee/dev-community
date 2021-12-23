@@ -14,7 +14,9 @@ export const secretContents = {
 
 export const prod = process.env.NODE_ENV === "production";
 
-export const url = prod ? "" : "http://localhost:3000";
+export const url = prod
+  ? "http://elice-kdt-sw-1st-vm06.koreacentral.cloudapp.azure.com"
+  : "http://localhost:3000";
 
 export const configs = {
   DB_ID: process.env.DB_ID as string,
