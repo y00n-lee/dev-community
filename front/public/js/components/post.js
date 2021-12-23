@@ -20,10 +20,11 @@ export function Post(data) {
   }
 
   content.innerText = data.content;
-  const happyNewYear = new Date(data.author.createdAt);
-  const year = happyNewYear.getFullYear();
-  const month = happyNewYear.getMonth() + 1;
-  const date = happyNewYear.getDate();
+
+  const postDate = new Date(data.createdAt);
+  const year = postDate.getFullYear();
+  const month = postDate.getMonth() + 1;
+  const date = postDate.getDate();
   const formatDate = `${year}-${month >= 10 ? month : "0" + month}-${
     date >= 10 ? date : "0" + date
   }`;
