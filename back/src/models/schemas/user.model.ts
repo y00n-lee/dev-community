@@ -32,6 +32,10 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       enum: ["male", "female"],
       required: true,
     },
+    github: {
+      type: String,
+      default: null,
+    },
     tags: [
       {
         type: Schema.Types.ObjectId,

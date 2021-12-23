@@ -13,6 +13,7 @@ export interface IUserData {
   birth: Date;
   gender: "male" | "female";
   tags: any[];
+  github: string | null;
 }
 
 export interface IUserDocument extends IUserData, Document {
