@@ -59,15 +59,16 @@ document.getElementById("submit").addEventListener("click", function () {
     alert("성별을 확인하세요.");
   } else {
     const tagsList = selectTag();
+    const birthValue = document.getElementById("birth").value;
+    const year = birthValue.substring(0, 4);
+    const month = birthValue.substring(4, 6);
+    const day = birthValue.substring(6, 8);
+    const newBirth = year + "-" + month + "-" + day;
     onSignup({
       email: document.getElementById("emailId").value,
       password: document.getElementById("password").value,
       nickname: document.getElementById("nickname").value,
-      birth: new Date(
-        Number(document.getElementById("yy").value),
-        Number(document.getElementById("mm").value),
-        Number(document.getElementById("dd").value),
-      ),
+      birth: new Date(newBirth),
       gender: document.getElementById("gender").value,
       tags: tagsList,
       github: document.getElementById("github").value,
