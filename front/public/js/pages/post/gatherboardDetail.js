@@ -25,6 +25,7 @@ function tagBox(techStack) {
 // Post Construction
 function postConstruction(post) {
   // Post Title
+
   addTextNode(document.getElementById("gatherTitle"), `${post.title}`);
   // Post Content
   addTextNode(document.getElementById("gatherContent"), `${post.content}`);
@@ -92,6 +93,13 @@ function setParticipateButton(post, user) {
   });
 }
 
+function authorLink(post) {
+  document.getElementById("author").innerText += post.author.nickname;
+  document.getElementById("author").addEventListener("click", function () {
+    window.location.href = `/user/${post.author._id}`;
+  });
+}
+
 const pathname = window.location.pathname.split("/");
 const currentPostId = pathname[pathname.length - 1];
 
@@ -115,6 +123,7 @@ getPost(currentPostId)
     if (!res.status) alert(res.message);
     else {
       postConstruction(res.data.post);
+      authorLink(res.data.post);
       setDeleteButton(res.data.post._id);
       setDisplayButtons(user, res.data.post);
       setParticipateButton(res.data.post, user);

@@ -33,6 +33,11 @@
   width: 460px;
 }
 
+#author {
+  text-align: right;
+  cursor: pointer;
+}
+
 .box,
 .contentBox,
 .techStackBox {

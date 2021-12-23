@@ -1,7 +1,7 @@
-import { makeHeader } from "../../components/header.js";
-import { makeFooter } from "../../components/footer.js";
+import { makeHeader, responsiveHeader } from "../../components/header.js";
+import { makeFooter, responsiveFooter } from "../../components/footer.js";
 import { makeSkillTag, selectTag, toggleTag } from "../../components/tag.js";
-import { removeChildsAll, isNull } from "../../components/utils.js";
+import { isNull } from "../../components/utils.js";
 
 // import { editUserInfo, getUserInfo, onSignout, changePassword } from "../../api/dummy/index.js";
 import { getUserInfo } from "../../api/user/getUserInfo.js";
@@ -67,6 +67,7 @@ nameForm.addEventListener("submit", (e) => {
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const tagValue = document.getElementById("tagValue");
+  if (!tagValue.value) return;
   const tag = makeSkillTag(tagValue.value, true, true);
   tagField.appendChild(tag);
   tagValue.value = "";
@@ -127,3 +128,7 @@ function validationPw(checkPw) {
   else if (!pwPattern.test(checkPw)) return false;
   return true;
 }
+
+// 반응형 헤더,푸터
+responsiveFooter();
+responsiveHeader();

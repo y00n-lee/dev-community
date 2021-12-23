@@ -5,14 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>메인화면입니다.</title>
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/main.css" />
     <link rel="stylesheet" href="/css/posts.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
   </head>
   <body>
     <div class="container">
       <!-- header -->
       <!-- main -->
-      <main class="main" role="main">
+      <main id="main" class="main" role="main">
         <section>
           <div class="mainImage">
             <img class="image" src="/img/main.jpg" alt="메인화면" />
@@ -22,24 +25,27 @@
             </div>
           </div>
         </section>
-        <section class="serviceDescription">
-          <h2 class="serviceTitle">서비스 설명</h2>
+
+        <section class="introduce">
+          <div class="serviceDescription">
+            <h2 class="serviceTitle">서비스 설명</h2>
+          </div>
+          <div class="service-wrap">
+            <div>
+              <img src="/img/posts.PNG" />
+              <h3>모집게시판</h3>
+              <p>프로젝트를 같이 진행 할 개발자를 찾아보세요.</p>
+            </div>
+            <div>
+              <img src="/img/profile.jpg" />
+              <h3>사용자 프로필</h3>
+              <p>E-mail, 기술스택, Github 주소로 자신을 나타내보세요.</p>
+            </div>
+          </div>
         </section>
-        <div class="services">
-          <div>
-            <img src="/img/dummy.PNG" />
-            <h3>모집게시판</h3>
-            <p>프로젝트를 같이 진행 할 개발자를 찾아보세요.</p>
-          </div>
-          <div>
-            <img src="/img/dummy.PNG" />
-            <h3>사용자 프로필</h3>
-            <p>E-mail, 기술스택, Github 주소로 자신을 나타내보세요.</p>
-          </div>
-        </div>
-        <h1 id="gatherPost">
-          <a href="/posts">모집 게시판</a>
-        </h1>
+        <h2 id="gatherPost">
+          <a href="/posts">최신 게시글</a>
+        </h2>
       </main>
 
       <!--footer-->

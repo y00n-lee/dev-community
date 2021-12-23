@@ -47,6 +47,16 @@
   position: relative;
 }
 
+@media screen and (max-width: 460px) {
+  #content {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    /*transform: translate(-50%);*/
+    width: 95%;
+  }
+}
+
 .int {
   display: block;
   position: relative;
@@ -61,29 +71,9 @@
 .box.int_pass,
 .box.int_name,
 .box.int_nick,
+.box.int_birth,
 .box.int_github {
   padding-right: 40px;
-}
-
-.bir_wrap {
-  display: table;
-  width: 100%;
-}
-
-#bir_yy,
-#bir_mm,
-#bir_dd {
-  display: table-cell;
-  width: 153px;
-}
-
-#bir_mm {
-  vertical-align: middle;
-}
-
-#bir_mm,
-#bir_dd {
-  padding-left: 10px;
 }
 
 select {

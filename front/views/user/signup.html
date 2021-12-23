@@ -89,25 +89,16 @@
             </div>
             <div id="birthDiv">
               <h3><label for="birth">생년월일</label></h3>
-              <div id="bir_wrap">
-                <div id="bir_yy">
-                  <span class="box">
-                    <input type="text" id="yy" name="year" placeholder="년(4자)" maxlength="4" />
-                  </span>
-                </div>
-                <div id="bir_mm">
-                  <span class="box">
-                    <select name="month" id="mm">
-                      <option>월</option>
-                    </select>
-                  </span>
-                </div>
-                <div id="bir_dd">
-                  <span class="box">
-                    <input type="text" id="dd" name="day" placeholder="일" maxlength="2" />
-                  </span>
-                </div>
-              </div>
+              <span class="box int_birth">
+                <input
+                  type="text"
+                  id="birth"
+                  name="birth"
+                  class="int"
+                  placeholder="생년월일을 입력해주세요."
+                  maxlength="8"
+                />
+              </span>
               <span class="error_next_box"></span>
             </div>
             <div id="genderDiv">
