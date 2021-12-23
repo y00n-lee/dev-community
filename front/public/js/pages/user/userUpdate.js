@@ -62,6 +62,7 @@ nameForm.addEventListener("submit", (e) => {
 tagForm.addEventListener("submit", (e) => {
   e.preventDefault();
   const tagValue = document.getElementById("tagValue");
+  if (!tagValue.value) return;
   const tag = makeSkillTag(tagValue.value, true, true);
   tagField.appendChild(tag);
   tagValue.value = "";
