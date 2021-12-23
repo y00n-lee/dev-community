@@ -1,6 +1,6 @@
 export const getUserInfo = async (id) => {
   try {
-    const result = await fetch(`http://localhost:9999/user/${id}`, {
+    const result = await fetch(`${url}/user/${id}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

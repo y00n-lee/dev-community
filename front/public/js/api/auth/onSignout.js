@@ -1,6 +1,6 @@
 export const onSignout = async () => {
   try {
-    const result = await fetch("http://localhost:9999/auth/signout", {
+    const result = await fetch(`${url}/auth/signout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

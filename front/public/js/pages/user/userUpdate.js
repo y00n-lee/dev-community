@@ -1,8 +1,13 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-import { editUserInfo, getUserInfo, onSignout, changePassword } from "../../api/dummy/index.js";
 import { makeSkillTag, selectTag, toggleTag } from "../../components/tag.js";
 import { removeChildsAll, isNull } from "../../components/utils.js";
+
+// import { editUserInfo, getUserInfo, onSignout, changePassword } from "../../api/dummy/index.js";
+import { getUserInfo } from "../../api/user/getUserInfo.js";
+import { editUserInfo } from "../../api/user/editUserInfo.js";
+import { changePassword } from "../../api/user/changePassword.js";
+import { onSignout } from "../../api/auth/onSignout.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];

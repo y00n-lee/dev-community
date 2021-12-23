@@ -1,6 +1,6 @@
 export const changePassword = async ({ currentPassword, password }) => {
   try {
-    const result = await fetch("http://localhost:9999/user/password/change", {
+    const result = await fetch(`${url}/user/password/change`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

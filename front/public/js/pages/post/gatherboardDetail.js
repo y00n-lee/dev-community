@@ -2,14 +2,14 @@ import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
 import { makeComments } from "../../components/comments.js";
 import { addTextNode } from "../../components/utils.js";
+import { makeSkillTag } from "../../components/tag.js";
 
 //import { getPost } from "./api/posts/getPost.js";
-import { getPost, deletePost, addMember, deleteMember } from "../../api/dummy/index.js";
-//import { getUserInfo } from "./api/user/getUserInfo.js";
-//import { editPost } from "./api/posts/editPost.js";
-//import { deletePost } from "./api/posts/deletePost.js";
-//import { deleteMember } from "./api/posts/deleteMember.js";
-import { makeSkillTag } from "../../components/tag.js";
+// import { getPost, deletePost, addMember, deleteMember } from "../../api/dummy/index.js";
+import { getPost } from "../../api/posts/getPost.js";
+import { addMember } from "../../api/posts/addMember.js";
+import { deletePost } from "../../api/posts/deletePost.js";
+import { deleteMember } from "../../api/posts/deleteMember.js";
 
 const user = JSON.parse(sessionStorage.getItem("user"));
 

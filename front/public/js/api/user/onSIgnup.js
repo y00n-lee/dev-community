@@ -1,6 +1,6 @@
 export const onSignup = async ({ email, password, nickname, birth, gender, tags, github }) => {
   try {
-    const result = await fetch("http://localhost:9999/user/signup", {
+    const result = await fetch(`${url}/user/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

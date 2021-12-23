@@ -2,7 +2,8 @@ import { makeHeader } from "../components/header.js";
 import { makeFooter } from "../components/footer.js";
 import { createEleClass, addTextNode, addChild } from "../components/utils.js";
 import { makeSkillTag } from "../components/tag.js";
-import { getPost } from "../api/dummy/index.js";
+// import { getPost } from "../api/dummy/index.js";
+import { getPost } from "../api/posts/getPost.js";
 
 //DOM elements
 const container = document.getElementsByClassName("container")[0];

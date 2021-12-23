@@ -1,6 +1,6 @@
 export const checkExpirationToken = async () => {
   try {
-    const result = await fetch("http://localhost:9999/auth/refresh", {
+    const result = await fetch(`${url}/auth/refresh`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

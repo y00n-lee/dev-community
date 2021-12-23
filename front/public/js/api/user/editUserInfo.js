@@ -1,6 +1,6 @@
 export const editUserInfo = async (id, data, queryname) => {
   try {
-    const result = await fetch(`http://localhost:9999/user/${id}/edit?name=${queryname}`, {
+    const result = await fetch(`${url}/user/${id}/edit?name=${queryname}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

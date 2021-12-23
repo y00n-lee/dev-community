@@ -1,7 +1,7 @@
 import { makeHeader } from "../../components/header.js";
 import { makeFooter } from "../../components/footer.js";
-import { resetPassword } from "../../api/dummy/index.js";
-// import { resetPassword } from "../../api/user/resetPassword.js";
+// import { resetPassword } from "../../api/dummy/index.js";
+import { resetPassword } from "../../api/user/resetPassword.js";
 
 //Body
 const container = document.querySelector(".container");

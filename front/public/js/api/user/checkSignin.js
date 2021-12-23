@@ -1,6 +1,6 @@
 export const checkSignin = async () => {
   try {
-    const result = await fetch(`http://localhost:9999/user`, {
+    const result = await fetch(`${url}/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/user",
