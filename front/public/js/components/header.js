@@ -1,5 +1,5 @@
 import { createEleId, createEleClass } from "./utils.js";
-import { checkSignin } from "../api/user/onSignin.js";
+import { checkSignin } from "../api/user/checkSignin.js";
 import { onSignout } from "../api/auth/onSignout.js";
 import { checkExpirationToken } from "../api/auth/refreshToken.js";
 
