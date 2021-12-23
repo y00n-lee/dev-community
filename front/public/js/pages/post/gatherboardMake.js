@@ -32,9 +32,11 @@ tagBox(techStackData, "techTag");
 document.getElementById("tagForm").addEventListener("submit", function (event) {
   event.preventDefault();
   let techTagValue = document.getElementById("techTag").value;
-  techStackData.push(techTagValue);
-  removeChildsAll(document.getElementById("tagForm"));
-  tagBox(techStackData, "techTag");
+  if (techTagValue) {
+    techStackData.push(techTagValue);
+    removeChildsAll(document.getElementById("tagForm"));
+    tagBox(techStackData, "techTag");
+  }
   document.getElementById("techTag").focus();
 });
 
