@@ -3,7 +3,6 @@ import { Request, Response } from "express";
 import { UserService, userService } from "@src/services/user.service";
 import { emailAuthentication, makeVerifyKey, sendChangedPassword } from "@src/utils/mailAuth";
 import { makeHashPassword } from "@src/utils/passwordRelated";
-import { jwtContents } from "@src/utils/constants";
 
 import { ICreateUser } from "@src/types/CoreResponse";
 import { ITokenUser, IUserDocument } from "@src/types/User";
