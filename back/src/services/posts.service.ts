@@ -19,9 +19,13 @@ export class PostsService {
     const post = await this.postModel
       .findById(postId)
       .populate("author", "-password -refreshToken -keyForVerify")
-      .populate("members", "-password -refreshToken -keyForVerify")
+      .populate({
+        path: "members",
+        select: "-password -refreshToken -keyForVerify",
+        populate: { path: "tags" },
+      })
       .populate({ path: "comments", populate: { path: "author" } })
-      .populate({ path: "tags", populate: { path: "tags" } });
+      .populate("tags");
 
     post.views += 1;
 
