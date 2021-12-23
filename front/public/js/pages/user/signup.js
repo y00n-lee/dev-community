@@ -9,14 +9,12 @@ import { removeChildsAll } from "../../components/utils.js";
 const container = document.querySelector(".container");
 const isOkArray = [false, false, false, false, false, false, false];
 
+const user = JSON.parse(sessionStorage.getItem("user"));
+
+if (user) window.location = "/";
+
 container.prepend(makeHeader());
 //Body
-for (let i = 1; i < 13; i++) {
-  const month = document.createElement("option");
-  month.setAttribute("value", `${i}`);
-  addTextNode(month, `${i}`);
-  document.getElementById("mm").appendChild(month);
-}
 
 const techStackData = [];
 
@@ -96,9 +94,7 @@ const pswd = document.querySelector("#password");
 const pswdCf = document.getElementById("password_confirm");
 const userName = document.querySelector("#name");
 
-const yy = document.querySelector("#yy");
-const mm = document.querySelector("#mm");
-const dd = document.querySelector("#dd");
+const birth = document.querySelector("#birth");
 
 const gender = document.querySelector("#gender");
 const error = document.querySelectorAll(".error_next_box");
@@ -109,9 +105,7 @@ nickname.addEventListener("focusout", checkNick);
 pswd.addEventListener("focusout", checkPw);
 pswdCf.addEventListener("focusout", comparePw);
 userName.addEventListener("focusout", checkName);
-yy.addEventListener("focusout", isBirthCompleted);
-mm.addEventListener("focusout", isBirthCompleted);
-dd.addEventListener("focusout", isBirthCompleted);
+birth.addEventListener("focusout", checkBirth);
 gender.addEventListener("focusout", function () {
   if (gender.value === "성별") {
     error[6].style.display = "block";
@@ -201,6 +195,46 @@ function checkName() {
   } else {
     error[4].style.display = "none";
     isOkArray[4] = true;
+  }
+}
+
+function checkBirth() {
+  const birthValue = birth.value;
+  const year = Number(birthValue.substring(0, 4));
+  const month = Number(birthValue.substring(4, 6));
+  const day = Number(birthValue.substring(6, 8));
+  const today = new Date();
+  const yearNow = today.getFullYear();
+
+  if (birthValue.length == 8) {
+    if (year < 1900 || year > yearNow) {
+      blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+      isOkArray[5] = false;
+    } else if (month < 1 || month > 12) {
+      blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+      isOkArray[5] = false;
+    } else if (day < 1 || day > 31) {
+      blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+      isOkArray[5] = false;
+    } else if ((month == 4 || month == 6 || month == 9 || month == 11) && day == 31) {
+      blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+      isOkArray[5] = false;
+    } else if (month == 2) {
+      const isleap = year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+      if (day > 29 || (day == 29 && !isleap)) {
+        blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+        isOkArray[5] = false;
+      } else {
+        error[5].style.display = "none";
+        isOkArray[5] = true;
+      }
+    } else {
+      error[5].style.display = "none";
+      isOkArray[5] = true;
+    }
+  } else {
+    blockTagExtension(error[5], "생년월일을 정확하게 입력하세요.");
+    isOkArray[5] = false;
   }
 }
 
