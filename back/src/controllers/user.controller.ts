@@ -116,9 +116,6 @@ export class UserController {
       { password: hashedPassword, passwordReset: false, refreshToken: null },
     );
 
-    res.clearCookie(jwtContents.header);
-    res.clearCookie(jwtContents.header_refresh);
-
     return res.json({
       status: true,
       message: "비밀번호 변경이 완료되었습니다. 다시 로그인 해주세요",
