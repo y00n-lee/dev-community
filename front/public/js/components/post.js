@@ -21,7 +21,7 @@ export function Post(data) {
 
   content.innerText = data.content;
 
-  const postDate = new Date(data.createdAt);
+  const postDate = new Date(data.time);
   const year = postDate.getFullYear();
   const month = postDate.getMonth() + 1;
   const date = postDate.getDate();
