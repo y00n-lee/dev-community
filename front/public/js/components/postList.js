@@ -32,8 +32,9 @@ export const getPostList = (page, perPage) => {
 
       for (let i = 1; i <= res.data.totalPage; i++) {
         const pageNum = createEleClass("a", "pageNum");
-        pageNum.appendChild(document.createTextNode(`${i} `));
+        pageNum.appendChild(document.createTextNode(`${i}`));
         pageNum.setAttribute("href", `/posts?perPage=6&page=${i}`); // 경로 추가
+        if (i === Number(page)) pageNum.className += " selectPage";
         pageList.appendChild(pageNum);
       }
       pageContent.appendChild(pageList);
