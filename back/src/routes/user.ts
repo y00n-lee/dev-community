@@ -6,8 +6,6 @@ import { ExpiredJwtAuthGurad, JwtAuthGurad } from "@src/passport/gurads/jwt-auth
 
 const router = Router();
 
-router.get("/", ExpiredJwtAuthGurad, asyncHandler(userController.checkSignin));
-
 router.post("/signup", asyncHandler(userController.signup));
 
 router.get("/:id", ExpiredJwtAuthGurad, asyncHandler(userController.getUserInfo));

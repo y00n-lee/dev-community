@@ -12,7 +12,7 @@ export const LocalStrategy = new LStrategy(
 
       if (!user) return done(null, false, { message: message || "" });
 
-      return done(null, { id: user.id, nickname: user.nickname });
+      return done(null, { id: user.id });
     } catch (error) {
       return done(error, null);
     }

@@ -14,14 +14,6 @@ export class UserController {
     private readonly postService: PostsService,
   ) {}
 
-  checkSignin = async (req: Request, res: Response) => {
-    const _user = req.user;
-
-    if (!_user) return res.json({ status: false });
-
-    return res.json({ status: true, data: { id: _user.id, nickname: _user.nickname } });
-  };
-
   signup = async (req: Request, res: Response) => {
     const result = (await this.userService.createUser(req.body)) as ICreateUser;
 

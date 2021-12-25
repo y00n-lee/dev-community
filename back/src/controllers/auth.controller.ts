@@ -22,7 +22,7 @@ export class AuthController {
 
       const { id } = _user;
 
-      const [accessToken, refreshToken] = await this.authService.signin(_user);
+      const [accessToken, refreshToken] = await this.authService.signin({ id });
       const user = (await this.userService.getById(id, {
         refreshToken: 0,
         keyForVerify: 0,
@@ -79,8 +79,9 @@ export class AuthController {
       httpOnly: true,
       maxAge: EXPIRED,
     });
+    const user = (await this.userService.getById(_user.id)) as IUserDocument;
 
-    return res.json({ status: true });
+    return res.json({ status: true, id: user.id, nickname: user.nickname });
   };
 
   confirmEmail = async (req: Request, res: Response) => {
