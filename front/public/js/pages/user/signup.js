@@ -8,12 +8,10 @@ import { onSignup } from "../../api/user/onSIgnup.js";
 const container = document.querySelector(".container");
 const isOkArray = [false, false, false, false, false, false];
 
-const user = JSON.parse(sessionStorage.getItem("user"));
-
-if (user) window.location = "/";
-
 container.prepend(makeHeader());
-//Body
+
+const user = JSON.parse(sessionStorage.getItem("user"));
+if (user) window.location = "/";
 
 const techStackData = [];
 
