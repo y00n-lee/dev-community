@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { postsService, PostsService } from "@src/services/posts.service";
+import { postsService, PostsService } from "@services/posts.service";
 import { PostDTO } from "@src/types/Post";
 
 export class PostsController {

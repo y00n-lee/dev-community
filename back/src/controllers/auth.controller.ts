@@ -1,10 +1,10 @@
 import passport from "passport";
 import { NextFunction, Request, Response } from "express";
 
-import { AuthService, authService } from "@src/services/auth.service";
-import { UserService, userService } from "@src/services/user.service";
+import { AuthService, authService } from "@services/auth.service";
+import { UserService, userService } from "@services/user.service";
 
-import { jwtContents, url } from "@src/utils/constants";
+import { jwtContents, url } from "@utils/constants";
 import { ITokenUser, IUserDocument } from "@src/types/User";
 
 const EXPIRED = 1000 * 60 * 60 * 24 * 7;

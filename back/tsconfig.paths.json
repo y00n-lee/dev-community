@@ -1,8 +1,14 @@
 {
-	"compilerOptions": {
-		"baseUrl": ".",
-		"paths": {
-			"@src/*": ["src/*"]
-		}
-	}
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["src/*"],
+      "@controllers/*": ["src/controllers/*"],
+      "@services/*": ["src/services/*"],
+      "@passport/*": ["src/passport/*"],
+      "@routes/*": ["src/routes/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@utils/*": ["src/utils/*"]
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import { Strategy as LStrategy } from "passport-local";
-import { authService } from "@src/services/auth.service";
+import { authService } from "@services/auth.service";
 
 export const LocalStrategy = new LStrategy(
   {

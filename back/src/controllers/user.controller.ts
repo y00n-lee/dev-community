@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 
-import { UserService, userService } from "@src/services/user.service";
-import { emailAuthentication, makeVerifyKey, sendChangedPassword } from "@src/utils/mailAuth";
-import { makeHashPassword } from "@src/utils/passwordRelated";
+import { UserService, userService } from "@services/user.service";
+import { postsService, PostsService } from "@services/posts.service";
+import { emailAuthentication, makeVerifyKey, sendChangedPassword } from "@utils/mailAuth";
+import { makeHashPassword } from "@utils/passwordRelated";
 
 import { ICreateUser } from "@src/types/CoreResponse";
 import { ITokenUser, IUserDocument } from "@src/types/User";
-import { postsService, PostsService } from "@src/services/posts.service";
 
 export class UserController {
   constructor(

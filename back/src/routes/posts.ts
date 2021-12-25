@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import { asyncHandler } from "@src/utils/asyncHandler";
-import { postsController } from "@src/controllers/posts.controller";
-import { JwtAuthGurad, ExpiredJwtAuthGurad } from "@src/passport/gurads/jwt-auth.guard";
+import { asyncHandler } from "@utils/asyncHandler";
+import { postsController } from "@controllers/posts.controller";
+import { JwtAuthGurad, ExpiredJwtAuthGurad } from "@passport/gurads/jwt-auth.guard";
 
 const router = Router();
 

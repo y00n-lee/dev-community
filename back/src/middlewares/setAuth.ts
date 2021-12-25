@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { jwtContents } from "@src/utils/constants";
-import { decryptValue } from "@src/utils/crypto";
+import { jwtContents } from "@utils/constants";
+import { decryptValue } from "@utils/crypto";
 
 export const setAuth = (req: Request, _: Response, next: NextFunction) => {
   const authCookies = req.cookies[jwtContents.header];

@@ -1,7 +1,8 @@
-import { PostModel, UserModel, TagModel, CommentModel } from "@src/models";
+import { PostModel, UserModel, TagModel, CommentModel } from "@src/models/";
+import { clientErrHandler } from "@utils/clientErrHandler";
+
 import { PostDTO } from "@src/types/Post";
 import { IUserDocument } from "@src/types/User";
-import { clientErrHandler } from "@src/utils/clientErrHandler";
 
 export class PostsService {
   constructor(

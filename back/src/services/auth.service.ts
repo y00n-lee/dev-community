@@ -1,7 +1,10 @@
 import JwtService from "jsonwebtoken";
-import { jwtContents } from "@src/utils/constants";
-import { encryptValue } from "@src/utils/crypto";
+
+import { jwtContents } from "@utils/constants";
+import { encryptValue } from "@utils/crypto";
+
 import { ITokenUser } from "@src/types/User";
+
 import { userService, UserService } from "./user.service";
 
 export class AuthService {

@@ -1,5 +1,5 @@
 import { Strategy as JStrategy, ExtractJwt, VerifiedCallback } from "passport-jwt";
-import { jwtContents } from "@src/utils/constants";
+import { jwtContents } from "@utils/constants";
 
 const JwtOpt = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

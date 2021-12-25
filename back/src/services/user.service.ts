@@ -1,5 +1,6 @@
 import { TagModel, UserModel } from "@src/models";
-import { makeVerifyKey } from "@src/utils/mailAuth";
+import { makeVerifyKey } from "@utils/mailAuth";
+
 import { IUserDocument, IUserData } from "@src/types/User";
 import { ICreateUser } from "@src/types/CoreResponse";
 
