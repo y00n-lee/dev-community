@@ -5,7 +5,6 @@ import { removeChildsAll } from "../../components/utils.js";
 
 import { createPost } from "../../api/posts/createPost.js";
 
-// dummy data
 const techStackData = [];
 
 // TechStack Checkbox
