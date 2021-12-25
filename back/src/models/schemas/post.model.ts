@@ -1,6 +1,5 @@
-import { IPost } from "@src/types/Post";
 import { Schema } from "mongoose";
-import { CommentSchema } from "./comment.model";
+import { IPost } from "@src/types/Post";
 
 export const PostSchema = new Schema<IPost>(
   {
@@ -13,14 +12,39 @@ export const PostSchema = new Schema<IPost>(
       ref: "User",
       required: true,
     },
+    content: {
+      type: String,
+      required: true,
+    },
     views: {
       type: Number,
       default: 0,
     },
-    comments: [CommentSchema],
+    comments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Comment",
+      },
+    ],
+    members: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
+    tags: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Tag",
+      },
+    ],
     isEdit: {
       type: Boolean,
       default: false,
+    },
+    time: {
+      type: Date,
+      required: true,
     },
   },
   {
@@ -39,7 +63,10 @@ PostSchema.statics.getPaginatedPosts = async function (
       .sort({ createdAt: -1 })
       .skip(perPage * (page - 1))
       .limit(perPage)
-      .populate("author"),
+      .populate("author", "-password -refreshToken -keyForVerify")
+      .populate("members", "-password -refreshToken -keyForVerify")
+      .populate("comments")
+      .populate("tags"),
   ]);
 
   const totalPage = Math.ceil(total / perPage);

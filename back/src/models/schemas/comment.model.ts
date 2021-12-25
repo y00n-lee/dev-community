@@ -1,5 +1,5 @@
-import { IComment } from "@src/types/Comment";
 import { Schema } from "mongoose";
+import { IComment } from "@src/types/Comment";
 
 export const CommentSchema = new Schema<IComment>(
   {

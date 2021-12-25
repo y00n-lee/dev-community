@@ -1,8 +1,11 @@
-import { userService, UserService } from "./user.service";
 import JwtService from "jsonwebtoken";
-import { jwtContents } from "@src/utils/constants";
-import { encryptValue } from "@src/utils/crypto";
+
+import { jwtContents } from "@utils/constants";
+import { encryptValue } from "@utils/crypto";
+
 import { ITokenUser } from "@src/types/User";
+
+import { userService, UserService } from "./user.service";
 
 export class AuthService {
   constructor(
@@ -23,7 +26,7 @@ export class AuthService {
 
   async signin(payload: ITokenUser) {
     const accessToken = this.jwtService.sign(payload, jwtContents.secret, {
-      expiresIn: "5m",
+      expiresIn: "20m",
     });
 
     const refreshToken = this.jwtService.sign(payload, jwtContents.secret, {
@@ -31,7 +34,7 @@ export class AuthService {
     });
 
     await this.userService.updateByQuery({ _id: payload.id }, { refreshToken });
-    return encryptValue(accessToken);
+    return [encryptValue(accessToken), encryptValue(refreshToken)];
   }
 
   async verifyRefresh(payload: ITokenUser) {

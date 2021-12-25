@@ -2,10 +2,11 @@ import { Schema } from "mongoose";
 import * as bcrypt from "bcrypt";
 import { verify } from "jsonwebtoken";
 
-import { jwtContents } from "@src/utils/constants";
+import { jwtContents } from "@utils/constants";
+import { makeHashPassword } from "@utils/passwordRelated";
+
 import { IUserData, IUserDocument } from "@src/types/User";
 import { IUserModel } from "@src/types/User";
-import { makeHashPassword } from "@src/utils/passwordRelated";
 
 export const UserSchema = new Schema<IUserDocument, IUserModel>(
   {
@@ -23,14 +24,18 @@ export const UserSchema = new Schema<IUserDocument, IUserModel>(
       type: String,
       required: true,
     },
-    age: {
-      type: Number,
+    birth: {
+      type: Date,
       required: true,
     },
     gender: {
       type: String,
       enum: ["male", "female"],
       required: true,
+    },
+    github: {
+      type: String,
+      default: null,
     },
     tags: [
       {

@@ -1,34 +1,35 @@
 import express from "express";
-import mongoose from "mongoose";
 import passport from "passport";
 import cookieParser from "cookie-parser";
 import logger from "morgan";
-import dotenv from "dotenv";
 import cors from "cors";
+import hpp from "hpp";
+import helmet from "helmet";
 
 import { errorMiddleware } from "./middlewares/errorMiddleware";
-import { PassportConfigunation } from "./passport";
 import { setAuth } from "./middlewares/setAuth";
+import { url, configs, prod } from "./utils/constants";
+import { connectDB } from "./utils/connectDB";
+import { PassportConfigunation } from "./passport";
 import routes from "./routes";
 
-dotenv.config();
 PassportConfigunation();
-
-const uri = `mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASSWORD}@simple-board-cluster.aat6r.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-
-mongoose.connect(uri, () => {
-  console.log("MongoDB Connected");
-});
+connectDB();
 
 const app = express();
 
+if (prod) {
+  app.use(hpp());
+  app.use(helmet());
+}
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: url,
     credentials: true,
   }),
 );
-app.use(logger("dev"));
+app.use(logger(prod ? "combined" : "dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -44,6 +45,6 @@ app.use(routes);
 
 app.use(errorMiddleware);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Example app listening at http://localhost:${process.env.PORT}`);
+app.listen(configs.PORT, () => {
+  console.log(`Example app listening at http://localhost:${configs.PORT}`);
 });

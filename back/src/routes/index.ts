@@ -1,10 +1,13 @@
 import { Router } from "express";
-import authRouter from "./auth.controller";
-import usersRouter from "./user.controller";
+
+import authRouter from "./auth";
+import usersRouter from "./user";
+import postsRouter from "./posts";
 
 const router = Router();
 
 router.use("/auth", authRouter);
 router.use("/user", usersRouter);
+router.use("/posts", postsRouter);
 
 export default router;
