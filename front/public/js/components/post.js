@@ -9,7 +9,7 @@ export function Post(data) {
   const writeDate = createEleClass("span", "post-date");
   const views = createEleClass("span", "post-look");
 
-  title.innerText = data.title.length <= 8 ? data.title : `${data.title.substring(8)}...`;
+  title.innerText = data.title.length <= 8 ? data.title : `${data.title.substring(0, 8)}...`;
   author.innerText = data.author.nickname;
 
   const tagCount = data.tags.length > 3 ? 3 : data.tags.length;

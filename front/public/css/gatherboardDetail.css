@@ -39,8 +39,7 @@
 }
 
 .box,
-.contentBox,
-.techStackBox {
+.contentBox {
   display: block;
   width: 100%;
   color: black;
@@ -59,15 +58,9 @@
   height: 50px;
 }
 
-.contentBox,
-.techStackBox {
-  height: 300px;
+.contentBox {
+  min-height: 300px;
   border: solid 1px var(--bg-color);
-}
-
-.techStackImg {
-  width: 100px;
-  height: 100px;
 }
 
 .btn_area {

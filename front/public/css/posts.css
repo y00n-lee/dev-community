@@ -28,7 +28,7 @@
 }
 .post {
   position: relative;
-  height: 300px;
+  min-height: 300px;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
