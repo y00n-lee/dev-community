@@ -10,19 +10,3 @@ export function makeFooter() {
 
   return footer;
 }
-
-export function responsiveFooter() {
-  window.onload = footerPosition;
-  window.onresize = footerPosition;
-}
-
-export function footerPosition() {
-  const footer = document.getElementById("footer").style;
-  const height = document.getElementsByClassName("container")[0].offsetHeight;
-
-  if (window.innerHeight <= height) {
-    footer.position = "relative";
-  } else {
-    footer.position = "fixed";
-  }
-}

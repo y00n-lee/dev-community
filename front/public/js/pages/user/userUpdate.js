@@ -1,5 +1,5 @@
 import { makeHeader, responsiveHeader } from "../../components/header.js";
-import { makeFooter, responsiveFooter } from "../../components/footer.js";
+import { makeFooter } from "../../components/footer.js";
 import { makeSkillTag, selectTag, toggleTag } from "../../components/tag.js";
 import { isNull } from "../../components/utils.js";
 
@@ -135,5 +135,4 @@ function validationPw(checkPw) {
 }
 
 // 반응형 헤더,푸터
-responsiveFooter();
 responsiveHeader();

@@ -1,5 +1,5 @@
 import { makeHeader, responsiveHeader } from "../../components/header.js";
-import { makeFooter, responsiveFooter } from "../../components/footer.js";
+import { makeFooter } from "../../components/footer.js";
 import { createEleClass, addTextNode, addChild } from "../../components/utils.js";
 import { makeSkillTag } from "../../components/tag.js";
 
@@ -49,5 +49,4 @@ function makeMemberCard(nickname, tags, email) {
 }
 
 // 반응형 헤더,푸터
-responsiveFooter();
 responsiveHeader();
