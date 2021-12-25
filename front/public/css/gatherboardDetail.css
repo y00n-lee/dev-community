@@ -1,0 +1,93 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+
+/* MAIN */
+#main {
+  padding-top: 62px;
+  padding-bottom: 20px;
+  color: var(--bg-color);
+}
+
+#main h2 {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+
+#main h3 {
+  margin: 19px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#showGather {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  /*transform: translate(-50%);*/
+  width: 460px;
+}
+
+#author {
+  text-align: right;
+  cursor: pointer;
+}
+
+.box,
+.contentBox,
+.techStackBox {
+  display: block;
+  width: 100%;
+  color: black;
+  padding: 10px 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+  position: relative;
+}
+
+.box,
+.contentBox {
+  border: solid 1px var(--bg-color);
+}
+
+.box {
+  height: 50px;
+}
+
+.contentBox,
+.techStackBox {
+  height: 300px;
+  border: solid 1px var(--bg-color);
+}
+
+.techStackImg {
+  width: 100px;
+  height: 100px;
+}
+
+.btn_area {
+  margin: 20px 0 20px;
+}
+
+.btn {
+  width: 100%;
+  padding: 21px 0 17px;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--bg-color);
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+#participate,
+#update,
+#delete {
+  display: none;
+}

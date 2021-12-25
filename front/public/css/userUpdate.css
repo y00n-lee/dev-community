@@ -1,0 +1,62 @@
+@import url("tag.css");
+.page-title,
+.label {
+  font-weight: 700;
+  color: var(--bg-color);
+}
+.page-title {
+  font-size: 30px;
+  text-align: center;
+  padding: 20px;
+}
+.label {
+  text-align: left;
+  margin-bottom: 3px;
+  margin-left: 5px;
+  font-size: 20px;
+  display: block;
+}
+.field {
+  display: block;
+  width: 80%;
+  margin: 20px auto;
+  text-align: left;
+}
+.data {
+  width: 100%;
+  font-size: 18px;
+  text-align: left;
+  word-break: keep-all;
+  margin: 5px auto;
+  padding: 20px;
+  border-radius: 5px;
+  border: solid #7979d3 1px;
+  display: block;
+}
+.updateBtn {
+  border: 1px solid var(--ft-color);
+  display: block;
+  background-color: var(--bg-color);
+  margin: auto;
+  text-align: center;
+  border-radius: 5px;
+  color: var(--ft-color);
+  padding: 20px;
+  border-radius: 5px;
+  font-size: 20px;
+  font-weight: 400;
+  cursor: pointer;
+}
+@media screen and (max-width: 400px) {
+  .data {
+    font-size: 15px;
+    padding: 15px;
+  }
+  .updateBtn {
+    padding: 15px;
+    font-size: 15px;
+  }
+}
+.updateBtn:last-of-type {
+  margin-bottom: 50px;
+}

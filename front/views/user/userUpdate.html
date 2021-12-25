@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>프로젝트 이름</title>
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/userUpdate.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+  </head>
+  <body>
+    <div class="container">
+      <main id="main" role="main">
+        <p class="page-title"></p>
+        <section class="flex-container">
+          <!-- 유저 데이터 수정 -->
+          <div class="flex-item">
+            <!-- 닉네임 수정 -->
+            <form class="field" type="submit" id="nicknameForm">
+              <p class="label">닉네임</p>
+              <input class="data" id="nicknameValue" />
+              <input type="submit" class="updateBtn" id="nicknameBtn" value="닉네임 수정" />
+            </form>
+            <!-- 기술 스택 수정 -->
+            <form class="field" id="tagForm" type="submit">
+              <p class="label">기술스택</p>
+              <div id="tagField"></div>
+              <input
+                type="text"
+                class="data"
+                id="tagValue"
+                placeholder="추가하고 싶은 기술스택을 입력하고 엔터를 눌러주세요"
+                maxlength="40"
+              />
+            </form>
+            <input
+              for="tagForm"
+              type="button"
+              class="updateBtn"
+              id="tagBtn"
+              value="기술 스택 수정"
+            />
+            <!-- 유저 패스워드 수정 -->
+            <form id="passwordForm" type="submit" class="field">
+              <p class="label">현재 비밀번호</p>
+              <input class="data" type="password" id="currPw" />
+
+              <p class="label">변경 비밀번호</p>
+              <input class="data" type="password" id="changePw" />
+
+              <p class="label">비밀번호 확인</p>
+              <input class="data" type="password" id="checkPw" />
+              <!-- 패스워드 버튼 -->
+              <input type="submit" class="updateBtn" id="passwordBtn" value="비밀번호 변경" />
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+    <script type="module" src="/js/pages/user/userUpdate.js"></script>
+  </body>
+</html>

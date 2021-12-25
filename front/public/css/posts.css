@@ -1,0 +1,111 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+/* .main  */
+#main {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 50px;
+  background-color: #fff;
+}
+#gatherPost {
+  margin: 50px 0 50px 30px;
+}
+#gatherPost a {
+  color: #333;
+}
+#post-list {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  grid-gap: 40px 60px;
+}
+.post {
+  position: relative;
+  height: 300px;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+.post-title {
+  margin-bottom: 15px;
+}
+.post-author {
+  margin-bottom: 10px;
+  color: #777;
+}
+.post-stack {
+  padding: 5px;
+  border-radius: 20px;
+  background-color: #6599cc;
+  font-weight: 400;
+  color: white;
+  min-width: 80px;
+  margin: 5px;
+  display: inline-block;
+  text-align: center;
+}
+
+.post-content {
+  margin-top: 15px;
+}
+
+.post-date {
+  position: absolute;
+  font-size: 14px;
+  left: 30px;
+  bottom: 30px;
+  color: #777;
+}
+.post-look {
+  position: absolute;
+  font-size: 12px;
+  right: 30px;
+  bottom: 30px;
+  color: #777;
+}
+
+.write-wrap {
+  margin-bottom: 20px;
+  text-align: right;
+}
+.post-write {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px;
+  color: var(--ft-color);
+  background-color: var(--bg-color);
+  display: inline-block;
+  position: relative;
+}
+.post-write:hover {
+  cursor: pointer;
+}
+
+/* 페이지 이동 버튼 */
+.pageList {
+  text-align: center;
+  margin: 30px 0;
+}
+.pageList a {
+  font-weight: 400;
+  color: var(--bg-color);
+}
+.pageList a:hover {
+  text-decoration: underline;
+}
+
+a.selectPage {
+  font-weight: 600;
+}
+
+.pageNum:not(:last-child) {
+  margin-right: 8px;
+}

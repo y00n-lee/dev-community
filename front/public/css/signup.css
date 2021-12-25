@@ -1,0 +1,139 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+
+/* sign up main*/
+#main {
+  padding-top: 62px;
+  padding-bottom: 20px;
+  color: var(--bg-color);
+}
+
+#main h2 {
+  font-size: 30px;
+  font-weight: 700;
+  text-align: center;
+}
+#main h3 {
+  margin: 19px 0 8px;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+#main input:focus {
+  outline: none;
+}
+
+#content {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  /*transform: translate(-50%);*/
+  width: 460px;
+}
+
+.box {
+  display: block;
+  width: 100%;
+  height: 50px;
+  border: solid 1px var(--bg-color);
+  padding: 10px 14px;
+  box-sizing: border-box;
+  background-color: #fff;
+  position: relative;
+}
+
+@media screen and (max-width: 460px) {
+  #content {
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    /*transform: translate(-50%);*/
+    width: 95%;
+  }
+}
+
+.int {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+}
+
+.box.int_id,
+.box.int_pass,
+.box.int_name,
+.box.int_nick,
+.box.int_birth,
+.box.int_github {
+  padding-right: 40px;
+}
+
+select {
+  width: 100%;
+  height: 29px;
+  font-size: 15px;
+  background: #fff url(https://static.nid.naver.com/images/join/pc/sel_arr_2x.gif) 100% 50%
+    no-repeat;
+  background-size: 20px 8px;
+  -webkit-appearance: none;
+  display: inline-block;
+  text-align: start;
+  border: none;
+  cursor: default;
+}
+
+.btn {
+  border: 1px solid var(--ft-color);
+  background-color: var(--bg-color);
+  color: var(--ft-color);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  cursor: pointer;
+  text-shadow: 0px 0px 2px var(--ft-color);
+}
+
+#id_check {
+  margin-top: 12px;
+}
+
+.submit_area {
+  margin: 20px 0 20px;
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 21px 0 17px;
+  border: 0;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--bg-color);
+  font-size: 20px;
+  font-weight: 400;
+}
+
+/* Error Message */
+.error_next_box {
+  margin-top: 9px;
+  font-size: 12px;
+  color: red;
+  display: none;
+}
+
+#techStackBlock {
+  display: flexbox;
+}
+
+#techStackBlock label {
+  padding-right: 8px;
+}

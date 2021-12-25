@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입 화면입니다.</title>
+    <link rel="stylesheet" href="/css/default.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/signup.css" />
+    <link rel="stylesheet" href="/css/tag.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div id="main">
+        <h2 id="signupHead">회원가입</h2>
+        <div id="content">
+          <form id="signup" name="signup" action="/signin">
+            <div id="idDiv">
+              <h3><label for="emailId">이메일</label></h3>
+              <span class="box int_id">
+                <input
+                  type="text"
+                  name="emailId"
+                  id="emailId"
+                  class="int"
+                  placeholder="이메일 형식으로 입력해주세요."
+                  maxlength="40"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="nickDiv">
+              <h3><label for="nickname">닉네임</label></h3>
+              <span class="box int_nick">
+                <input
+                  type="text"
+                  id="nickname"
+                  name="nickname"
+                  class="int"
+                  placeholder="닉네임을 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="passwordDiv">
+              <h3><label for="password">비밀번호</label></h3>
+              <span class="box int_pass">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  class="int"
+                  placeholder="비밀번호를 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="passwordConfirmDiv">
+              <h3><label for="password_confirm">비밀번호 확인</label></h3>
+              <span class="box int_pass">
+                <input
+                  type="password"
+                  id="password_confirm"
+                  name="password_confirm"
+                  class="int"
+                  placeholder="입력한 비밀번호와 같은 비밀번호를 입력해주세요."
+                  maxlength="20"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="birthDiv">
+              <h3><label for="birth">생년월일</label></h3>
+              <span class="box int_birth">
+                <input
+                  type="text"
+                  id="birth"
+                  name="birth"
+                  class="int"
+                  placeholder="생년월일을 입력해주세요."
+                  maxlength="8"
+                />
+              </span>
+              <span class="error_next_box"></span>
+            </div>
+            <div id="genderDiv">
+              <h3><label for="gender">성별</label></h3>
+              <span class="box">
+                <select name="gender" id="gender">
+                  <option>성별</option>
+                  <option value="male">남자</option>
+                  <option value="female">여자</option>
+                </select>
+              </span>
+              <span class="error_next_box">필수 정보입니다.</span>
+            </div>
+            <div id="techStackDiv"></div>
+            <div id="githubDiv">
+              <h3><label for="github">Github주소 (선택)</label></h3>
+              <span class="box int_github">
+                <input
+                  type="text"
+                  id="github"
+                  name="github"
+                  class="int"
+                  placeholder="깃허브 주소를 입력해주세요."
+                  maxlength="40"
+                />
+              </span>
+            </div>
+          </form>
+          <h3><label for="techStack">기술 태그</label></h3>
+          <form class="field" id="tagForm" type="submit"></form>
+          <div class="submit_area">
+            <button class="submitBtn" id="submit">가입하기</button>
+          </div>
+          <div class="submit_area">
+            <button class="submitBtn" id="cancel">취소</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/js/pages/user/signup.js"></script>
+  </body>
+</html>

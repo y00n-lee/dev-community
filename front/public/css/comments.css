@@ -1,0 +1,73 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+
+#cmtWrap {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 460px;
+}
+
+#cmtCount {
+  font-size: 18px;
+  color: var(--bg-color);
+}
+
+.cmtList {
+  margin: 5px 0;
+}
+
+.cmtAuthor {
+  display: block;
+  color: black;
+  margin: 3px 0;
+}
+
+.cmtMainTail {
+  margin: 20px 0;
+}
+
+.cmtFormTable,
+.cmtFormTable th,
+.cmtFormTable td {
+  border-collapse: collapse;
+}
+
+/* .cmtFormTable {
+
+} */
+
+.cmtFormTable th,
+.cmtFormTable td {
+  padding: 5px;
+}
+
+#cmtComment {
+  border: 1px solid var(--bg-color);
+  font-size: 15px;
+  padding: 5px;
+  width: 400px;
+  resize: vertical;
+}
+
+#cmtComment:focus {
+  outline: none;
+}
+
+.cmtBtnTd {
+  vertical-align: bottom;
+}
+
+#cmtBtn {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+  background-color: white;
+  border: 1px solid var(--bg-color);
+  cursor: pointer;
+}

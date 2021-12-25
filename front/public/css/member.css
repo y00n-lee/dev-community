@@ -1,0 +1,37 @@
+@import url("tag.css");
+
+.flex-item {
+  width: 375px;
+  margin: 30px 50px;
+}
+.image {
+  width: 150px;
+  height: 150px;
+  margin: 20px auto 20px auto;
+}
+.member-name,
+.introduce,
+.page-title {
+  padding: 20px;
+  word-break: keep-all;
+}
+.member-name {
+  font-size: 25px;
+  text-align: center;
+  font-weight: 400;
+}
+.email {
+  font-size: 20px;
+  display: block;
+  margin: 20px auto;
+  width: 80%;
+}
+.page-title {
+  font-size: 50px;
+  text-align: center;
+}
+.member-skill {
+  width: 80%;
+  margin: 20px auto;
+  word-break: keep-all;
+}

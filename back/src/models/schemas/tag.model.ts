@@ -6,7 +6,6 @@ export const TagSchema = new Schema<ITagDocument, ITagModel>(
     content: {
       type: String,
       required: true,
-      unique: true,
     },
   },
   { timestamps: true },

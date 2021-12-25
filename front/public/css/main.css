@@ -1,0 +1,51 @@
+:root {
+  --bg-color: #7979d3;
+  --ft-color: #fff;
+  --font-size: 9px;
+  --slider-color: #fff;
+  --slider-text-color: #7979d3;
+}
+
+.mainImage {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.image {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+}
+
+.mainImage .text {
+  position: absolute;
+  top: 50%;
+  left: 80px;
+  color: var(--ft-color);
+}
+
+.introduce {
+  height: auto;
+  margin: 70px 0;
+}
+.serviceTitle {
+  margin: 25px 0 25px 25px;
+}
+.service-wrap {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.service-wrap img {
+  position: relative;
+  width: 80%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.service-wrap h3 {
+  margin: 10px 0;
+}
+.service-wrap div {
+  vertical-align: bottom;
+}
