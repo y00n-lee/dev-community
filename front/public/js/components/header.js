@@ -38,6 +38,7 @@ export function makeHeader() {
       } else {
         const user = res.data;
 
+        sessionStorage.removeItem("user");
         sessionStorage.setItem("user", JSON.stringify({ _id: user.id, ninkname: user.nickname }));
 
         navLogin.innerHTML = `
@@ -61,7 +62,8 @@ export function makeHeader() {
           });
         });
       }
-    });
+    })
+    .catch((e) => e);
 
   // AppendChild Components - Header
   slider.appendChild(menu);
