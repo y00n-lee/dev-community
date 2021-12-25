@@ -30,7 +30,7 @@ export const RJwtAuthGurad = (req: Request, res: Response, next: NextFunction) =
   try {
     passport.authenticate("refresh-jwt", { session: false }, async (err, _user, _) => {
       // 두 개의 토큰 모두 만료되었을 경우
-      if (!_user && !req.user) next({ message: "다시 로그인 해주세요." });
+      if (!_user && !req.user) next({ name: "noAuth", message: "다시 로그인 해주세요." });
       const user = req.user || _user;
       req.user = user;
       next();
