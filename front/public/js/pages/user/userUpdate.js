@@ -70,8 +70,8 @@ tagForm.addEventListener("submit", (e) => {
   if (!tagValue) return;
   const tag = makeSkillTag(tagValue, true, true);
   tagField.appendChild(tag);
-  tagValue.value = "";
-  tagValue.focus();
+  document.getElementById("tagValue").value = "";
+  document.getElementById("tagValue").focus();
 });
 
 // 기술 태그 수정 버튼 눌렀을 때의 이벤트 리스너

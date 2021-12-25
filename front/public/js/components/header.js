@@ -34,7 +34,7 @@ export function makeHeader() {
         sessionStorage.removeItem("user");
         navLogin.innerHTML = `
       <li class="login"><a href="/signin">Log In</a></li>
-      <li class="register"><a href="signup">Register</a></li>`;
+      <li class="register"><a href="/signup">Register</a></li>`;
       } else {
         const user = res.data;
 
@@ -62,6 +62,7 @@ export function makeHeader() {
         });
       }
     });
+
   // AppendChild Components - Header
   slider.appendChild(menu);
   navBar.appendChild(overlay);

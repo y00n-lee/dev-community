@@ -95,9 +95,17 @@
   margin: 30px 0;
 }
 .pageList a {
-  font-weight: 600;
-  color: blueviolet;
+  font-weight: 400;
+  color: var(--bg-color);
 }
 .pageList a:hover {
   text-decoration: underline;
+}
+
+a.selectPage {
+  font-weight: 600;
+}
+
+.pageNum:not(:last-child) {
+  margin-right: 8px;
 }
