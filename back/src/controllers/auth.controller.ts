@@ -81,7 +81,7 @@ export class AuthController {
     });
     const user = (await this.userService.getById(_user.id)) as IUserDocument;
 
-    return res.json({ status: true, id: user.id, nickname: user.nickname });
+    return res.json({ status: true, user: { id: user.id, nickname: user.nickname } });
   };
 
   confirmEmail = async (req: Request, res: Response) => {
