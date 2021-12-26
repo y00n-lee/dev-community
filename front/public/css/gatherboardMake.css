@@ -71,6 +71,7 @@
 }
 
 #content {
+  width: 100%;
   resize: vertical;
   border: solid 1px var(--bg-color);
   padding: 10px 14px;
